@@ -1,4 +1,5 @@
-import * as React from 'react';
+import {useState} from 'react'
+import Image from 'next/image'
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -13,7 +14,6 @@ import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -22,7 +22,8 @@ import Chart from '../dashboard/Chart';
 import Deposits from '../dashboard/Deposits';
 import Orders from '../dashboard/Orders';
 import HeadLayout from '../HeadLayout';
-
+import Link from '../Link'
+import logo from '../../images/logo.png'
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -72,7 +73,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 
 export default function AdminLayout({title, children}) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -82,7 +83,9 @@ export default function AdminLayout({title, children}) {
     
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
+        
         <AppBar position="absolute" open={open}>
+            
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -117,14 +120,17 @@ export default function AdminLayout({title, children}) {
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
+
           <Toolbar
             sx={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'flex-end',
+              justifyContent: 'space-between',
               px: [1],
             }}
           >
+            <Link href='/'>  <Image src={logo} alt='gobeze logo' height={40} width={40} /></Link>
+
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>

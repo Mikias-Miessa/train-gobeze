@@ -14,7 +14,7 @@ export default function Index() {
         <Typography variant="h4" component="h1" gutterBottom>
           Gobeze Website
         </Typography>
-        <Link href="/admin" color="secondary">
+        <Link href="/admin/dashboard" color="secondary">
           Go to admin Dashboard
         </Link>
         <Copyright />
