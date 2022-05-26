@@ -1,6 +1,5 @@
 import AdminLayout from "../../src/components/adminLayout"
-import Dashboard from "../../src/components/dashboard"
-
+import Dashboard from "../../src/components/adminLayout/dashboard"
 
 const dashboard = () => {
   return (

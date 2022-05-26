@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
+import Link from '../../Link';
 import Typography from '@mui/material/Typography';
-import Title from '../Title';
+import Title from '../../Title';
 
 function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+export default function RunningCourses() {
   return (
     <React.Fragment>
       <Title>Running Courses</Title>
@@ -18,7 +18,7 @@ export default function Deposits() {
         currently running courses
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" href="/admin/courses/running" >
           View courses
         </Link>
       </div>

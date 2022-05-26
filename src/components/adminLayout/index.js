@@ -18,9 +18,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from '../dashboard/Chart';
-import Deposits from '../dashboard/Deposits';
-import Orders from '../dashboard/Orders';
+import Chart from './dashboard/Chart';
+import RunningCourses from './dashboard/RunningCourses';
+import Orders from './dashboard/Orders';
 import HeadLayout from '../HeadLayout';
 import Link from '../Link'
 import logo from '../../images/logo.png'
@@ -120,7 +120,7 @@ export default function AdminLayout({title, children}) {
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
-
+          
           <Toolbar
             sx={{
               display: 'flex',
@@ -130,7 +130,6 @@ export default function AdminLayout({title, children}) {
             }}
           >
             <Link href='/'>  <Image src={logo} alt='gobeze logo' height={40} width={40} /></Link>
-
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
@@ -178,7 +177,7 @@ function Dashboard() {
         <Chart />
       </Paper>
     </Grid>
-    {/* Recent Deposits */}
+    {/* Recent RunningCourses */}
     <Grid item xs={12} md={4} lg={3}>
       <Paper
         sx={{
@@ -188,7 +187,7 @@ function Dashboard() {
           height: 240,
         }}
       >
-        <Deposits />
+        <RunningCourses />
       </Paper>
     </Grid>
     {/* Recent Orders */}
