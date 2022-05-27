@@ -2,7 +2,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Chart from '../dashboard/Chart';
-import RunningCourses from './RunningCourses';
+import RunningClasses from './RunningClasses';
 import Orders from '../dashboard/Orders';
 
 export default function Dashboard() {
@@ -21,7 +21,7 @@ export default function Dashboard() {
           <Chart />
         </Paper>
       </Grid>
-      {/* Recent RunningCourses */}
+      {/* Recent RunningClasses */}
       <Grid item xs={12} md={4} lg={3}>
         <Paper
           sx={{
@@ -31,7 +31,7 @@ export default function Dashboard() {
             height: 240,
           }}
         >
-          <RunningCourses />
+          <RunningClasses />
         </Paper>
       </Grid>
       {/* Recent Orders */}

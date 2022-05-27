@@ -10,12 +10,15 @@
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.14.0",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "@mui/x-date-pickers": "^5.0.0-alpha.4",
+    "date-fns": "^2.14.0",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",

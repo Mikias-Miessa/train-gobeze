@@ -19,7 +19,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './dashboard/Chart';
-import RunningCourses from './dashboard/RunningCourses';
+import RunningClasses from './dashboard/RunningClasses';
 import Orders from './dashboard/Orders';
 import HeadLayout from '../HeadLayout';
 import Link from '../Link'
@@ -177,7 +177,7 @@ function Dashboard() {
         <Chart />
       </Paper>
     </Grid>
-    {/* Recent RunningCourses */}
+    {/* Recent RunningClasses */}
     <Grid item xs={12} md={4} lg={3}>
       <Paper
         sx={{
@@ -187,7 +187,7 @@ function Dashboard() {
           height: 240,
         }}
       >
-        <RunningCourses />
+        <RunningClasses />
       </Paper>
     </Grid>
     {/* Recent Orders */}

@@ -21,7 +21,14 @@ export const mainListItems = (
      
     </ListItemButton>
         </Link>
-        <Link href="/admin/courses" color="primary">
+        <Link href="/admin/classes" color="primary">
+    <ListItemButton>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Classes" />
+    </ListItemButton></Link>
+        <Link href="/admin/classes" color="primary">
     <ListItemButton>
       <ListItemIcon>
         <ShoppingCartIcon />

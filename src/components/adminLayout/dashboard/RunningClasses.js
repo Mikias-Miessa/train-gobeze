@@ -7,19 +7,19 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function RunningCourses() {
+export default function RunningClasses() {
   return (
     <React.Fragment>
-      <Title>Running Courses</Title>
+      <Title>Running Classes</Title>
       <Typography component="p" variant="h4">
        3
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        currently running courses
+        currently running classes
       </Typography>
       <div>
-        <Link color="primary" href="/admin/courses/running" >
-          View courses
+        <Link color="primary" href="/admin/classes" >
+          View Classes
         </Link>
       </div>
     </React.Fragment>
