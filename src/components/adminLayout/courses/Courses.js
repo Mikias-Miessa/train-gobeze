@@ -6,8 +6,8 @@ import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal}
 import Title from '../../Title';
 import NewCourse from './NewCourse'
 // Generate Order Data
-function createData(id,name, courseCode, duration, price) {
-  return { id, name, courseCode, duration, price };
+function createData(id,name, courseCode, price) {
+  return { id, name, courseCode, price };
 }
 
 const rows = [
@@ -15,32 +15,27 @@ const rows = [
     0,
     'Introduction to Graphic Design',
     'GD101',
-    '4 Weeks',
     '3800'
   ),
   createData(
     1,
     'Advanced Graphic Design',
     'GDA',
-    '3 Months',
     '10000'
   ),
   createData(2,'Introduction to Graphic Design',
   'GD101',
-  '5 Weeks',
   '3800'),
   createData(
     3,
     'Introduction to Graphic Design',
     'GD101',
-    '6 Weeks',
     '3800',
   ),
   createData(
     4,
     'Introduction to Graphic Design',
     'GD101',
-    '5 Weeks',
     '4000',
   ),
 ];
@@ -86,7 +81,6 @@ export default function Courses() {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Code</TableCell>
-            <TableCell>Duration</TableCell>
             <TableCell>Price</TableCell>
             {/* <TableCell align="right">Sale Amount</TableCell> */}
           </TableRow>
@@ -96,7 +90,6 @@ export default function Courses() {
             <TableRow key={row.id}>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.courseCode}</TableCell>
-              <TableCell>{row.duration}</TableCell>
               <TableCell>{row.price}</TableCell>
               {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
             </TableRow>
@@ -117,7 +110,7 @@ export default function Courses() {
     <p id="parent-modal-description">
       Add In-person courses which are held on Gobeze.
     </p>
-    <NewCourse />
+    <NewCourse setOpen={setOpen} />
   </Box>
 </Modal>
     </>

@@ -1,6 +1,11 @@
-import { Grid, TextField } from "@mui/material"
+import { Grid, TextField, Box, Button } from "@mui/material"
 
-const NewCourse = () => {
+const NewCourse = ({setOpen}) => {
+
+  const handleSubmit =(e)=>{
+    e.preventDefault();
+    console.log('will add the course')
+  }
   return (
     <>
     <Grid container spacing={3}>
@@ -27,12 +32,30 @@ const NewCourse = () => {
     <Grid item xs={12}>
           <TextField
             required
-            name="name"
-            label="Course name"
+            name="price"
+            label="Course price"
             fullWidth
+            type='number'
             variant="standard"
           />
         </Grid></Grid>
+         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                 
+                    <Button onClick={()=>{
+                      setOpen(false)
+                    }} sx={{ mt: 3, ml: 1 }}>
+                      Cancel
+                    </Button>
+                 
+
+                  <Button
+                    variant="contained"
+                    onClick={handleSubmit}
+                    sx={{ mt: 3, ml: 1 }}
+                  >
+                   Add
+                  </Button>
+                </Box>
     </>
   )
 }
