@@ -28,7 +28,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Classes" />
     </ListItemButton></Link>
-        <Link href="/admin/classes" color="primary">
+        <Link href="/admin/courses" color="primary">
     <ListItemButton>
       <ListItemIcon>
         <ShoppingCartIcon />

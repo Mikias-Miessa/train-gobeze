@@ -71,6 +71,15 @@ const NewCourse = ({setOpen}) => {
             variant="outlined"
           />
         </Grid>
+        {/* <Grid item xs={12}>
+          <TextField
+            required
+            name="batchName"
+            label="Batch"
+            fullWidth
+            variant="outlined"
+          />
+        </Grid> */}
         <Grid item xs={12}>
           <TextField
             
