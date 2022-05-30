@@ -2,6 +2,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Running from './Running';
+import Closed from './Closed';
 
 export default function Classes() {
     return<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -11,6 +12,11 @@ export default function Classes() {
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
           <Running />
+        </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+          <Closed />
         </Paper>
       </Grid>
     </Grid>

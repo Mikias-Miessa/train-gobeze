@@ -43,14 +43,14 @@ export const mainListItems = (
       <ListItemText primary="Students" />
     </ListItemButton>
     </Link>
-    <Link href="/admin/users" color="primary">
+    {/* <Link href="/admin/users" color="primary">
     <ListItemButton>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Users" />
     </ListItemButton>
-</Link>
+</Link> */}
     {/* <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
