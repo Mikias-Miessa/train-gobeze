@@ -4,12 +4,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
 // import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-
+import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 export const mainListItems = (
   <>
     <Link href="/admin/dashboard" color="primary">
@@ -24,14 +23,14 @@ export const mainListItems = (
         <Link href="/admin/classes" color="primary">
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <BatchPredictionIcon />
       </ListItemIcon>
       <ListItemText primary="Classes" />
     </ListItemButton></Link>
         <Link href="/admin/courses" color="primary">
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <LibraryBooksIcon />
       </ListItemIcon>
       <ListItemText primary="Courses" />
     </ListItemButton></Link>

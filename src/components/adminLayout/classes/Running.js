@@ -1,10 +1,14 @@
-import * as React from 'react';
-import Link from '@mui/material/Link';
+import {useState} from 'react';
+import Link from '../../Link';
 // import  from '@mui/material/Table';
-import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography} from '@mui/material';
+import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography,Popper,Fade,IconButton} from '@mui/material';
 
 import Title from '../../Title';
 import NewClass from './NewClass'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 // Generate Order Data
 function createData(id,name, courseCode, courseSchedule, startDate, batchName,  instructor, enrolledStudents) {
   return { id,name, courseCode, courseSchedule, startDate, batchName,  instructor, enrolledStudents };
@@ -78,7 +82,13 @@ function preventDefault(event) {
 
 export default function Classes() {
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openPoper, setOpenPoper] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handlePopperClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpenPoper((prev) => !prev);
+  };
   const handleOpen = () => {
     setOpen(true);
   };
@@ -88,7 +98,7 @@ export default function Classes() {
 
   return (
     <>
-      <Title>Running Classes </Title>
+      <Title>Running Classes (5)</Title>
       <Paper elevation={0}  sx={{
               p: '24px'
             }} >
@@ -117,10 +127,33 @@ export default function Classes() {
               <TableCell>
               <Box  sx={{ display: 'flex', gap: '1rem' }}>
                 <Typography>{row.enrolledStudents}</Typography>
-         <Link href={`/admin/classes/students`}>See Students</Link>
+         <Link href={`/admin/classes/students`} >See Students</Link>
     </Box>
                 
 
+              </TableCell>
+              <TableCell>
+              <Popper open={openPoper} anchorEl={anchorEl} placement='bottom-end' transition>
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Paper sx={{p: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', }}>
+            <Button sx={{border: 'none',color: 'secondary.main', fontWeight: '300', textTransform: 'none'}} variant="outlined" startIcon={<DoDisturbAltOutlinedIcon fontSize='small' />}>
+  End Class
+</Button>
+<Button   sx={{border: 'none',color: 'secondary.main', fontWeight: '300', textTransform: 'none'}} variant="outlined" startIcon={<EditOutlinedIcon fontSize='small' />}>
+  Edit Class
+</Button>
+            <Button   sx={{border: 'none',color: 'secondary.main', fontWeight: '300', textTransform: 'none'}} variant="outlined" startIcon={<DeleteOutlineOutlinedIcon fontSize='small' />}>
+  Delete Class
+</Button>
+
+            </Paper>
+          </Fade>
+        )}
+      </Popper>
+      <IconButton onClick={handlePopperClick} >
+        <MoreVertIcon />
+      </IconButton>
               </TableCell>
               {/* <TableCell>{row.price}</TableCell> */}
               {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
@@ -131,6 +164,7 @@ export default function Classes() {
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more 
       </Link>
+
       <Modal
   open={open}
   onClose={handleClose}

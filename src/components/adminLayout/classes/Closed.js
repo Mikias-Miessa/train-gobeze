@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
+import Link from '../../Link';
 // import  from '@mui/material/Table';
 import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography} from '@mui/material';
 
@@ -88,7 +88,7 @@ export default function Classes() {
 
   return (
     <>
-      <Title>Closed Classes </Title>
+      <Title>Closed Classes (10) </Title>
      
       <Table size="small">
         <TableHead>
