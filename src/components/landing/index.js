@@ -3,6 +3,7 @@ import Courses from "./Courses"
 import Footer from "./Footer"
 import Header from "./Header"
 import Hero from './Hero'
+import Stats from './Stats'
 const LandingPage = () =>{
 
     return (<>
@@ -26,7 +27,8 @@ const LandingPage = () =>{
             boxShadow: 'rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem'
 
         }}> 
-
+        
+    <Stats />
         <Courses />
         </Paper>
         </main>
