@@ -114,7 +114,7 @@ const Header = () => {
                       },
               }}
             >
-              <Link href='/'>Register Now</Link>
+              <Link sx={{textDecoration: 'none'}} href='/courses'>Register Now</Link>
             </Box>
             <Box sx={{
                 display: 'none',

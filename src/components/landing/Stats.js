@@ -27,7 +27,7 @@ const CounterCard = ({count, title, description, plus}) =>(
     {title}
     </Typography>
     <Typography component='p'  sx={{...textStyle,
-        m:0,fontSize: '1rem', fontWeight: '300', lineHeight: '1.6', color: 'rgb(123, 128, 154)'
+        m:0,fontSize: '1rem', fontWeight: '300', lineHeight: '1.6', color: 'secondary.light'
     }}>
     {description}
     </Typography>
@@ -67,10 +67,11 @@ const Stats = () => {
               description="Actively engage team members that finishes on time"
             />
           </Grid>
-        </Grid>
+        </Grid><div id='courses'></div>
 </Container>
-     </Box>
 
+     </Box>
+    
     </>
   )
 }
