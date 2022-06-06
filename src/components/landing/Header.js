@@ -5,11 +5,13 @@ import logo from '../../images/logo.png';
 import Link from '../Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+
 const Header = () => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
+
   return (
     <>
       <Container
@@ -91,7 +93,7 @@ const Header = () => {
                 <Link href='/'>Who we are</Link>
               </Box>
               <Box sx={{}}>
-                <Link href='/'>Courses</Link>
+                <Link href='/trainings'>Trainings</Link>
               </Box>
             </Box>
             <Box

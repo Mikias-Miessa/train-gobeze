@@ -32,7 +32,7 @@ const courses = [{
 },
 ]
 
-const Courses = () => {
+const Trainings = () => {
   return (
     <>
       <Box
@@ -72,7 +72,7 @@ const Courses = () => {
           >
             <Badge
               color='primary'
-              badgeContent='Courses'
+              badgeContent='Trainings'
               sx={{
                 mb: 1,
                 fontSize: '1rem',
@@ -94,7 +94,7 @@ const Courses = () => {
                 fontWeight: '700',
               }}
             >
-              Explore our courses
+              Explore our Trainings
             </Typography>
             <Typography
               component='p'
@@ -242,4 +242,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Trainings;

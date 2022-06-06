@@ -1,10 +1,9 @@
 import {Box,Paper} from '@mui/material'
-import Trainings from "./Trainings"
-import Footer from "./Footer"
-import Header from "./Header"
-import Hero from './Hero'
-import Stats from './Stats'
-const LandingPage = () =>{
+import Classes from "./Classes"
+import Footer from "../Footer"
+import Header from "../Header"
+import Hero from './ClassesHero'
+const TrainingsPage = () =>{
 
     return (
       <>
@@ -34,7 +33,6 @@ const LandingPage = () =>{
             }}
             
           >
-            <Stats />
             {/* <Box sx={{
                  '@media screen and (min-width: 576px)': {
                     maxWidth: '540',
@@ -46,7 +44,7 @@ const LandingPage = () =>{
                     maxWidth: '960px',
                   },
             }}> </Box> */}
-            <Trainings />
+            <Classes />
                
           </Paper>
         </main>
@@ -55,4 +53,4 @@ const LandingPage = () =>{
     );
 }
 
-export default LandingPage;
+export default TrainingsPage;

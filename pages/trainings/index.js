@@ -1,11 +1,11 @@
 import * as React from 'react';
 import HeadLayout from '../../src/components/HeadLayout'
-import LandingPage from '../../src/components/landing'
+import TrainingsPage from '../../src/components/landing/trainings/'
 export default function Index() {
   return (
     <HeadLayout >
    
-      <LandingPage />
+      <TrainingsPage />     
     
     </HeadLayout>
   );
