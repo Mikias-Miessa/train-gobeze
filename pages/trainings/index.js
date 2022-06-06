@@ -4,9 +4,7 @@ import TrainingsPage from '../../src/components/landing/trainings/'
 export default function Index() {
   return (
     <HeadLayout >
-   
-      <TrainingsPage />     
-    
+      <LandingPage />
     </HeadLayout>
   );
 }
