@@ -159,7 +159,7 @@ const Courses = () => {
                                 </Typography>
                             </Box>
                          
-                            <Link  href={course.url} sx={{boxSizing: 'border-box',
+                            <Link  href={`/trainings/${course.url}`} sx={{boxSizing: 'border-box',
                         m:0, outline:'0', verticalAlign: 'middle', textDecoration: 'none',letterSpacing: '0.02857em', minWidth: 8, fontWeight: '700', borderRadius: '0.5em', lineHeight: '1.4', textAlign: 'center', textTransform: 'uppercase', transition: 'all 150ms ease-in 0s', minHeight: '2rem', padding: '0.375rem 1rem', fontSize: '0.75rem', background: 'initial', backgroundColor: 'transparent', backgroundSize: '150%', backgroundPositionX: '25%',border: '1px solid ',color: 'secondary.main'
                         }}>Register</Link>
                                

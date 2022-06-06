@@ -1,11 +1,14 @@
 import { Box, Container, Typography, Grid } from '@mui/material';
 import Link from '../../Link';
+
+
+
 const ClassesHero = () => {
   return (
     <>
       <Box
         sx={{
-          minHeight: '50vh',
+          minHeight: '20vh',
           width: '100%',
           background:
             'linear-gradient(195deg, rgba(66, 66, 74, 0.5), rgba(25, 25, 25, 0.5)) center center / cover, url(/heroOne.jpg) transparent;',
@@ -20,7 +23,7 @@ const ClassesHero = () => {
         Wrap this box around the below container to give the background image colored transparent
        */}
         <Box sx={{
-          // background: 'rgba(243, 48, 13, 0.1)',
+          // background: 'rgba(243, 48, 13, 0.4)',
           height: '100%',
           width: '100%',
           display: 'grid',
@@ -71,7 +74,7 @@ const ClassesHero = () => {
                 },
               }}
             >
-           Get the skills for your present (and your future).
+        
             </Typography>
 
             
