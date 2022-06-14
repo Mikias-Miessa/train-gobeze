@@ -9,25 +9,25 @@ const textStyle = {
 const courses = [{
   title: 'Graphic Design', 
   description: 'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: '/register',
+  url: 'register',
   image: graphics
 },
 {
   title: 'Digital Marketing', 
   description: 'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: '/register',
+  url: 'register',
   image: graphics
 },
 {
   title: 'Video Editing', 
   description: 'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: '/register',
+  url: 'register',
   image: graphics
 },
 {
   title: 'Advanced Graphic Design', 
   description: 'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: '/register',
+  url: 'register',
   image: graphics
 },
 ]

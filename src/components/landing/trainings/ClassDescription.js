@@ -159,7 +159,7 @@ const ClassDescription = () => {
                 >
                   <Typography
                     component='p'
-                    variant='body2'
+                    variant='secondary.light'
                     sx={{
                       ...textStyle,
                       margin: '0px 0px 16px',
@@ -187,7 +187,7 @@ const ClassDescription = () => {
                     </Typography>
                     <Typography
                       component='span'
-                      variant='body2'
+                      variant='secondary.light'
                       sx={{
                         ...textStyle,
                         ml: 1,
@@ -213,7 +213,7 @@ const ClassDescription = () => {
                     </Typography>
                     <Typography
                       component='span'
-                      variant='body2'
+                      variant='secondary.light'
                       sx={{
                         ...textStyle,
                         ml: 1,
@@ -259,7 +259,7 @@ const ClassDescription = () => {
                     Introduction to Graphic Design
                   </Typography>
                   <Typography
-                    variant='body2'
+                    variant='secondary.light'
                     sx={{
                       ...textStyle,
                       margin: '0px 0px 16px',

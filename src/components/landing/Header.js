@@ -190,7 +190,7 @@ const Header = () => {
                       },
                     }}
                   >
-                    <Link href='/'>Register Now</Link>
+                    <Link href='#courses'>Register Now</Link>
                   </Box>
                 </Box>
               </Collapse>
