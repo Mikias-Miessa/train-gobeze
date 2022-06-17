@@ -1,20 +1,35 @@
-import * as React from 'react';
+import {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
+import { wrapper, store } from "../store/store";
+import { useDispatch } from "react-redux";
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import '../src/style.css'
+
+import {loadUser} from '../store/userSlice'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
-export default function MyApp(props) {
+ const MyApp = (props)=> {
+
+  const dispatch = useDispatch();
+
+  dispatch(loadUser() )
+  useEffect(() => {
+    console.log('got in app.js')
+ 
+  }, [])
+  
+
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   return (
     <CacheProvider value={emotionCache}>
+      {/* <Provider store={store}> */}
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
@@ -23,6 +38,7 @@ export default function MyApp(props) {
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
+      {/* </Provider> */}
     </CacheProvider>
   );
 }
@@ -32,3 +48,5 @@ MyApp.propTypes = {
   emotionCache: PropTypes.object,
   pageProps: PropTypes.object.isRequired,
 };
+
+export default wrapper.withRedux(MyApp)

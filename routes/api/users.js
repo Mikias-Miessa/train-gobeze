@@ -151,7 +151,9 @@ router.delete('/:id', userAuth, async (req, res) => {
 // @route   GET api/users/
 // @desc    Get all users
 // @access  Private
-router.get('/', userAuth, async (req, res) => {
+router.get('/', 
+// userAuth,
+ async (req, res) => {
     try {
       let users = await User.find({}).select('-password');    
       res.json(users)

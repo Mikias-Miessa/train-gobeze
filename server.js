@@ -12,8 +12,10 @@ app.prepare()
   console.log('connected to mongoDB')
   const server = express();
 
-
+//Init Middleware
+server.use(express.json({ extended: false }));
   //Define Routess 
+  server.use('/api/auth', require('./routes/api/auth'));
   server.use('/api/users', require('./routes/api/users'));
 
       //For Client
