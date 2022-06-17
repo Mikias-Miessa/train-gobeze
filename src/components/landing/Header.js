@@ -171,7 +171,7 @@ const Header = () => {
                     <Link href='/'>Who we are</Link>
                   </Box>
                   <Box sx={{}}>
-                    <Link href='/'>Courses</Link>
+                    <Link href='/trainings'>Trainings</Link>
                   </Box>
 
                   <Box

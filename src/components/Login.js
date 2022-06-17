@@ -31,19 +31,22 @@ const router = useRouter()
 const {user, isAuthenticated,isSuccess, loading, error} = useSelector((state)=> state.auth)
 
 useEffect(()=>{
+
+  
   if(error){
   console.log(error.length)
   // console.log(error)
 error.forEach(err =>{
   toast.error(err.msg)
 })
-if(isSuccess || user){
+if( isAuthenticated){
   router.push('/admin/dashboard')
 }
-
+if(isSuccess || user ){
+  toast.success('Login Success')
+  router.push('/admin/dashboard')
+}
 dispatch(reset)
-
-
 }
 
 },[user, isAuthenticated, error,loading,router,dispatch])

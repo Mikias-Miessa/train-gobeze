@@ -5,7 +5,7 @@ import {useRouter} from 'next/router'
 
 const initialState = {
     token: typeof window !== 'undefined' ? localStorage.getItem('token'): null,
-    isAuthenticated: null,
+    isAuthenticated: false,
     isSuccess: false,
     loading: true,
     user: null,
