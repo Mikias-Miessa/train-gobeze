@@ -6,10 +6,11 @@ import { useDispatch } from "react-redux";
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
-import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
+import {ToastContainer} from 'react-toastify'
+import theme from '../src/theme';
+import 'react-toastify/dist/ReactToastify.css'
 import '../src/style.css'
-
 import {loadUser} from '../store/userSlice'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -27,7 +28,7 @@ const clientSideEmotionCache = createEmotionCache();
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-  return (
+  return (<>
     <CacheProvider value={emotionCache}>
       {/* <Provider store={store}> */}
       <Head>
@@ -40,6 +41,8 @@ const clientSideEmotionCache = createEmotionCache();
       </ThemeProvider>
       {/* </Provider> */}
     </CacheProvider>
+  <ToastContainer />
+  </>
   );
 }
 

@@ -57,7 +57,7 @@ const footerSections = [
             },
             {
                 name: 'Manage',
-                url: '/admin/dashboard'
+                url: '/login'
             }
         ]
       },

@@ -1,11 +1,14 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit';
 import setAuthToken from '../src/utils/setAuthToken'
-import axios from 'axios'
+import axios from 'axios';
+import {useRouter} from 'next/router'
+
 const initialState = {
-    token: localStorage.getItem('token'),
+    token: typeof window !== 'undefined' ? localStorage.getItem('token'): null,
     isAuthenticated: null,
+    isSuccess: false,
     loading: true,
-    auth: null,
+    user: null,
     dashboard: null,
     error: null
   };
@@ -14,11 +17,14 @@ const initialState = {
   export const loadUser = createAsyncThunk(
     "auth/loadUser",
     async (dispatch, getState) =>{
+const router = useRouter();
+
         setAuthToken(localStorage.token);
         try {
-            console.log('got here')
+            // console.log('got here')
         const res = await axios.get('http://localhost:3000/api/auth/user');
-        console.log(res.data)
+        
+        window.location.href = 'http://localhost:3000/admin/dashboard'
         return res.data
         } catch (err) {
             console.log(err.message)
@@ -31,7 +37,7 @@ const initialState = {
  export const login = createAsyncThunk(
   "auth/login",
   async (user,thunkAPI) =>{
-    console.log(user)
+    // console.log(user)
     const { email, password } = user;
     const config = {
       headers: {
@@ -40,15 +46,24 @@ const initialState = {
     };
     const body = JSON.stringify({ email, password });
       try {
-          console.log('got here')
       const res = await axios.post('http://localhost:3000/api/auth/', body, config);
-      console.log(res.data)
+console.log(res.data)
       if(res.data){
+
         localStorage.setItem('token', res.data.token);
       }
-      return res.data
-      } catch (err) {
-          console.log(err.message)
+      if (res !== undefined) {
+           return res.data
+      }
+      
+      
+      } catch (error) {
+        console.log(error)
+        const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
+        console.log(message)
+             
+           return thunkAPI.rejectWithValue(message)
+          
       }
       
   }
@@ -64,6 +79,11 @@ const initialState = {
             state.token= null,
             state.isAuthenticated= false,
             state.user= null,
+            state.loading = false
+          },
+          reset: (state)=>{
+            state.isSuccess= false,
+            state.error= null,
             state.loading = false
           }
       },
@@ -93,6 +113,8 @@ const initialState = {
           })
           .addCase(login.fulfilled, (state, action) => {
             state.loading = false;
+            state.isSuccess = true;
+            console.log(action.payload)
             state.user = action.payload.user
             state.isAuthenticated = true;
           })
@@ -100,13 +122,13 @@ const initialState = {
             login.rejected,
             (state, action) => {
                 state.loading = false;
-                state.error = action.error.message;
+                state.error = action.payload;
             }
           )
       },
 
   });
 
-  export const { logout} = authSlice.actions
+  export const { logout,reset} = authSlice.actions
 
   export default authSlice.reducer

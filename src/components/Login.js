@@ -1,5 +1,7 @@
-import * as React from 'react';
+import {useEffect} from 'react';
+import {useRouter} from 'next/router'
 import {useSelector, useDispatch} from 'react-redux'
+import { toast} from 'react-toastify'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +12,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import {login,reset} from '../../store/authSlice';
 
 function Copyright(props) {
   return (
@@ -18,16 +21,32 @@ function Copyright(props) {
       <Link color="inherit" href="/">
        Gobeze Consult
       </Link>.
-     
     </Typography>
   );
 }
 
-
-
 export default function Login() {
+const dispatch = useDispatch();
+const router = useRouter()
+const {user, isAuthenticated,isSuccess, loading, error} = useSelector((state)=> state.auth)
+
+useEffect(()=>{
+  if(error){
+  console.log(error.length)
+  // console.log(error)
+error.forEach(err =>{
+  toast.error(err.msg)
+})
+if(isSuccess || user){
+  router.push('/admin/dashboard')
+}
+
+dispatch(reset)
 
 
+}
+
+},[user, isAuthenticated, error,loading,router,dispatch])
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -35,6 +54,10 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    dispatch(login({
+      email: data.get('email'),
+      password: data.get('password'),
+    }))
   };
 
   return (
