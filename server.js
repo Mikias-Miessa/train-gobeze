@@ -14,6 +14,7 @@ app.prepare()
 
 //Init Middleware
 server.use(express.json({ extended: false }));
+server.use(cors());
   //Define Routess 
   server.use('/api/auth', require('./routes/api/auth'));
   server.use('/api/users', require('./routes/api/users'));
