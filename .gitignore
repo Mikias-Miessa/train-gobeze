@@ -17,5 +17,5 @@ yarn-error.log*
 
 # Next.js
 /.next
-
+/build
 package-lock.json

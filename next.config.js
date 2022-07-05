@@ -9,4 +9,5 @@ module.exports = {
         domains: ['images.unsplash.com']
     }
 },
+  distDir: 'build',
 };
