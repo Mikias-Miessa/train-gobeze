@@ -21,7 +21,7 @@ const Enroll = () => {
     {/* <Typography component='p' sx={{my:2, fontSize: '1.675rem', fontWeight: '200', opacity: '0.8',color: 'secondary.main'}}>3800 ETB</Typography> */}
 <Box>
 
-    <Link sx={{textDecoration: 'none',p: '8px 64px',background:'#FF7E00',color: 'white', borderRadius: '0.5rem',}} href="#!">Register</Link>
+    <Link sx={{textDecoration: 'none',p: '8px 64px',background:'#FF7E00',color: 'white', borderRadius: '0.5rem',fontWeight: '500'}} href="/enroll/courseName">Register</Link>
 </Box>
         </Box>
 
@@ -35,7 +35,7 @@ const Enroll = () => {
     {/* <Typography component='p' sx={{my:2, fontSize: '1.675rem', fontWeight: '200', opacity: '0.8',color: 'secondary.main'}}>3800 ETB</Typography> */}
 <Box>
 
-    <Link sx={{textDecoration: 'none',p: '8px 64px', background:'#FF7E00',color: 'white', borderRadius: '0.5rem',}} href="#!">Register</Link>
+    <Link sx={{textDecoration: 'none',p: '8px 64px', background:'#FF7E00',color: 'white', borderRadius: '0.5rem',fontWeight: '500'}} href="#!">Register</Link>
 </Box>
         </Box>
 

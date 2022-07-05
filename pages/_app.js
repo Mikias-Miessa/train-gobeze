@@ -8,12 +8,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '../src/createEmotionCache';
 import {ToastContainer} from 'react-toastify'
+import axios from 'axios'
 import theme from '../src/theme';
 import 'react-toastify/dist/ReactToastify.css'
 import '../src/style.css'
 import {loadUser} from '../store/userSlice'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
+
+
+// axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://api.gobeze.com' : 'http://localhost:8000/';
 
  const MyApp = (props)=> {
 

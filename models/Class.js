@@ -32,6 +32,6 @@ const ClassSchema = new Schema(
 
 
 
-const Class = models.Class || model('user', ClassSchema);
+const Class = models.class || model('class', ClassSchema);
 
 module.exports = Class 

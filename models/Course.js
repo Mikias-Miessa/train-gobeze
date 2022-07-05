@@ -19,6 +19,6 @@ const CourseSchema = new Schema(
 
 
 
-const Course = models.Course || model('user', CourseSchema);
+const Course = models.course || model('course', CourseSchema);
 
 module.exports = Course 

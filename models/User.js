@@ -24,8 +24,8 @@ const UserSchema = new Schema(
 );
 
 
-
-const User = models.User || model('user', UserSchema);
+console.log(models)
+const User = models.user || model('user', UserSchema);
 
 module.exports = User 
 
