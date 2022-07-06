@@ -135,15 +135,15 @@ const TrainingsPage = () =>{
                    />
                 </Grid>
              <Box sx={{display: 'flex',}}>
-               <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6' }}>Course Name : {' '}</Typography>
+               <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6',width: '150px' }}>Course Name : {' '}</Typography>
                <Typography variant='h4' sx={{fontWeight: '400', fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}> Graphics Design </Typography>             
              </Box>
              <Box sx={{display: 'flex',}}>
-               <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6'}}>Description : {' '}</Typography>
+               <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6',width: '150px'}}>Description : {' '}</Typography>
                <Typography variant='h4' sx={{fontWeight: '400',fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}>1 month long course which will cover the basics of Graphic Design with Adobe Photoshop.</Typography>             
              </Box>
              <Box sx={{display: 'flex',}}>
-               <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6' }}>Price : {' '}</Typography>
+               <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6',width: '150px' }}>Price : {' '}</Typography>
                <Typography variant='h4' sx={{fontWeight: '400',fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}>3800 ETB</Typography>             
              </Box>
              </Grid>
