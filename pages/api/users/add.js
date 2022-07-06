@@ -4,7 +4,9 @@ import bcrypt from 'bcryptjs';
 
 
 export default async function addUser(req, res){
- const {name, email, phone, password,role} = req.body;
+
+  const {mehtod,body} = req;
+ const {name, email, phone, password,role} = body;
  try {
     console.log('connecting...')
     await connectMongo();
