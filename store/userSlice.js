@@ -14,14 +14,9 @@ const initialState = {
     async (dispatch, getState) =>{
         setAuthToken(localStorage.token);
         try {
-          const config = {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-            }
-          };
           
-        const res = await axios.get('http://localhost:3000/api/auth/user',config);
+          
+        const res = await axios.get('http://localhost:3000/api/auth/user');
         console.log(res.data)
         return res.data
         } catch (err) {
