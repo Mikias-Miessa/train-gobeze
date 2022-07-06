@@ -1,10 +1,11 @@
-import * as React from 'react';
+import  {useState, useEffect} from 'react';
 import Link from '@mui/material/Link';
-// import  from '@mui/material/Table';
+import {useSelector,useDispatch} from 'react-redux'
 import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal} from '@mui/material';
 
 import Title from '../../Title';
 import NewCourse from './NewCourse'
+import { getCourses } from '../../../../store/courseSlice';
 // Generate Order Data
 function createData(id,name, courseCode, price) {
   return { id, name, courseCode, price };
@@ -59,8 +60,18 @@ function preventDefault(event) {
 }
 
 export default function Courses() {
+const dispatch = useDispatch();
+  const {courses, loading} = useSelector((state)=> state.course)
+console.log(loading)
+console.log(courses)
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(getCourses)
+  }, [])
+  
+
   const handleOpen = () => {
     setOpen(true);
   };
