@@ -125,7 +125,9 @@ const ClassDescription = () => {
                     },
                   }}
                 >
-                  <Image src={graphics} alt='graphic Design' layout='raw' />
+                  <Image src={graphics} alt='graphic Design' 
+                  // layout='raw'
+                   />
                 </Grid>
                 <Grid
                   item

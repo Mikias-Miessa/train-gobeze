@@ -140,7 +140,9 @@ const Courses = () => {
                         },
                       }}
                     >
-                      <Image src={graphics} alt='graphic Design' layout='raw' />
+                      <Image src={graphics} alt='graphic Design'
+                      //  layout='raw'
+                        />
                     </Box>
                     <Box sx={{
                         p:3, mt:'-16px'

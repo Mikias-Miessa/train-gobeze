@@ -102,7 +102,9 @@ const Footer = ()=>{
                         }
                     }}>
                         <Link href='/'>
-                        <Image src={logo} alt='gobeze logo' height={60} width={60} layout='raw'/> 
+                        <Image src={logo} alt='gobeze logo' height={60} width={60}
+                        //  layout='raw'
+                         /> 
                             </Link>
 
                             

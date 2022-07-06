@@ -130,7 +130,9 @@ const TrainingsPage = () =>{
                     },
                   }}
                 >
-                  <Image src={graphics} alt='graphic Design' layout='raw' />
+                  <Image src={graphics} alt='graphic Design' 
+                  // layout='raw'
+                   />
                 </Grid>
              <Box sx={{display: 'flex',}}>
                <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6' }}>Course Name : {' '}</Typography>
