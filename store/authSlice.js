@@ -56,7 +56,6 @@ console.log(res.data)
            return res.data
       }
       
-      
       } catch (error) {
         console.log(error)
         const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();

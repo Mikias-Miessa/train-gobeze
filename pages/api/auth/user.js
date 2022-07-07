@@ -8,7 +8,8 @@ import User from '../../../models/User'
 
 
  const getUser = async (req, res)=> {
- console.log(req)
+ console.log('req')
+//  console.log(req)
  try {
     console.log('connecting...')
     await connectMongo();
@@ -17,11 +18,10 @@ import User from '../../../models/User'
    
     res.json(user);
  } catch (err) {
-     console.log(err);
+    // console.log(err);
      res.status(500).send('Server Error')
  }
 
 }
-
 
 export default userAuth(getUser)

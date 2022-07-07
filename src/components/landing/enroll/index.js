@@ -1,12 +1,21 @@
+import {useState} from 'react';
 import {Box,Paper,Grid, TextField, Button, Select, InputLabel, MenuItem, FormHelperText, Typography} from '@mui/material'
 import Footer from "../Footer"
 import Header from "../training/Header"
 import Hero from '../training/ClassHero'
 import graphics from '../../../images/graphics.avif';
 import Image from 'next/image';
-
+import ArrowForwardSharpIcon from '@mui/icons-material/ArrowForwardSharp';
 
 const TrainingsPage = () =>{
+
+  const [values, setValues] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    course: '',
+    bank: ''
+  })
   const handleSubmit =(e)=>{
     e.preventDefault();
     console.log('will enroll student')
@@ -22,7 +31,8 @@ const TrainingsPage = () =>{
               mr: 3,
               mt: '-64px',
               mb: '32px',
-              p: 2,
+              px: 2,
+              py:6,
               transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
               display: 'flex',
               // flexDirection: 'column',
@@ -88,7 +98,7 @@ const TrainingsPage = () =>{
   <FormHelperText>Required</FormHelperText>
       </Grid>
         </Grid></Grid>
-               </form>
+             
           
          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                  
@@ -104,11 +114,23 @@ const TrainingsPage = () =>{
                     type='submit'
                     fullWidth
                     // onClick={handleSubmit}
-                    sx={{ mt: 3,}}
+                    sx={{ mt: 3,color: 'white',fontWeight: '600',fontSize: '1rem',
+                    ':hover':{
+                      backgroundColor: 'primary.main'
+                    },
+                    ':hover span svg':{
+                      width: '4em',
+                      trasition: 'width 2s'
+                    }
+                  }}
+                    endIcon={<ArrowForwardSharpIcon fontSize='large' sx={{
+                      textAlign: 'right', trasition: 'width 2s'
+                    }} />}
                   >
                    Proceed Enrollment
                   </Button>
                 </Box>
+                </form>
            </Box>
            <Box sx={{width: '50%',p:2}}>
 

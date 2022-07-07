@@ -1,7 +1,7 @@
 import  {useState, useEffect} from 'react';
 import Link from '@mui/material/Link';
 import {useSelector,useDispatch} from 'react-redux'
-import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal} from '@mui/material';
+import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography} from '@mui/material';
 
 import Title from '../../Title';
 import NewCourse from './NewCourse'
@@ -60,6 +60,7 @@ function preventDefault(event) {
 }
 
 export default function Courses() {
+  
 const dispatch = useDispatch();
   const {courses, loading} = useSelector((state)=> state.course)
 console.log(loading)
@@ -87,7 +88,10 @@ console.log(courses)
             }} >
       <Button variant="contained" onClick={handleOpen}>New Course</Button>
       </Paper>
-      <Table size="small">
+      {loading? <Typography variant='body1' sx={{textAlign: 'center'}}>
+        Loading ...
+        </Typography> : <>
+        <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -107,9 +111,12 @@ console.log(courses)
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more 
       </Link>
+        </>}
+    
+     
       <Modal
   open={open}
   onClose={handleClose}

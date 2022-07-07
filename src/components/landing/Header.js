@@ -89,9 +89,9 @@ const Header = () => {
               <Box sx={{}}>
                 <Link href='/'>Home</Link>
               </Box>
-              <Box sx={{}}>
+              {/* <Box sx={{}}>
                 <Link href='/'>Who we are</Link>
-              </Box>
+              </Box> */}
               <Box sx={{}}>
                 <Link href='/trainings'>Trainings</Link>
               </Box>
@@ -116,7 +116,7 @@ const Header = () => {
                       },
               }}
             >
-              <Link sx={{textDecoration: 'none'}} href='/courses'>Register Now</Link>
+              <Link sx={{textDecoration: 'none'}} href='/trainings'>Register Now</Link>
             </Box>
             <Box sx={{
                 display: 'none',
@@ -167,9 +167,9 @@ const Header = () => {
                   <Box>
                     <Link href='/'>Home</Link>
                   </Box>
-                  <Box sx={{}}>
+                  {/* <Box sx={{}}>
                     <Link href='/'>Who we are</Link>
-                  </Box>
+                  </Box> */}
                   <Box sx={{}}>
                     <Link href='/trainings'>Trainings</Link>
                   </Box>
@@ -190,7 +190,7 @@ const Header = () => {
                       },
                     }}
                   >
-                    <Link href='#courses'>Register Now</Link>
+                    <Link href='/trainings'>Register Now</Link>
                   </Box>
                 </Box>
               </Collapse>

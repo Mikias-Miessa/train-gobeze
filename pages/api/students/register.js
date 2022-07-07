@@ -1,23 +1,26 @@
 import connectMongo from '../../../utils/db'
-import User from '../../../models/User'
+import Student from '../../../models/Student'
+import Payment from '../../../models/Payment'
 
 
 export default async function addStudent(req, res){
- const {name, email, phone, password,role} = req.body;
+ const {name, email, phone, bank,course} = req.body;
  try {
     console.log('connecting...')
     await connectMongo();
     console.log('connected!')
-    console.log('creating user...')
-   const newUser = await User.create({
-       name,email,phone,password,role 
-   })
-   console.log('created user')
    
+   const newStudent = await Student.create({
+       name,email,phone,course 
+   })
+   const payment = await Payment.create({
+   student: newStudent._id,bank
+})
        res.json(newUser)
  } catch (err) {
      console.log(err);
      res.status(500).send('Server Error')
  }
+
 
 }

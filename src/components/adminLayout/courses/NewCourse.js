@@ -1,13 +1,36 @@
+import { useState } from "react";
+import {useSelector, useDispatch } from 'react-redux';
 import { Grid, TextField, Box, Button } from "@mui/material"
+import {addCourse} from '../../../../store/courseSlice';
 
 const NewCourse = ({setOpen}) => {
+  const [values, setValues] = useState({
+    courseName: '',
+    courseCode: '',
+    price: ''
+  })
 
+const {courses, loading} = useSelector((state)=> state.course)
+// const {alert} = useSelector((state)=> state.alert)
+
+const dispatch = useDispatch();
+  const handleInputChange = (e)=>{
+    const {name,value} = e.target;
+
+    setValues({
+      ...values,
+      [name]:value
+    })
+  }
   const handleSubmit =(e)=>{
     e.preventDefault();
-    console.log('will add the course')
+    console.log(values)
+    dispatch(addCourse(values))
   }
   return (
-    <>
+    <><form action="" onSubmit={handleSubmit}>
+      
+      
     <Grid container spacing={3}>
     <Grid item xs={12} sm={6}>
           <TextField
@@ -17,6 +40,7 @@ const NewCourse = ({setOpen}) => {
             label="Course name"
             fullWidth
             variant="standard"
+            onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -27,6 +51,7 @@ const NewCourse = ({setOpen}) => {
             label="Course code"
             fullWidth
             variant="standard"
+            onChange={handleInputChange}
           />
         </Grid>
     <Grid item xs={12}>
@@ -37,6 +62,7 @@ const NewCourse = ({setOpen}) => {
             fullWidth
             type='number'
             variant="standard"
+            onChange={handleInputChange}
           />
         </Grid></Grid>
          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -50,12 +76,14 @@ const NewCourse = ({setOpen}) => {
 
                   <Button
                     variant="contained"
-                    onClick={handleSubmit}
+                    type='submit'
+                    // onClick={handleSubmit}
                     sx={{ mt: 3, ml: 1 }}
                   >
                    Add
                   </Button>
                 </Box>
+                </form>
     </>
   )
 }

@@ -15,8 +15,7 @@ const initialState = {
         setAuthToken(localStorage.token);
         try {
           
-          
-        const res = await axios.get('http://localhost:3000/api/auth/user');
+        const res = await axios.get('/api/auth/user');
         console.log(res.data)
         return res.data
         } catch (err) {
