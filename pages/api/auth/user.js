@@ -8,7 +8,7 @@ import User from '../../../models/User'
 
 
  const getUser = async (req, res)=> {
- console.log('req')
+//  console.log('req')
 //  console.log(req)
  try {
     console.log('connecting...')

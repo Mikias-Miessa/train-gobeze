@@ -93,7 +93,10 @@ const Header = () => {
                 <Link href='/'>Who we are</Link>
               </Box> */}
               <Box sx={{}}>
-                <Link href='/trainings'>Trainings</Link>
+                <Link href='/trainings'>Classroom Trainings</Link>
+              </Box>
+              <Box sx={{}}>
+                <Link href='https://siltena.com' target="_blank">Online Trainings</Link>
               </Box>
             </Box>
             <Box
@@ -170,9 +173,12 @@ const Header = () => {
                   {/* <Box sx={{}}>
                     <Link href='/'>Who we are</Link>
                   </Box> */}
-                  <Box sx={{}}>
-                    <Link href='/trainings'>Trainings</Link>
-                  </Box>
+                 <Box sx={{}}>
+                <Link href='/trainings'>Classroom Trainings</Link>
+              </Box>
+              <Box sx={{}}>
+                <Link href='https://siltena.com' target="_blank">Online Trainings</Link>
+              </Box>
 
                   <Box
                     sx={{

@@ -1,26 +1,41 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {useDispatch} from 'react-redux'
 import axios from 'axios';
 const initialState = {
     courses: [],
     course: null,
     loading: true,
+    newCourseAdded: ''
   };
 
-  const fetchCourses = createAsyncThunk(
-      "course/fetchCourses",
-      async (dispatch, getState) =>{
-          return await axios.get(' ')
-      }
-
+  export const getCourses = createAsyncThunk(
+    "course/getall",
+    async (course,thunkAPI) =>{
+         
+        try {
+        const res = await axios.get('/api/courses');
+  
+        return res.data;
+        
+        
+        } catch (error) {
+          console.log(error)
+          const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
+          console.log(message)
+               
+             return thunkAPI.rejectWithValue(message)
+            
+        }
+    }
   )
    //add course
  export const addCourse = createAsyncThunk(
     "course/add",
     async (course,thunkAPI) =>{
-      // console.log(course)
+     // console.log(course)
       const { courseName,
       courseCode,
-      price } = course;
+      price,online_url } = course;
       const config = {
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +43,7 @@ const initialState = {
       };
       const body = JSON.stringify({ courseName,
         courseCode,
-        price });
+        price,online_url });
         try {
         const res = await axios.post('/api/courses', body, config);
   console.log(res.data)
@@ -43,7 +58,6 @@ const initialState = {
              return thunkAPI.rejectWithValue(message)
             
         }
-        
     }
   )
   
@@ -51,24 +65,22 @@ const initialState = {
       name: 'course',
       initialState,
       reducers: {
-          getCourses: (state, action) =>{
-              state.courses = action.payload,
-              state.loading = false
-          },
-          getCourse: (state, action) =>{
-            state.course = action.payload,
-            state.loading = false
-        },
+        reset: (state)=>{
+          state.newCourseAdded = ''
+        }
       },
       extraReducers: (builder) => {
         builder
           .addCase(addCourse.pending, (state, action) => {
-            state.loading = true 
+            state.loading = true;
+            state.newCourseAdded = 'pending';
+
           })
           // You can chain calls, or have separate `builder.addCase()` lines each time
           .addCase(addCourse.fulfilled, (state, action) => {
             state.loading = false;
-            state.courses = state.courses.push(action.payload)
+            state.courses = [...state.courses,action.payload]
+            state.newCourseAdded = 'success';
            
           })
           // You can match a range of action types
@@ -77,12 +89,37 @@ const initialState = {
             // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
             (state, action) => {
                 state.loading = false;
+            state.newCourseAdded = '';
+
                 // state.error= action.error.message
+            }
+          )
+          .addCase(getCourses.pending, (state, action) => {
+            state.loading = true;
+
+          })
+          .addCase(getCourses.fulfilled, (state, action) => {
+            console.log(action.payload);
+            state.loading = false;
+            state.courses = action.payload;
+            
+  // const dispatch = useDispatch();
+
+  //           dispatch(setAlert({
+  //             msg: 'Course added'
+  //             , alertType: 'success'
+  //           }))
+           
+          })
+          .addCase(
+            getCourses.rejected,
+            (state, action) => {
+                state.loading = false;
             }
           )
       },
   });
 
-  export const {getCourses, getCourse} = courseSlice.actions
+  export const {reset} = courseSlice.actions
 
   export default courseSlice.reducer

@@ -6,6 +6,9 @@ const ClassSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'course',
       },
+      description:{
+        type: String
+      },
     schedule: {
       type: String,
     },

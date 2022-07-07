@@ -11,6 +11,9 @@ const CourseSchema = new Schema(
     price: {
       type: String,
     },
+    online_url:{
+      type: String
+    }
   },
   {
     timestamps: true,

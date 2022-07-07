@@ -4,23 +4,27 @@ import userAuth from '../../../middleware/userAuth'
 
 
 import connectMongo from '../../../utils/db'
+import Class from '../../../models/Class'
 import Course from '../../../models/Course'
 
 
  const handler = async (req, res)=> {
  const {method,body} = req;
- const {courseName,courseCode, price,online_url} = body;
+ const {course,description,schedule,start_date, instructor,remark} = body;
  console.log('connecting...')
  await connectMongo();
  console.log('connected!')
  if(method === 'POST') {
     try {
        
-        let course = new Course({
-            courseName,courseCode, price,online_url
+        let newClass = new Class({
+            course,description,schedule,start_date, instructor,remark
         });
-       await course.save();
-        res.json(course);
+       await newClass.save()
+
+       let populatedNewClass = await Class.findById(newClass._id).populate('course')
+
+        res.json(populatedNewClass);
      } catch (err) {
          console.log(err);
          res.status(500).send('Server Error')
@@ -30,9 +34,9 @@ import Course from '../../../models/Course'
  if(method === 'GET') {
     try {
        
-        let courses = await Course.find()
-    //   console.log(courses)
-        res.json(courses);
+        let classes = await Class.find().populate('course')
+    //   console.log(classes)
+        res.json(classes);
      } catch (err) {
          console.log(err);
          res.status(500).send('Server Error')

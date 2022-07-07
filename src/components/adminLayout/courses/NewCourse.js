@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from 'prop-types'
 import {useSelector, useDispatch } from 'react-redux';
 import { Grid, TextField, Box, Button } from "@mui/material"
-import {addCourse} from '../../../../store/courseSlice';
+import { toast} from 'react-toastify'
+import {addCourse,reset} from '../../../../store/courseSlice';
 
 const NewCourse = ({setOpen}) => {
   const [values, setValues] = useState({
     courseName: '',
     courseCode: '',
-    price: ''
+    price: '',
+    online_url: '',
+    
   })
 
-const {courses, loading} = useSelector((state)=> state.course)
+const {courses, loading,newCourseAdded} = useSelector((state)=> state.course)
 // const {alert} = useSelector((state)=> state.alert)
 
 const dispatch = useDispatch();
@@ -27,6 +31,17 @@ const dispatch = useDispatch();
     console.log(values)
     dispatch(addCourse(values))
   }
+
+ 
+
+  useEffect(() => {
+    if(newCourseAdded === 'success'){
+      toast.success('New course added successfully!');
+      setOpen(false);
+      dispatch(reset())
+    }
+  }, [newCourseAdded])
+  
   return (
     <><form action="" onSubmit={handleSubmit}>
       
@@ -64,7 +79,19 @@ const dispatch = useDispatch();
             variant="standard"
             onChange={handleInputChange}
           />
-        </Grid></Grid>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            // required
+            id="online_url"
+            name="online_url"
+            label="Url to Online course"
+            fullWidth
+            variant="standard"
+            onChange={handleInputChange}
+          />
+        </Grid>
+        </Grid>
          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                  
                     <Button onClick={()=>{
@@ -86,6 +113,10 @@ const dispatch = useDispatch();
                 </form>
     </>
   )
+}
+
+NewCourse.propTypes = {
+  setOpen: PropTypes.func.isRequired
 }
 
 export default NewCourse
