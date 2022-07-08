@@ -1,4 +1,5 @@
 import {useState,useEffect} from 'react'
+import Image from 'next/image';
 import {useSelector,useDispatch} from 'react-redux'
 import { Grid, TextField, Box, Button,InputLabel, Select, MenuItem,FormHelperText } from "@mui/material"
 import { toast } from 'react-toastify';
@@ -7,6 +8,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { addClass,reset } from '../../../../store/classSlice';
 import { getCourses } from '../../../../store/courseSlice';
+import { NoteAltOutlined } from '@mui/icons-material';
 const NewCourse = ({setOpen}) => {
 const {classes, loading,newClassAdded} = useSelector((state)=> state.classroom)
 const {courses} = useSelector((state)=> state.course)
@@ -19,7 +21,9 @@ const {courses} = useSelector((state)=> state.course)
     start_date: null,
     instructor: '',
     remark: ''
-  })
+  });
+
+  const [imageInput,setImageInput] = useState(NoteAltOutlined)
 
   let courseOptions =[<MenuItem key={0} value=''>No Courses</MenuItem>];
   // let courseOptions =  <MenuItem value=''>Choose Courses</MenuItem>;
@@ -35,7 +39,16 @@ const {courses} = useSelector((state)=> state.course)
 
 
   
-      
+      const handleImageChange = (e)=>{
+        const file = e.target.files[0];
+        setImageInput(file)
+        const fileReader = new FileReader();
+        fileReader.onload = function(e){
+          setValues({...values,
+          thumbnail: e.target.result})
+        }
+        fileReader.readAsDataURL(file)
+      }
   const handleInputChange = (e)=>{
     const {name,value} = e.target;
 
@@ -141,15 +154,20 @@ const {courses} = useSelector((state)=> state.course)
             value={values.instructor}
           />
         </Grid>
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
+          <InputLabel htmlFor='thumbnail'>Upload thumbnail</InputLabel>
           <TextField
+          id='thumbnail'
+          type='file'
             required
-            name="batchName"
-            label="Batch"
+            name="thumbnail"
+            // label="Upload thumbnail"
             fullWidth
             variant="outlined"
+            onChange={handleImageChange}
           />
-        </Grid> */}
+          {imageInput &&<Image src={imageInput} width={100} /> }
+        </Grid>
         <Grid item xs={12}>
           <TextField
             
