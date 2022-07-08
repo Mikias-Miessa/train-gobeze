@@ -1,18 +1,19 @@
 import {useState,useEffect} from 'react'
 import Image from 'next/image';
 import {useSelector,useDispatch} from 'react-redux'
-import { Grid, TextField, Box, Button,InputLabel, Select, MenuItem,FormHelperText } from "@mui/material"
+import { Grid, TextField, Box, Button,InputLabel, Select, MenuItem,FormHelperText,CircularProgress,Backdrop } from "@mui/material"
 import { toast } from 'react-toastify';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { addClass,reset } from '../../../../store/classSlice';
 import { getCourses } from '../../../../store/courseSlice';
-import { NoteAltOutlined } from '@mui/icons-material';
+
+
 const NewCourse = ({setOpen}) => {
 const {classes, loading,newClassAdded} = useSelector((state)=> state.classroom)
 const {courses} = useSelector((state)=> state.course)
-  
+const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
   const [values,setValues] = useState({
     course: '',
@@ -20,10 +21,11 @@ const {courses} = useSelector((state)=> state.course)
     schedule: 'work_days',
     start_date: null,
     instructor: '',
-    remark: ''
+    remark: '',
+    thumbnail: null
   });
 
-  const [imageInput,setImageInput] = useState(NoteAltOutlined)
+  const [imageInput,setImageInput] = useState(null)
 
   let courseOptions =[<MenuItem key={0} value=''>No Courses</MenuItem>];
   // let courseOptions =  <MenuItem value=''>Choose Courses</MenuItem>;
@@ -41,13 +43,17 @@ const {courses} = useSelector((state)=> state.course)
   
       const handleImageChange = (e)=>{
         const file = e.target.files[0];
-        setImageInput(file)
-        const fileReader = new FileReader();
-        fileReader.onload = function(e){
-          setValues({...values,
-          thumbnail: e.target.result})
-        }
-        fileReader.readAsDataURL(file)
+        setValues({...values,
+          thumbnail: file})
+          if(file){
+
+            const fileReader = new FileReader();
+            fileReader.onload = function(e){
+              setImageInput(e.target.result)
+              
+            }
+            fileReader.readAsDataURL(file)
+          }
       }
   const handleInputChange = (e)=>{
     const {name,value} = e.target;
@@ -58,16 +64,30 @@ const {courses} = useSelector((state)=> state.course)
     })
   }
   useEffect(() => {
+    if(newClassAdded==='pending'){
+      setBackdrop(true)
+    }
     if(newClassAdded === 'success'){
       toast.success('New Class added successfully!');
       setOpen(false);
+      setBackdrop(false)
       dispatch(reset())
     }
   }, [newClassAdded])
   const handleSubmit =(e)=>{
     e.preventDefault();
     console.log(values)
-    dispatch(addClass(values))
+    const formData = new FormData();
+ 
+
+    formData.append('course',values.course);
+    formData.append('description',values.description);
+    formData.append('schedule',values.schedule);
+    formData.append('start_date',values.start_date);
+    formData.append('instructor',values.instructor);
+    formData.append('remark',values.remark);
+    formData.append('thumbnail',values.thumbnail);
+    dispatch(addClass(formData))
   }
   
   return (
@@ -166,7 +186,7 @@ const {courses} = useSelector((state)=> state.course)
             variant="outlined"
             onChange={handleImageChange}
           />
-          {imageInput &&<Image src={imageInput} width={100} /> }
+          {imageInput &&<Image src={imageInput} width={100} height='100' /> }
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -198,7 +218,13 @@ const {courses} = useSelector((state)=> state.course)
                   </Button>
                 </Box> 
       </Box>
-    
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backdrop}
+      
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   )
 }

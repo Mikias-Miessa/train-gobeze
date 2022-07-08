@@ -16,53 +16,6 @@ function createData(id,name, courseCode, courseSchedule, startDate, batchName,  
   return { id,name, courseCode, courseSchedule, startDate, batchName,  instructor, enrolledStudents };
 }
 
-const rows = [
-  createData(
-    0,
-    'Introduction to Graphic Design',
-    'GD101',
-    'Weekend',
-    'July 2 2021',
-    'July 2022 Batch',
-    'Kidus Yosef',
-    12
-  ),
-  createData(
-    1,
-    'Advanced Graphic Design',
-    'GDA',
-    'Weekend',
-    'October 2 2021',
-    'October 2021 Batch',
-    'Kidus Yosef',
-    14
-  ),
-  createData(2,'Introduction to Graphic Design',
-  'GD101',
-  'Work days',
-  'July 2 2021',
-  'July 2021 Batch',
-  'Kidus Yosef',10
-  ),
-  createData(
-    3,
-    'Introduction to Graphic Design',
-    'GD101',
-    'Workdays',
-    'October 2 2021',
-    'October 2021 Batch',
-    'Kidus Yosef',12
-  ),
-  createData(
-    4,
-    'Introduction to Graphic Design',
-    'GD101',
-    'Weekend',
-    'October 2 2021',
-    'October 2021 Batch',
-    'Kidus Yosef',12
-  ),
-];
 
 const modalStyle = {
   position: 'absolute',
@@ -87,8 +40,7 @@ function preventDefault(event) {
 export default function Classes() {
 const {classes, loading} = useSelector((state)=> state.classroom)
 const dispatch = useDispatch();
-console.log(classes)
-console.log(classes)
+
   const [open, setOpen] = useState(false);
   const [openPoper, setOpenPoper] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);

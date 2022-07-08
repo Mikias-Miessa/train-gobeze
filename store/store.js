@@ -1,6 +1,5 @@
 import {  applyMiddleware } from "redux";
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
@@ -11,8 +10,6 @@ import classroom from './classSlice';
 // initial states here
 const initalState = {};
 
-// middleware
-const middleware = [thunk];
 
 // creating store with redux
 // export const store = createStore(

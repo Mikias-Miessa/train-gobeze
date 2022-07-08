@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: false,
   images: {
-    domains: ['images.unsplash.com']
+    domains: ['images.unsplash.com','gobeze.com','localhost']
 },
 async headers() {
   return [

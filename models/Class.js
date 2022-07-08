@@ -15,6 +15,9 @@ const ClassSchema = new Schema(
     instructor: {
       type: String,
     },
+    thumbnail: {
+      type: String,
+    },
     start_date: {
       type: Date,
     },
