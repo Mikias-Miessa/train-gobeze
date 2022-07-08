@@ -7,6 +7,7 @@ import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import user from './userSlice';
 import course from './courseSlice';
 import auth from './authSlice';
+import classroom from './classSlice';
 // initial states here
 const initalState = {};
 
@@ -21,7 +22,7 @@ const middleware = [thunk];
 // );
 
 const combinedReducer = combineReducers({
-  auth,user,course
+  auth,user,course,classroom
 })
 
 const masterReducer = (state, action)=>{
@@ -29,7 +30,8 @@ const masterReducer = (state, action)=>{
     const nextState = {
       ...state,
       users:[...action.payload.user.users, ...state.user.users],
-      courses:[...action.payload.user.courses, ...state.user.courses],
+      courses:[...action.payload.course.courses, ...state.course.courses],
+      classes:[...action.payload.classroom.classes, ...state.classroom.classes],
     }
     return nextState;
   }else {

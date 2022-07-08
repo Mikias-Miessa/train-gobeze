@@ -1,21 +1,69 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
 import { Grid, TextField, Box, Button,InputLabel, Select, MenuItem,FormHelperText } from "@mui/material"
+import { toast } from 'react-toastify';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { addClass,reset } from '../../../../store/classSlice';
+import { getCourses } from '../../../../store/courseSlice';
 const NewCourse = ({setOpen}) => {
-  const [date, setDate] = useState(null);
+const {classes, loading,newClassAdded} = useSelector((state)=> state.classroom)
+const {courses} = useSelector((state)=> state.course)
+  
+  const dispatch = useDispatch();
+  const [values,setValues] = useState({
+    course: '',
+    description:'',
+    schedule: 'work_days',
+    start_date: null,
+    instructor: '',
+    remark: ''
+  })
+
+  let courseOptions =[<MenuItem key={0} value=''>No Courses</MenuItem>];
+  // let courseOptions =  <MenuItem value=''>Choose Courses</MenuItem>;
+  if(courses.length > 0 ){
+    courseOptions = courses.map((course,index)=> course && (
+      <MenuItem key={index+1} value={course._id && course._id}>{course.courseName && course.courseName}</MenuItem>
+    )) 
+        }
+
+  useEffect(()=>{
+    dispatch(getCourses())
+  },[])
+
+
+  
+      
+  const handleInputChange = (e)=>{
+    const {name,value} = e.target;
+
+    setValues({
+      ...values,
+      [name]:value
+    })
+  }
+  useEffect(() => {
+    if(newClassAdded === 'success'){
+      toast.success('New Class added successfully!');
+      setOpen(false);
+      dispatch(reset())
+    }
+  }, [newClassAdded])
   const handleSubmit =(e)=>{
     e.preventDefault();
-    console.log('will add the course')
+    console.log(values)
+    dispatch(addClass(values))
   }
+  
   return (
     <>
     <Box
       component="form"
-      // sx={{
-      //   '& .MuiTextField-root': { m: 1, width: '25ch' },
-      // }}
+      sx={{
+       width: '100%'
+      }}
       // noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
@@ -25,37 +73,57 @@ const NewCourse = ({setOpen}) => {
       <InputLabel id="courseSelect">Select Course</InputLabel>
   <Select
     labelId="courseSelect"
-    value={10}
+    value={values.course}
+    name='course'
     label="Course *"
-    // onChange={handleChange}
+    onChange={handleInputChange}
+    required
+    sx={{
+      minWidth: '200px'
+    }}
   >
-    <MenuItem value={10}>Graphic Design</MenuItem>
-    <MenuItem value={20}>Digital Marketing</MenuItem>
-    <MenuItem value={30}>Video Editing</MenuItem>
+   {courseOptions}
   </Select>
   <FormHelperText>Required</FormHelperText>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <InputLabel id="courseSchedule">Choose Schedule</InputLabel>
+      <InputLabel id="schedule">Choose Schedule</InputLabel>
   <Select
-    labelId="courseSchedule"
-    value={10}
+    labelId="schedule"
+    value={values.schedule}
     label="Schedule *"
-    // onChange={handleChange}
+    name='schedule'
+    onChange={handleInputChange}
   >
-    <MenuItem value={10}>Work Days</MenuItem>
-    <MenuItem value={20}>Weekends</MenuItem>
+    <MenuItem value='work_days'>Work Days</MenuItem>
+    <MenuItem value='weekends'>Weekends</MenuItem>
   </Select>
   <FormHelperText>Required</FormHelperText>
       </Grid>
-    
+      <Grid item xs={12}>
+          <TextField
+            required
+            name="description"
+            label="Class description"
+            fullWidth
+            variant="outlined"
+            onChange={handleInputChange}
+            value={values.description}
+            multiline
+          />
+        </Grid>
     <Grid item xs={12}>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label="Start Date"
-        value={date}
+        required
+        value={values.start_date}
+        name='start_date'
         onChange={(newValue) => {
-          setDate(newValue);
+          setValues({
+            ...values,
+            start_date:newValue
+          });
         }}
         renderInput={(params) => <TextField {...params} />}
       />
@@ -69,6 +137,8 @@ const NewCourse = ({setOpen}) => {
             label="Course instructor"
             fullWidth
             variant="outlined"
+            onChange={handleInputChange}
+            value={values.instructor}
           />
         </Grid>
         {/* <Grid item xs={12}>
@@ -87,6 +157,8 @@ const NewCourse = ({setOpen}) => {
             label="Remark (Optional)"
             fullWidth
             variant="outlined"
+            onChange={handleInputChange}
+            value={values.remark}
           />
         </Grid>
         </Grid>

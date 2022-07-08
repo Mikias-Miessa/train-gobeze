@@ -1,6 +1,7 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
+import {useSelector,useDispatch} from 'react-redux'
 import Link from '../../Link';
-// import  from '@mui/material/Table';
+import Moment from 'moment';
 import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography,Popper,Fade,IconButton} from '@mui/material';
 
 import Title from '../../Title';
@@ -9,6 +10,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { getClasses } from '../../../../store/classSlice';
 // Generate Order Data
 function createData(id,name, courseCode, courseSchedule, startDate, batchName,  instructor, enrolledStudents) {
   return { id,name, courseCode, courseSchedule, startDate, batchName,  instructor, enrolledStudents };
@@ -77,14 +79,23 @@ const modalStyle = {
 };
 
 function preventDefault(event) {
+
+
   event.preventDefault();
 }
 
 export default function Classes() {
-
+const {classes, loading} = useSelector((state)=> state.classroom)
+const dispatch = useDispatch();
+console.log(classes)
+console.log(classes)
   const [open, setOpen] = useState(false);
   const [openPoper, setOpenPoper] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    dispatch(getClasses())
+  }, [])
   const handlePopperClick = (event) => {
     setAnchorEl(event.currentTarget);
     setOpenPoper((prev) => !prev);
@@ -104,7 +115,10 @@ export default function Classes() {
             }} >
       <Button variant="contained" onClick={handleOpen}>New Class</Button>
       </Paper>
-      <Table size="small">
+      {loading ? <Typography variant='body1' sx={{textAlign: 'center'}}>
+        Loading ...
+        </Typography>: <>
+        <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -117,16 +131,18 @@ export default function Classes() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.courseSchedule}</TableCell>
+          { classes.length>0 ? classes.map((item,index) => item &&(
+            <TableRow key={index}>
+              <TableCell>{item.course?.courseName}</TableCell>
+              <TableCell>{item.schedule && item.schedule}</TableCell>
               
-              <TableCell>{row.startDate}</TableCell>
-              <TableCell>{row.instructor}</TableCell>
+              <TableCell>{item.start_date && Moment(item.start_date).format(
+            'MMM DD YYYY '
+          )}</TableCell>
+              <TableCell>{item.instructor && item.instructor}</TableCell>
               <TableCell>
               <Box  sx={{ display: 'flex', gap: '1rem' }}>
-                <Typography>{row.enrolledStudents}</Typography>
+                <Typography>{item.students ? item.students.length : 0}</Typography>
          <Link href={`/admin/classes/students`} >See Students</Link>
     </Box>
                 
@@ -158,12 +174,23 @@ export default function Classes() {
               {/* <TableCell>{row.price}</TableCell> */}
               {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
             </TableRow>
-          ))}
+          )) : <>
+          <TableRow>
+<TableCell colSpan={5} sx={{textAlign: 'center'}}>
+  
+          <Typography component='span' variant='body1' sx={{color: 'secondary.light'}} >
+       There are no running classes.
+        </Typography>
+</TableCell>
+          </TableRow>
+          </>}
         </TableBody>
       </Table>
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more 
       </Link>
+        </>}
+     
 
       <Modal
   open={open}
@@ -171,7 +198,7 @@ export default function Classes() {
   aria-labelledby="parent-modal-title"
   aria-describedby="parent-modal-description"
 >
-  <Box sx={{ ...modalStyle, width: 400 }}>
+  <Box sx={{ ...modalStyle, width: '80%' }}>
     <h2 id="parent-modal-title">Add new class</h2>
     <p id="parent-modal-description">
       Add In-person classes which are held on Gobeze.

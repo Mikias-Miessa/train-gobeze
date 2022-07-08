@@ -11,12 +11,27 @@ const StudentSchema = new Schema(
     phone: {
       type: String,
     },
-    password: {
-      type: String,
+    course: {
+      type: Schema.Types.ObjectId,
+      ref: 'course',
     },
-    role: {
-      type: String,
+    PaymentRequest: {
+      type: Schema.Types.ObjectId,
+      ref: 'payment',
     },
+    status:{
+      type: String,
+      enum: ['registered','enrolled','certified'],
+      default: 'registered'
+    },
+    registered_online:{
+      type: Boolean,
+      default: true
+    },
+    registered_by:{
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    }
   },
   {
     timestamps: true,

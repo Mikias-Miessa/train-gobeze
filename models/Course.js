@@ -2,15 +2,18 @@ const  {Schema, model, models} = require('mongoose');
 
 const CourseSchema = new Schema(
   {
-    name: {
+    courseName: {
       type: String,
     },
-    code: {
+    courseCode: {
       type: String,
     },
     price: {
       type: String,
     },
+    online_url:{
+      type: String
+    }
   },
   {
     timestamps: true,

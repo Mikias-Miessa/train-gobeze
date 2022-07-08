@@ -1,7 +1,7 @@
 import  {useState, useEffect} from 'react';
 import Link from '@mui/material/Link';
 import {useSelector,useDispatch} from 'react-redux'
-import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal} from '@mui/material';
+import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography} from '@mui/material';
 
 import Title from '../../Title';
 import NewCourse from './NewCourse'
@@ -60,15 +60,15 @@ function preventDefault(event) {
 }
 
 export default function Courses() {
+  
 const dispatch = useDispatch();
   const {courses, loading} = useSelector((state)=> state.course)
-console.log(loading)
-console.log(courses)
+
 
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(getCourses)
+    dispatch(getCourses())
   }, [])
   
 
@@ -87,7 +87,10 @@ console.log(courses)
             }} >
       <Button variant="contained" onClick={handleOpen}>New Course</Button>
       </Paper>
-      <Table size="small">
+      {loading? <Typography variant='body1' sx={{textAlign: 'center'}}>
+        Loading ...
+        </Typography> : courses.length > 0 ? <>
+        <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -97,26 +100,32 @@ console.log(courses)
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.courseCode}</TableCell>
-              <TableCell>{row.price}</TableCell>
+          {courses.map((course,index) => course && (
+            <TableRow key={index}>
+                 <TableCell>{course.courseName && course.courseName}</TableCell>
+            <TableCell>{course.courseCode && course.courseCode}</TableCell>
+            <TableCell>{course.price && course.price}</TableCell>
               {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more 
       </Link>
+        </> : <>
+        <Typography component='span' variant='body1' sx={{textAlign: 'center',margin: 'auto',color:'secondary.light'}}>
+       No courses added yet!
+        </Typography>
+        </>        
+        }
+    
+     
       <Modal
   open={open}
   onClose={handleClose}
-  aria-labelledby="parent-modal-title"
-  aria-describedby="parent-modal-description"
 >
-  <Box sx={{ ...modalStyle, width: 400 }}>
+  <Box sx={{ ...modalStyle, width: '80%' }}>
     <h2 id="parent-modal-title">Add new course</h2>
     <p id="parent-modal-description">
       Add In-person courses which are held on Gobeze.
