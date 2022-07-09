@@ -54,7 +54,7 @@ console.log('got here')
           ? 'https://gobeze.com'
           : 'http://localhost:3000';
 
-      const thumbnailImage =  API + '/api/files/images/' + req.file.filename;
+      const thumbnailImage = '/api/files/images/' + req.file.filename;
 console.log(thumbnailImage)
         let newClass = new Class({
             course,description,schedule,start_date,thumbnail:thumbnailImage, instructor,remark

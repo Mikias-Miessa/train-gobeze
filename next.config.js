@@ -1,4 +1,9 @@
 module.exports = {
+  env:{
+    ATLAS_MONGO_URI : "mongodb+srv://natty:wZycRUgZM8CqPY74@cluster0.ndidq.mongodb.net/gobeze?retryWrites=true&w=majority",
+jwtSecret : "secrettoken"
+
+  },
   reactStrictMode: false,
   images: {
     domains: ['images.unsplash.com','gobeze.com','localhost']

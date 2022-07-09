@@ -4,7 +4,10 @@ const uri = process.env.MONGO_URI
 const atlasUri = process.env.ATLAS_MONGO_URI
 
 const connectMongo = async ()=> mongoose.connect(atlasUri,{
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+//   useCreateIndex: true,
+  useFindAndModify: false,
 })
 
 module.exports = connectMongo ;

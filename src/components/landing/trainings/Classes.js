@@ -140,9 +140,11 @@ const Courses = () => {
                         },
                       }}
                     >
-                      <Image src={graphics} alt='graphic Design'
-                      //  layout='raw'
-                        />
+                      <Box sx={{position: 'relative',width: '100%',height: '200px'}}>
+                      <Image src={'/api/files/images/1657272550242-gobeze-myReviews.png'} alt='graphic Design'
+                       layout='fill'
+                       />
+                       </Box>
                     </Box>
                     <Box sx={{
                         p:3, mt:'-16px'

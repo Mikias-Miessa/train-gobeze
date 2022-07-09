@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types'
 import {useSelector, useDispatch } from 'react-redux';
-import { Grid, TextField, Box, Button } from "@mui/material"
+import { Grid, TextField, Box, Button,Backdrop,CircularProgress } from "@mui/material"
 import { toast} from 'react-toastify'
 import {addCourse,reset} from '../../../../store/courseSlice';
 
@@ -13,6 +13,7 @@ const NewCourse = ({setOpen}) => {
     online_url: '',
     
   })
+  const [backdrop, setBackdrop] = useState(false);
 
 const {courses, loading,newCourseAdded} = useSelector((state)=> state.course)
 // const {alert} = useSelector((state)=> state.alert)
@@ -35,9 +36,14 @@ const dispatch = useDispatch();
  
 
   useEffect(() => {
+
+    if(newCourseAdded==='pending'){
+      setBackdrop(true)
+    }
     if(newCourseAdded === 'success'){
       toast.success('New course added successfully!');
       setOpen(false);
+      setBackdrop(false)
       dispatch(reset())
     }
   }, [newCourseAdded])
@@ -111,6 +117,13 @@ const dispatch = useDispatch();
                   </Button>
                 </Box>
                 </form>
+                <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backdrop}
+      
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   )
 }
