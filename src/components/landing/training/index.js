@@ -1,12 +1,11 @@
-import {Box,Paper} from '@mui/material'
+import {Box,Paper, Typography} from '@mui/material'
 import ClassDescription from "./ClassDescription"
 import Footer from "../Footer"
 import Header from "./Header"
 import Hero from './ClassHero';
 import Enroll from './Enroll';
-const TrainingsPage = () =>{
-
-    return (
+const TrainingPage = ({training}) =>{
+    return   (
       <>
         <Header />
         <main>
@@ -45,14 +44,21 @@ const TrainingsPage = () =>{
                     maxWidth: '960px',
                   },
             }}> </Box> */}
-            <ClassDescription />
+            {training ?  <>
+              <ClassDescription training={training}/>
+
+              <Enroll training={training}/>
+            </>:<Typography>Loading ...</Typography>
+            
+          }
                
-          <Enroll />
           </Paper>
         </main>
         <Footer />
       </>
-    );
+    )
+    // 
 }
 
-export default TrainingsPage;
+
+export default TrainingPage;

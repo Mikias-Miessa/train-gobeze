@@ -2,6 +2,8 @@ import multer from 'multer';
 import { GridFsStorage } from 'multer-gridfs-storage';
 import {createRouter} from 'next-connect'
 import slugify from'slugify'
+import mongoose from 'mongoose';
+import Grid from 'gridfs-stream'
 import connectMongo from '../../../utils/db'
 import userAuth from '../../../middleware/userAuth'
 import Class from '../../../models/Class'
@@ -33,6 +35,7 @@ console.log('got here')
 
   const upload = multer({ storage });
 
+let gfs;
   const router = createRouter();
 
   router
@@ -40,41 +43,86 @@ console.log('got here')
     console.log('connecting...')
     await connectMongo();
     console.log('connected!')
+    gfs = Grid(mongoose.connection.db, mongoose.mongo);
+   gfs.collection('files');
     await next(); // call next in chain
    
+  }) .get(async (req, res) => {
+    const {query} = req;
+
+    try {
+   
+       let course = await Class.findOne({slug: query.slug}).populate('course');
+      if(!course){
+        return res.status(400).json({
+          errors: [{ msg: 'Course not found' }],
+        });
+      }
+       
+
+        res.json(course);
+     } catch (err) {
+         console.log(err);
+         res.status(500).send('Server Error')
+     }
   })
   .use(upload.single('thumbnail'))
-  .post(async (req, res) => {
+  .put(async (req, res) => {
+    const {query} = req;
+    console.log('query')
+    console.log(query)
     try {
         const { course,description,schedule,start_date, instructor,remark } = req.body;
-
-        const API =
-        process.env.NODE_ENV == 'production'
-          ? 'https://gobeze.com'
-          : 'http://localhost:3000';
-
+        let updatedClass = await Class.findById(query.slug);
+        if(!updatedClass){
+          return res.status(400).json({
+            errors: [{ msg: 'Class not found' }],
+          });
+        }
+        gfs.remove(
+          { filename: updatedClass.thumbnail.replace("/api/files/images/", ""), root: 'files' },
+          async (err, gridStore) => {
+            if (err) {
+              return res.status(404).json({
+                err: err,
+              });
+            } else {
+             //image is removed from db
+       console.log('image is deleted from mongodb')
+            }
+          }
+        );
       const thumbnailImage = '/api/files/images/' + req.file.filename;
+
+      
       let selectedCourse = await Course.findById(course);
       if(!selectedCourse){
         return res.status(400).json({
           errors: [{ msg: 'Course not found' }],
         });
       }
-const slug = slugify(selectedCourse.courseName+schedule)
-        let newClass = new Class({
-            course,slug: slug,description,schedule,start_date,thumbnail:thumbnailImage, instructor,remark
-        });
-       await newClass.save()
+        const slug = slugify(selectedCourse.courseName+'-'+schedule)
+        
+        updatedClass.course = course;
+        updatedClass.slug = slug;
+        updatedClass.description = description;
+        updatedClass.schedule = schedule;
+        updatedClass.start_date = start_date;
+        updatedClass.thumbnail = thumbnailImage;
+        updatedClass.instructor = instructor;
+        updatedClass.remark = remark;
+        
+       await updatedClass.save()
 
-       let populatedNewClass = await Class.findById(newClass._id).populate('course')
+       let populatedUpdatedClass = await Class.findById(query.slug).populate('course')
 
-        res.json(populatedNewClass);
+        res.json(populatedUpdatedClass);
      } catch (err) {
          console.log(err);
          res.status(500).send('Server Error')
      }
   })
-  
+ 
 
 // create a handler from router with custom
 // onError and onNoMatch

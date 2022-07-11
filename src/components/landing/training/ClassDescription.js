@@ -1,4 +1,5 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
+import Moment from 'moment';
 import Image from 'next/image';
 import graphics from '../../../images/graphics.avif';
 const textStyle = {
@@ -15,7 +16,7 @@ const training = {
   image: graphics,
 };
 
-const ClassDescription = () => {
+const ClassDescription = ({training}) => {
   return (
     <>
       <Box
@@ -114,20 +115,28 @@ const ClassDescription = () => {
                       flexBasis: '50%',
                       maxWidth: '50%',
                     },
-                    '& img': {
-                      width: '100%',
-                      maxWidth: '300px',
-                      // mt: -12,
-                      background: 'transparent',
-                      borderRadius: '0.375rem',
-                      boxShadow: 'none',
-                      height: 'auto',
-                    },
+                   
                   }}
                 >
-                  <Image src={graphics} alt='graphic Design' 
-                  // layout='raw'
-                   />
+                  <Box sx={{ position: 'relative',width: 'auto',height: '200px',
+                '& span':{
+                  '& img':{
+                      // width: '100%',
+                      objectFit: 'cover',
+                      maxWidth: '300px',
+                      // mt: -12,
+                      // background: 'transparent',
+                      borderRadius: '0.375rem',
+                      boxShadow: 'none',
+                      // height: 'auto',
+                  }
+                }
+                }}>
+
+                  <Image src={training.thumbnail} alt='graphic Design' 
+                  layout='fill'
+                  />
+                  </Box>
                 </Grid>
                 <Grid
                   item
@@ -170,9 +179,7 @@ const ClassDescription = () => {
                       fontWeight: '300',
                     }}
                   >
-                    Register for our Graphics Design Course and Have a deep
-                    understanding of typography, color theory, photos, layout,
-                    blocking and other design theory and skills
+                    {training.description}
                   </Typography>
 
                   <Box>
@@ -198,7 +205,7 @@ const ClassDescription = () => {
                         fontWeight: '300',
                       }}
                     >
-                      Kidus Yosef
+                     {training.instructor}
                     </Typography>
                   </Box>
                   <Box>
@@ -258,7 +265,7 @@ const ClassDescription = () => {
                       },
                     }}
                   >
-                    Introduction to Graphic Design
+                   {training.course?.courseName}
                   </Typography>
                   <Typography
                     variant='body2'
@@ -272,7 +279,9 @@ const ClassDescription = () => {
                       color: 'white',
                     }}
                   >
-                    Starts on July 4 2021
+                    Starts on{' '}{Moment(training.start_date).format(
+            'MMM DD YYYY '
+          )}
                   </Typography>
                 </Grid>
               </Grid>

@@ -5,6 +5,9 @@ const CourseSchema = new Schema(
     courseName: {
       type: String,
     },
+    slug:{
+      type: String
+    },
     courseCode: {
       type: String,
     },

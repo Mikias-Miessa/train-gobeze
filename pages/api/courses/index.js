@@ -1,3 +1,4 @@
+import slugify from'slugify'
 
 import userAuth from '../../../middleware/userAuth'
 
@@ -15,9 +16,10 @@ import Course from '../../../models/Course'
  console.log('connected!')
  if(method === 'POST') {
     try {
+      const slug = slugify(courseName);
        
         let course = new Course({
-            courseName,courseCode, price,online_url
+            courseName,slug,courseCode, price,online_url
         });
        await course.save();
         res.json(course);
@@ -30,8 +32,9 @@ import Course from '../../../models/Course'
  if(method === 'GET') {
     try {
        
+ 
         let courses = await Course.find()
-    //   console.log(courses)
+   
         res.json(courses);
      } catch (err) {
          console.log(err);
