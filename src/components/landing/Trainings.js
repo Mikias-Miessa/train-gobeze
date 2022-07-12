@@ -206,21 +206,26 @@ useEffect(()=>{
                       boxShadow: 'none',
                    maxHeight: '188px',
                    overflow: 'hidden',
-                        '& img': {
+                        
+                      
+                    }}
+                  >
+                       <Box sx={{position: 'relative',width: '100%',height: '200px',
+                      '& span':{
+                        '& img':{
                           width: '100%',
-                          background: 'transparent',
                           borderRadius: '0.5rem',
                           boxShadow:
                             'rgb(0 0 0 / 10%) 0rem 0.25rem 0.375rem -0.0625rem, rgb(0 0 0 / 6%) 0rem 0.125rem 0.25rem -0.0625rem',
                           height: 'auto',
                           objectFit: 'cover'
-                        },
-                      
-                    }}
-                  >
-                    <img src={course.thumbnail? course.thumbnail : graphics} alt='graphic Design'
-                    //  layout='raw'
-                      />
+                        }
+                      }
+                      }}>
+                    <Image src={course.thumbnail? course.thumbnail : graphics} alt='graphic Design'
+                     layout='fill'
+                     />
+                     </Box>
                   </Box>
                   <Box sx={{
                       p:3, mt:'-16px'

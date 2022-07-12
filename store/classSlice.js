@@ -49,10 +49,10 @@ const initialState = {
 
   export const getClass = createAsyncThunk(
     "classroom/getclass",
-    async (id,thunkAPI) => {
-          
+    async (slug,thunkAPI) => {
+        
         try {
-        const res = await axios.get(`/api/classes/class/${id}`);
+        const res = await axios.get(`/api/classes/${slug}`);
   
         return res.data;
         
@@ -164,7 +164,7 @@ const initialState = {
 
           })
           .addCase(getClass.fulfilled, (state, action) => {
-            console.log(action.payload);
+           
             state.loading = false;
             state.singleClass = action.payload;           
           })

@@ -1,24 +1,55 @@
-import {useState} from 'react';
-import {Box,Paper,Grid, TextField, Button, Select, InputLabel, MenuItem, FormHelperText, Typography} from '@mui/material'
+import {useState,useEffect} from 'react';
+import { useSelector,useDispatch} from 'react-redux'
+import {Box,Paper,Grid, TextField, Button, Select, InputLabel, MenuItem, FormHelperText, Typography} from '@mui/material';
+import { useRouter } from 'next/router'
 import Footer from "../Footer"
 import Header from "../training/Header"
 import Hero from '../training/ClassHero'
 import graphics from '../../../images/graphics.avif';
 import Image from 'next/image';
 import ArrowForwardSharpIcon from '@mui/icons-material/ArrowForwardSharp';
-
+import {getClass} from '../../../../store/classSlice'
+import {addStudent,reset} from '../../../../store/studentSlice'
 const TrainingsPage = () =>{
+  const {singleClass, loading} = useSelector((state)=> state.classroom)
+  const {newStudentAdded} = useSelector((state)=> state.student)
+
+const router = useRouter();
+const dispatch = useDispatch();
+const {query} = router;
 
   const [values, setValues] = useState({
     name: '',
     email: '',
     phone: '',
     course: '',
-    bank: ''
+    bank: 'cbe'
   })
+  useEffect(() => {
+    if(singleClass){
+      setValues({
+        ...values,
+        course: singleClass._id
+      })
+    }
+     
+   }, [singleClass])
+  useEffect(() => {
+   dispatch(getClass(query.slug));
+    
+  }, [])
+  const handleInputChange = (e)=>{
+const {name, value} = e.target;
+
+setValues({
+  ...values,
+  [name]:value
+})
+  }
   const handleSubmit =(e)=>{
     e.preventDefault();
-    console.log('will enroll student')
+    // console.log(values)
+    dispatch(addStudent(values))
   }
     return (
       <>
@@ -49,8 +80,8 @@ const TrainingsPage = () =>{
             }}
             
           >
-            
-           <Box sx={{width: '50%', p:2}}>
+            {loading ? <Typography sx={{margin: 'auto', textAlign: 'center'}}>Loading ...</Typography> : <>
+            <Box sx={{width: '50%', p:2}}>
              <form action="" onSubmit={handleSubmit}>
              <Grid container spacing={3}>
     <Grid item xs={12} >
@@ -61,6 +92,8 @@ const TrainingsPage = () =>{
             label="Full Name"
             fullWidth
             variant="outlined"
+            value={values.name}
+            onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={12} >
@@ -72,6 +105,8 @@ const TrainingsPage = () =>{
             fullWidth
             variant="outlined"
             type='email'
+            onChange={handleInputChange}
+value={values.email}
           />
         </Grid>
     <Grid item xs={12}>
@@ -80,20 +115,22 @@ const TrainingsPage = () =>{
             name="phone"
             label="Phone number"
             fullWidth
-            // type='number'
+            value={values.phone}
             // variant="standard"
+            onChange={handleInputChange}
           />
                <Grid item xs={12}>
       <InputLabel id="bank">Bank of Choice</InputLabel>
   <Select
     labelId="bank"
-    value={10}
+    value={values.bank}
     label="Bank of Choice *"
     fullWidth
-    // onChange={handleChange}
+    name='bank'
+    onChange={handleInputChange}
   >
-    <MenuItem value={10}>CBE</MenuItem>
-    <MenuItem value={20}>DASHEN BANK</MenuItem>
+    <MenuItem value='cbe'>CBE</MenuItem>
+    <MenuItem value='dashen'>DASHEN BANK</MenuItem>
   </Select>
   <FormHelperText>Required</FormHelperText>
       </Grid>
@@ -158,20 +195,22 @@ const TrainingsPage = () =>{
                 </Grid>
              <Box sx={{display: 'flex',}}>
                <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6',width: '150px' }}>Course Name : {' '}</Typography>
-               <Typography variant='h4' sx={{fontWeight: '400', fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}> Graphics Design </Typography>             
+               <Typography variant='h4' sx={{fontWeight: '400', fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}> {singleClass?.course.courseName} </Typography>             
              </Box>
              <Box sx={{display: 'flex',}}>
                <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6',width: '150px'}}>Description : {' '}</Typography>
-               <Typography variant='h4' sx={{fontWeight: '400',fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}>1 month long course which will cover the basics of Graphic Design with Adobe Photoshop.</Typography>             
+               <Typography variant='h4' sx={{fontWeight: '400',fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}>{singleClass?.description}</Typography>             
              </Box>
              <Box sx={{display: 'flex',}}>
                <Typography variant='body1' sx={{fontWeight: '200',lineHeight: '1.6',width: '150px' }}>Price : {' '}</Typography>
-               <Typography variant='h4' sx={{fontWeight: '400',fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}>3800 ETB</Typography>             
+               <Typography variant='h4' sx={{fontWeight: '400',fontSize: '0.875rem',lineHeight: '1.6',width: '100%'}}>{singleClass?.course.price} ETB</Typography>             
              </Box>
              </Grid>
 
 </Box>
         
+            </>}
+           
           </Paper>
         </main>
         <Footer />

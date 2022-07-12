@@ -7,6 +7,7 @@ import user from './userSlice';
 import course from './courseSlice';
 import auth from './authSlice';
 import classroom from './classSlice';
+import student from './studentSlice';
 // initial states here
 const initalState = {};
 
@@ -19,7 +20,7 @@ const initalState = {};
 // );
 
 const combinedReducer = combineReducers({
-  auth,user,course,classroom
+  auth,user,course,classroom,student
 })
 
 const masterReducer = (state, action)=>{

@@ -78,19 +78,16 @@ const Header = () => {
               }}
             >
               <Box sx={{}}>
-                <Link sx={{
-                  color: 'white !important'
-                }} href='/'>Home</Link>
+                <Link href='/'>Home</Link>
+              </Box>
+              {/* <Box sx={{}}>
+                <Link href='/'>Who we are</Link>
+              </Box> */}
+              <Box sx={{}}>
+                <Link href='/trainings'>Classroom Trainings</Link>
               </Box>
               <Box sx={{}}>
-                <Link sx={{
-                  color: 'white !important'
-                }} href='/'>Who we are</Link>
-              </Box>
-              <Box sx={{}}>
-                <Link sx={{
-                  color: 'white !important'
-                }} href='/trainings'>Trainings</Link>
+                <Link href='https://siltena.com' target="_blank">Online Trainings</Link>
               </Box>
             </Box>
             {/* <Box
@@ -161,15 +158,18 @@ const Header = () => {
                     },
                   }}
                 >
-                  <Box>
-                    <Link href='/'>Home</Link>
-                  </Box>
                   <Box sx={{}}>
-                    <Link href='/'>Who we are</Link>
-                  </Box>
-                  <Box sx={{}}>
-                    <Link href='/'>Courses</Link>
-                  </Box>
+                <Link href='/'>Home</Link>
+              </Box>
+              {/* <Box sx={{}}>
+                <Link href='/'>Who we are</Link>
+              </Box> */}
+              <Box sx={{}}>
+                <Link href='/trainings'>Classroom Trainings</Link>
+              </Box>
+              <Box sx={{}}>
+                <Link href='https://siltena.com' target="_blank">Online Trainings</Link>
+              </Box>
 
                   <Box
                     sx={{

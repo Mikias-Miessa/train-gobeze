@@ -1,22 +1,40 @@
 import connectMongo from '../../../utils/db'
+import Class from '../../../models/Class' 
 import Student from '../../../models/Student'
 import Payment from '../../../models/Payment'
 
+import { sendEmail } from '../../../utils/email';
 
 export default async function addStudent(req, res){
- const {name, email, phone, bank,course} = req.body;
+    const {method,body} = req;
+  
+ const {name, email, phone, bank,course} = body;
  try {
     console.log('connecting...')
     await connectMongo();
     console.log('connected!')
-   
-   const newStudent = await Student.create({
-       name,email,phone,course 
+   if(method === 'POST'){
+        const newStudent =  new Student({
+       name,email,phone,course
    })
-   const payment = await Payment.create({
+   await newStudent.save();
+   const newPayment =  new Payment({
    student: newStudent._id,bank
 })
-       res.json(newUser)
+await newPayment.save();
+newStudent.payment= newPayment._id;
+await newStudent.save();
+const newStudentPayment = await Payment.findById(newPayment._id).populate({
+    path: 'student',
+    populate: {
+        path: 'course',model:Class
+    }
+})
+console.log(newStudentPayment)
+// sendEmail(newStudentPayment)
+       res.json(newStudent)
+   }
+  
  } catch (err) {
      console.log(err);
      res.status(500).send('Server Error')

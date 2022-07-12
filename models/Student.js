@@ -13,9 +13,9 @@ const StudentSchema = new Schema(
     },
     course: {
       type: Schema.Types.ObjectId,
-      ref: 'course',
+      ref: 'class',
     },
-    PaymentRequest: {
+    payment: {
       type: Schema.Types.ObjectId,
       ref: 'payment',
     },
