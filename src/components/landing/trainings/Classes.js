@@ -10,31 +10,6 @@ import { getRunningClasses } from '../../../../store/classSlice';
 const textStyle = {
     m: 0, letterSpacing: '-0.125px',textDecoration: 'none', verticalAlign: 'unset'
 }
-const courses = [{
-  title: 'Graphic Design', 
-  description: 'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: 'register',
-  image: graphics
-},
-{
-  title: 'Digital Marketing', 
-  description: 'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: 'register',
-  image: graphics
-},
-{
-  title: 'Video Editing', 
-  description: 'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: 'register',
-  image: graphics
-},
-{
-  title: 'Advanced Graphic Design', 
-  description: 'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: 'register',
-  image: graphics
-},
-]
 
 const Courses = () => {
   const {classes, loading} = useSelector((state)=> state.classroom)
