@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react';
 import { useSelector,useDispatch} from 'react-redux'
-import {Box,Paper,Grid, TextField, Button, Select, InputLabel, MenuItem, FormHelperText, Typography} from '@mui/material';
+import {Box,Paper,Grid, TextField, Button, Select, InputLabel, MenuItem, FormHelperText, Typography,Backdrop,CircularProgress, Modal} from '@mui/material';
 import { useRouter } from 'next/router'
 import Footer from "../Footer"
 import Header from "../training/Header"
@@ -10,6 +10,22 @@ import Image from 'next/image';
 import ArrowForwardSharpIcon from '@mui/icons-material/ArrowForwardSharp';
 import {getClass} from '../../../../store/classSlice'
 import {addStudent,reset} from '../../../../store/studentSlice'
+import Information from './Information';
+
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  // border: '2px solid #000',
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
+
 const TrainingsPage = () =>{
   const {singleClass, loading} = useSelector((state)=> state.classroom)
   const {newStudentAdded} = useSelector((state)=> state.student)
@@ -17,14 +33,17 @@ const TrainingsPage = () =>{
 const router = useRouter();
 const dispatch = useDispatch();
 const {query} = router;
-
+// console.log(query)
   const [values, setValues] = useState({
     name: '',
     email: '',
     phone: '',
     course: '',
     bank: 'cbe'
-  })
+  });
+  const [backdrop, setBackdrop] = useState(false);
+  const [info, setInfo] = useState(false);
+
   useEffect(() => {
     if(singleClass){
       setValues({
@@ -34,10 +53,32 @@ const {query} = router;
     }
      
    }, [singleClass])
+
+   useEffect(() => {
+
+    if(newStudentAdded==='pending'){
+      setBackdrop(true)
+    }
+    if(newStudentAdded === 'success'){
+      // toast.success('New course added successfully!');
+      setValues({
+        name: '',
+        email: '',
+        phone: '',
+        course: '',
+        bank: 'cbe'
+      })
+      setInfo(true);
+      setBackdrop(false)
+      dispatch(reset())
+    }
+  }, [newStudentAdded])
+
   useEffect(() => {
-   dispatch(getClass(query.slug));
-    
-  }, [])
+console.log(query)
+    query &&  dispatch(getClass(query.slug));
+  }, [query])
+
   const handleInputChange = (e)=>{
 const {name, value} = e.target;
 
@@ -46,6 +87,10 @@ setValues({
   [name]:value
 })
   }
+
+  const handleClose = () => {
+    setInfo(false);
+  };
   const handleSubmit =(e)=>{
     e.preventDefault();
     // console.log(values)
@@ -76,12 +121,18 @@ setValues({
               backgroundColor: 'rgba(255, 255, 255, 0.8)',
               backdropFilter: 'saturate(200%) blur(30px)',
               boxShadow: 'rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem',
-             
+              '@media screen and (max-width: 784px)': {
+                flexDirection: 'column'
+              },
             }}
             
           >
-            {loading ? <Typography sx={{margin: 'auto', textAlign: 'center'}}>Loading ...</Typography> : <>
-            <Box sx={{width: '50%', p:2}}>
+            {loading ?  <CircularProgress color='primary' sx={{m:'auto'}} /> : <>
+            <Box sx={{width: '50%', p:2,
+          '@media screen and (max-width: 784px)': {
+            width: '100%'
+          },
+          }}>
              <form action="" onSubmit={handleSubmit}>
              <Grid container spacing={3}>
     <Grid item xs={12} >
@@ -169,9 +220,11 @@ value={values.email}
                 </Box>
                 </form>
            </Box>
-           <Box sx={{width: '50%',p:2}}>
-
-
+           <Box sx={{width: '50%',p:2,
+          '@media screen and (max-width: 784px)': {
+            width: '100%'
+          },
+          }}>
            <Grid item xs={12} sx={{
              display: 'flex',flexDirection: 'column'
            }}>
@@ -214,6 +267,23 @@ value={values.email}
           </Paper>
         </main>
         <Footer />
+
+        <Modal
+  open={info}
+  onClose={handleClose}
+>
+  <Box sx={{ ...modalStyle, width: '80%' }}>
+   
+    <Information setOpen={setInfo} />
+  </Box>
+</Modal>
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backdrop}
+      
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       </>
     );
 }

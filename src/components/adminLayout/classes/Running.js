@@ -2,7 +2,7 @@ import {useState,useEffect} from 'react';
 import {useSelector,useDispatch} from 'react-redux'
 import Link from '../../Link';
 import Moment from 'moment';
-import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography,Popper,Fade,IconButton} from '@mui/material';
+import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography,Popper,Fade,IconButton, CircularProgress} from '@mui/material';
 
 import Title from '../../Title';
 import NewClass from './NewClass'
@@ -67,9 +67,7 @@ const dispatch = useDispatch();
             }} >
       <Button variant="contained" onClick={handleOpen}>New Class</Button>
       </Paper>
-      {loading ? <Typography variant='body1' sx={{textAlign: 'center'}}>
-        Loading ...
-        </Typography>: <>
+      {loading ? <CircularProgress color='primary' sx={{m:'auto'}} />: <>
         <Table size="small">
         <TableHead>
           <TableRow>

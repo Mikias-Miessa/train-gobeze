@@ -1,5 +1,6 @@
 import connectMongo from '../../../utils/db'
 import Class from '../../../models/Class' 
+import Course from '../../../models/Course' 
 import Student from '../../../models/Student'
 import Payment from '../../../models/Payment'
 
@@ -14,6 +15,13 @@ export default async function addStudent(req, res){
     await connectMongo();
     console.log('connected!')
    if(method === 'POST'){
+
+    let classFound = await Class.findById(course);
+    if(!classFound){
+        return res.status(400).json({
+            errors: [{ msg: 'Class not found' }],
+          });
+    }
         const newStudent =  new Student({
        name,email,phone,course
    })
@@ -27,10 +35,13 @@ await newStudent.save();
 const newStudentPayment = await Payment.findById(newPayment._id).populate({
     path: 'student',
     populate: {
-        path: 'course',model:Class
+        path: 'course',model:Class,
+        populate:{
+            path: 'course',model:Course
+        }
     }
 })
-console.log(newStudentPayment)
+// console.log(newStudentPayment)
 // sendEmail(newStudentPayment)
        res.json(newStudent)
    }

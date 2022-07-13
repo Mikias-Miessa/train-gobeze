@@ -1,4 +1,4 @@
-import {Box,Paper, Typography} from '@mui/material'
+import {Box,CircularProgress,Paper, Typography} from '@mui/material'
 import ClassDescription from "./ClassDescription"
 import Footer from "../Footer"
 import Header from "./Header"
@@ -48,7 +48,7 @@ const TrainingPage = ({training}) =>{
               <ClassDescription training={training}/>
 
               <Enroll training={training}/>
-            </>:<Typography>Loading ...</Typography>
+            </>: <CircularProgress color='primary' sx={{m:'auto'}} />
             
           }
                

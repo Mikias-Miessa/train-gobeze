@@ -1,7 +1,7 @@
 import  {useState, useEffect} from 'react';
 import Link from '@mui/material/Link';
 import {useSelector,useDispatch} from 'react-redux'
-import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography} from '@mui/material';
+import {Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography, CircularProgress} from '@mui/material';
 
 import Title from '../../Title';
 import NewCourse from './NewCourse'
@@ -87,9 +87,8 @@ const dispatch = useDispatch();
             }} >
       <Button variant="contained" onClick={handleOpen}>New Course</Button>
       </Paper>
-      {loading? <Typography variant='body1' sx={{textAlign: 'center'}}>
-        Loading ...
-        </Typography> : courses.length > 0 ? <>
+      {loading? <CircularProgress color='primary' sx={{margin: 'auto'}}  />
+         : courses.length > 0 ? <>
         <Table size="small">
         <TableHead>
           <TableRow>

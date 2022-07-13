@@ -52,6 +52,9 @@ const ClassDescription = ({training}) => {
             '@media screen and (min-width: 1200px)': {
               maxWidth: '1140px',
             },
+            '@media screen and (max-width: 486px)': {
+              px:0
+            },
           }}
         >
           <Grid
@@ -64,8 +67,8 @@ const ClassDescription = ({training}) => {
               flexFlow: 'row wrap',
               width: '100%',
               m: '0px auto',
-              flexBasis: '83.3333%',
-              maxWidth: '83.3333%',
+              // flexBasis: '83.3333%',
+              // maxWidth: '83.3333%',
               '& .MuiGrid-item': {
                 pl: 3,
                 pt: 3,
