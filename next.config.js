@@ -1,7 +1,8 @@
 module.exports = {
   env:{
     ATLAS_MONGO_URI : "mongodb+srv://natty:wZycRUgZM8CqPY74@cluster0.ndidq.mongodb.net/gobeze?retryWrites=true&w=majority",
-jwtSecret : "secrettoken"
+jwtSecret : "secrettoken",
+emailPassword: 'neenvekyziuguhrq'
 
   },
   reactStrictMode: false,

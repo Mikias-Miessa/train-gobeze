@@ -89,7 +89,9 @@ const Stats = () => {
           }}>
             <CounterCard
               count={300}
-              title="Classes"
+              plus={true}
+
+              title="Trainings"
               description="Of “high-performing” level are led by a certified project manager"
             />
           </Grid>

@@ -42,7 +42,7 @@ const newStudentPayment = await Payment.findById(newPayment._id).populate({
     }
 })
 // console.log(newStudentPayment)
-// sendEmail(newStudentPayment)
+sendEmail(newStudentPayment)
        res.json(newStudent)
    }
   

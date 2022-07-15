@@ -6,7 +6,7 @@ const https = followRedirects.https;
 export const sendEmail = async (obj) => {
   console.log(obj)
   const { student:{name,email,course},_id,bank } = obj;
-  
+  console.log(course)
   const bankAccount = bank == 'cbe' ? '1000228828843' : '0146776045011';
 
   const bankName =
@@ -73,16 +73,16 @@ export const sendEmail = async (obj) => {
     });
 
     // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: '"Gobeze Training" <traingobeze@gmail.com>', // sender address
-      to: `${email}`, // list of receivers
-      subject: `${emailSubject}`, // Subject line
-      text: 'msg', // plain text body
-      html: msg, // html body
-      cc: 'luwamaddis@gmail.com, meaza2095@gmail.com',
-    });
+    // let info = await transporter.sendMail({
+    //   from: '"Gobeze Training" <traingobeze@gmail.com>', // sender address
+    //   to: `${email}`, // list of receivers
+    //   subject: `${emailSubject}`, // Subject line
+    //   text: 'msg', // plain text body
+    //   html: msg, // html body
+    //   cc: 'luwamaddis@gmail.com, meaza2095@gmail.com',
+    // });
 
-    console.log('Message sent: %s', info.messageId);
+    // console.log('Message sent: %s', info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   } catch (err) {
     console.error(err);
