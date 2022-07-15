@@ -12,7 +12,7 @@ export const sendEmail = async (obj) => {
   const bankName =
     bank == 'cbe' ? 'Comercial bank of Ethiopial' : 'Dashen Bank';
   let accountName = 'Gobeze Consult PLC';
-  const price = course && course.price;
+  const price = course?.course?.price;
   try {
    
 //     <p>ሰላም ${name},</p>
@@ -41,7 +41,7 @@ export const sendEmail = async (obj) => {
   <p>Welcome to Gobeze Training.</p>
  
   <p>You can now deposit to ${bankName} to enroll in ${
-      course.courseName && course.courseName
+      course?.course?.courseName && course.course?.courseName
     } Training.</p>
   <div style="margin : 20px 0">
   <h3>PAYMENT DETAILS </h3>
@@ -59,7 +59,7 @@ export const sendEmail = async (obj) => {
           
           `;
     const emailSubject = `Course enrolment for ${
-      course.courseName && course.courseName
+      course?.course?.courseName && course?.course?.courseName
     } - gobeze.com`;
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
@@ -73,16 +73,16 @@ export const sendEmail = async (obj) => {
     });
 
     // send mail with defined transport object
-    // let info = await transporter.sendMail({
-    //   from: '"Gobeze Training" <traingobeze@gmail.com>', // sender address
-    //   to: `${email}`, // list of receivers
-    //   subject: `${emailSubject}`, // Subject line
-    //   text: 'msg', // plain text body
-    //   html: msg, // html body
-    //   cc: 'luwamaddis@gmail.com, meaza2095@gmail.com',
-    // });
+    let info = await transporter.sendMail({
+      from: '"Gobeze Training" <traingobeze@gmail.com>', // sender address
+      to: `${email}`, // list of receivers
+      subject: `${emailSubject}`, // Subject line
+      text: 'msg', // plain text body
+      html: msg, // html body
+      cc: 'luwamaddis@gmail.com, meaza2095@gmail.com',
+    });
 
-    // console.log('Message sent: %s', info.messageId);
+    console.log('Message sent: %s', info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   } catch (err) {
     console.error(err);
