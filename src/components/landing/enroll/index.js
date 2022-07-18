@@ -11,6 +11,8 @@ import ArrowForwardSharpIcon from '@mui/icons-material/ArrowForwardSharp';
 import {getClass} from '../../../../store/classSlice'
 import {addStudent,reset} from '../../../../store/studentSlice'
 import Information from './Information';
+import PhoneInput,{isValidPhoneNumber} from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'
 
 const modalStyle = {
   position: 'absolute',
@@ -43,7 +45,9 @@ const {query} = router;
   });
   const [backdrop, setBackdrop] = useState(false);
   const [info, setInfo] = useState(false);
-
+  const [phone,setPhone] = useState('');
+  const [validPhoneNumber,setValidPhone] = useState(false);
+  
   useEffect(() => {
     if(singleClass){
       setValues({
@@ -51,8 +55,14 @@ const {query} = router;
         course: singleClass._id
       })
     }
-     
-   }, [singleClass])
+   }, [singleClass]);
+
+   useEffect(() => {
+     console.log(phone)
+     if(phone !== undefined){
+      setValidPhone(isValidPhoneNumber(phone));
+     }
+   }, [phone])
 
    useEffect(() => {
 
@@ -80,12 +90,14 @@ console.log(query)
   }, [query])
 
   const handleInputChange = (e)=>{
+    console.log(e)
 const {name, value} = e.target;
 
 setValues({
   ...values,
   [name]:value
-})
+});
+
   }
 
   const handleClose = () => {
@@ -93,8 +105,8 @@ setValues({
   };
   const handleSubmit =(e)=>{
     e.preventDefault();
-    // console.log(values)
-    dispatch(addStudent(values))
+    // console.log(validPhoneNumber)
+    validPhoneNumber &&  dispatch(addStudent(values))
   }
     return (
       <>
@@ -161,7 +173,7 @@ value={values.email}
           />
         </Grid>
     <Grid item xs={12}>
-          <TextField
+          {/* <TextField
             required
             name="phone"
             label="Phone number"
@@ -169,8 +181,26 @@ value={values.email}
             value={values.phone}
             // variant="standard"
             onChange={handleInputChange}
-          />
+          /> */}
                <Grid item xs={12}>
+               <Grid item xs={12} sx={{
+                 '& input':{
+                    p: 2,my:2
+                 }
+               }}>
+               <PhoneInput
+               international
+                defaultCountry="ET"
+                name='phone'
+      placeholder="phone number"
+      value={values.phone}
+      onChange={setPhone}
+      required      
+      />
+     {!validPhoneNumber && <Typography sx={{color: 'red', p: '8px 16px'}}>
+        Not a valid phone number.
+      </Typography>} 
+              </Grid>
       <InputLabel id="bank">Bank of Choice</InputLabel>
   <Select
     labelId="bank"
