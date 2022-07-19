@@ -34,7 +34,7 @@ const initialState = {
     async (course,thunkAPI) =>{
      // console.log(course)
       const { courseName,
-      courseCode,
+      courseCode,duration,
       price,online_url } = course;
       const config = {
         headers: {
@@ -43,7 +43,7 @@ const initialState = {
       };
       const body = JSON.stringify({ courseName,
         courseCode,
-        price,online_url });
+        price,duration,online_url });
         try {
         const res = await axios.post('/api/courses', body, config);
   console.log(res.data)

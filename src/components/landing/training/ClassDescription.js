@@ -8,15 +8,9 @@ const textStyle = {
   textDecoration: 'none',
   verticalAlign: 'unset',
 };
-const training = {
-  title: 'Graphic Design',
-  description:
-    'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: '/register',
-  image: graphics,
-};
 
 const ClassDescription = ({training}) => {
+
   return (
     <>
       <Box
@@ -42,7 +36,7 @@ const ClassDescription = ({training}) => {
             '@media screen and (min-width: 768px)': {
               position: 'relative',
               px: '1.5rem',
-              maxWidth: '720px ',
+              maxWidth: '922px ',
             },
             '@media screen and (min-width: 992px)': {
               position: 'relative',
@@ -221,7 +215,7 @@ const ClassDescription = ({training}) => {
                         m: 0,
                       }}
                     >
-                      Duration -
+                        Duration -
                     </Typography>
                     <Typography
                       component='span'
@@ -234,7 +228,7 @@ const ClassDescription = ({training}) => {
                         fontWeight: '300',
                       }}
                     >
-                      1 month
+                      {training.course?.duration}
                     </Typography>
                   </Box>
                 </Grid>

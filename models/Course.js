@@ -11,6 +11,9 @@ const CourseSchema = new Schema(
     courseCode: {
       type: String,
     },
+    duration:{
+      type: String
+    },
     price: {
       type: String,
     },

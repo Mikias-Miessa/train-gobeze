@@ -5,17 +5,31 @@ import { Grid, TextField, Box, Button,Backdrop,CircularProgress } from "@mui/mat
 import { toast} from 'react-toastify'
 import {addCourse,reset} from '../../../../store/courseSlice';
 
-const NewCourse = ({setOpen}) => {
-  const [values, setValues] = useState({
-    courseName: '',
+const NewCourse = ({setOpen,course}) => {
+
+console.log(course)
+    const [values, setValues] = useState({
+        courseName: '',
     courseCode: '',
     duration: '',
     price: '',
     online_url: '',
-    
-  })
+    })
   const [backdrop, setBackdrop] = useState(false);
 
+  useEffect(() => {
+
+   if(course){
+       console.log(course)
+       setValues({
+        courseName: course.courseName ? course.courseName : '',
+        courseCode:course.courseCode ? course.courseCode : '',
+        duration:course.duration ? course.duration : '',
+        price:course.price ? course.price : '',
+        online_url:course.online_url ? course.online_url : '',
+       })
+   }
+  }, [])
 const {courses, loading,newCourseAdded} = useSelector((state)=> state.course)
 // const {alert} = useSelector((state)=> state.alert)
 
@@ -31,7 +45,7 @@ const dispatch = useDispatch();
   const handleSubmit =(e)=>{
     e.preventDefault();
     console.log(values)
-    dispatch(addCourse(values))
+    // dispatch(addCourse(values))
   }
 
  

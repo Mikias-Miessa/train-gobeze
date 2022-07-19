@@ -10,7 +10,7 @@ import Course from '../../../models/Course'
 
  const handler = async (req, res)=> {
  const {method,body} = req;
- const {courseName,courseCode, price,online_url} = body;
+ const {courseName,courseCode,duration, price,online_url} = body;
  console.log('connecting...')
  await connectMongo();
  console.log('connected!')
@@ -19,7 +19,7 @@ import Course from '../../../models/Course'
       const slug = slugify(courseName);
        
         let course = new Course({
-            courseName,slug,courseCode, price,online_url
+            courseName,slug,courseCode,duration, price,online_url
         });
        await course.save();
         res.json(course);
