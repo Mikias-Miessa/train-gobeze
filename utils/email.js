@@ -79,7 +79,7 @@ export const sendEmail = async (obj) => {
       subject: `${emailSubject}`, // Subject line
       text: 'msg', // plain text body
       html: msg, // html body
-      cc: 'luwamaddis@gmail.com, meaza2095@gmail.com',
+      cc: 'luwamaddis@gmail.com, nfeleke568@gmail.com',
     });
 
     console.log('Message sent: %s', info.messageId);

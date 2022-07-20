@@ -165,7 +165,7 @@ const [backdrop, setBackdrop] = useState(false);
 
         <Grid item xs={12}>
           <TextField
-            required
+            // required
             name="instructor"
             label="Course instructor"
             fullWidth

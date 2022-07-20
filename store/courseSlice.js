@@ -61,6 +61,38 @@ const initialState = {
     }
   )
   
+    //update course
+ export const updateCourse = createAsyncThunk(
+  "course/update",
+  async (course,thunkAPI) =>{
+   console.log(course)
+    const { id,courseName,
+    courseCode,duration,
+    price,online_url } = course;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({ id,courseName,
+      courseCode,
+      price,duration,online_url });
+      try {
+      const res = await axios.put(`/api/courses`, body, config);
+console.log(res.data)
+      return res.data;
+      
+      } catch (error) {
+        console.log(error)
+        const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
+        console.log(message)
+             
+           return thunkAPI.rejectWithValue(message)
+          
+      }
+  }
+)
+
   export const courseSlice = createSlice({
       name: 'course',
       initialState,
@@ -94,6 +126,32 @@ const initialState = {
                 // state.error= action.error.message
             }
           )
+          .addCase(updateCourse.pending, (state, action) => {
+            state.loading = true;
+            state.newCourseAdded = 'pending';
+
+          })
+          // You can chain calls, or have separate `builder.addCase()` lines each time
+          .addCase(updateCourse.fulfilled, (state, action) => {
+            state.loading = false;
+            state.courses = state.courses.map(course=> {
+              if(course._id === action.payload._id) return action.payload;
+              return course;
+            })
+            state.newCourseAdded = 'success';
+           
+          })
+          // You can match a range of action types
+          .addCase(
+            updateCourse.rejected,
+            // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
+            (state, action) => {
+                state.loading = false;
+            state.newCourseAdded = '';
+
+                // state.error= action.error.message
+            }
+          )
           .addCase(getCourses.pending, (state, action) => {
             state.loading = true;
 
@@ -102,14 +160,7 @@ const initialState = {
             console.log(action.payload);
             state.loading = false;
             state.courses = action.payload;
-            
-  // const dispatch = useDispatch();
-
-  //           dispatch(setAlert({
-  //             msg: 'Course added'
-  //             , alertType: 'success'
-  //           }))
-           
+                   
           })
           .addCase(
             getCourses.rejected,

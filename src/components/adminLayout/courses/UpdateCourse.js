@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import {useSelector, useDispatch } from 'react-redux';
 import { Grid, TextField, Box, Button,Backdrop,CircularProgress } from "@mui/material"
 import { toast} from 'react-toastify'
-import {addCourse,reset} from '../../../../store/courseSlice';
+import {updateCourse,reset} from '../../../../store/courseSlice';
 
 const NewCourse = ({setOpen,course}) => {
 
-console.log(course)
+// console.log(course)
     const [values, setValues] = useState({
         courseName: '',
     courseCode: '',
@@ -20,7 +20,6 @@ console.log(course)
   useEffect(() => {
 
    if(course){
-       console.log(course)
        setValues({
         courseName: course.courseName ? course.courseName : '',
         courseCode:course.courseCode ? course.courseCode : '',
@@ -30,7 +29,7 @@ console.log(course)
        })
    }
   }, [])
-const {courses, loading,newCourseAdded} = useSelector((state)=> state.course)
+const {newCourseAdded} = useSelector((state)=> state.course)
 // const {alert} = useSelector((state)=> state.alert)
 
 const dispatch = useDispatch();
@@ -44,20 +43,23 @@ const dispatch = useDispatch();
   }
   const handleSubmit =(e)=>{
     e.preventDefault();
-    console.log(values)
-    // dispatch(addCourse(values))
+    // console.log(values)
+    dispatch(updateCourse({
+      ...values,
+      id:course._id
+    }))
   }
 
  
 
   useEffect(() => {
-
+console.log(newCourseAdded)
     if(newCourseAdded==='pending'){
       setBackdrop(true)
     }
     if(newCourseAdded === 'success'){
-      toast.success('New course added successfully!');
-      setOpen(false);
+      toast.success('Course updated successfully!');
+      setOpen();
       setBackdrop(false)
       dispatch(reset())
     }
@@ -76,6 +78,7 @@ const dispatch = useDispatch();
             label="Course name"
             fullWidth
             variant="standard"
+            value={values.courseName}
             onChange={handleInputChange}
           />
         </Grid>
@@ -87,6 +90,7 @@ const dispatch = useDispatch();
             label="Course code"
             fullWidth
             variant="standard"
+            value={values.courseCode}
             onChange={handleInputChange}
           />
         </Grid>
@@ -97,6 +101,7 @@ const dispatch = useDispatch();
             label="Duration"
             fullWidth
             variant="standard"
+            value={values.duration}
             onChange={handleInputChange}
           />
         </Grid>
@@ -108,6 +113,7 @@ const dispatch = useDispatch();
             fullWidth
             type='number'
             variant="standard"
+            value={values.price}
             onChange={handleInputChange}
           />
         </Grid>
@@ -119,6 +125,7 @@ const dispatch = useDispatch();
             label="Url to Online course"
             fullWidth
             variant="standard"
+            value={values.online_url}
             onChange={handleInputChange}
           />
         </Grid>
@@ -126,7 +133,7 @@ const dispatch = useDispatch();
          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                  
                     <Button onClick={()=>{
-                      setOpen(false)
+                      setOpen()
                     }} sx={{ mt: 3, ml: 1 }}>
                       Cancel
                     </Button>
@@ -138,7 +145,7 @@ const dispatch = useDispatch();
                     // onClick={handleSubmit}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                   Add
+                   Update
                   </Button>
                 </Box>
                 </form>

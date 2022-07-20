@@ -9,8 +9,8 @@ import Course from '../../../models/Course'
 
 
  const handler = async (req, res)=> {
- const {method,body} = req;
- const {courseName,courseCode,duration, price,online_url} = body;
+ const {method,body,query} = req;
+ const {id,courseName,courseCode,duration, price,online_url} = body;
  console.log('connecting...')
  await connectMongo();
  console.log('connected!')
@@ -28,7 +28,30 @@ import Course from '../../../models/Course'
          res.status(500).send('Server Error')
      }
  }
+ if(method === 'PUT') {
 
+    try {
+      const slug = slugify(courseName);
+   
+        let course = await Course.findById(id)
+        if(!course){
+            return res.status(400).json({
+                errors: [{ msg: 'Course not found' }],
+              });
+        }
+        course.courseName = courseName;
+        course.slug = slug;
+        course.duration = duration;
+        course.price = price;
+        course.online_url = online_url;
+       await course.save();
+       console.log(course)
+       res.json(course);
+     } catch (err) {
+         console.log(err);
+         res.status(500).send('Server Error')
+     }
+ }
  if(method === 'GET') {
     try {
        
