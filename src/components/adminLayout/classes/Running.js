@@ -61,7 +61,7 @@ const dispatch = useDispatch();
 
   return (
     <>
-      <Title>Running Classes (5)</Title>
+      <Title>{`Running Classes (${classes.length})`}</Title>
       <Paper elevation={0}  sx={{
               p: '24px'
             }} >
@@ -93,7 +93,7 @@ const dispatch = useDispatch();
               <TableCell>
               <Box  sx={{ display: 'flex', gap: '1rem' }}>
                 <Typography>{item.students ? item.students.length : 0}</Typography>
-         <Link href={`/admin/classes/students`} >See Students</Link>
+         <Link href={`/admin/classes/${item.slug && item.slug}`} >See Students</Link>
     </Box>
                 
 

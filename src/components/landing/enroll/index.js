@@ -63,7 +63,10 @@ const {query} = router;
    }, [singleClass]);
 
    useEffect(() => {
-     console.log(phone)
+     setValues({
+       ...values,
+       phone
+     })
      if(phone !== undefined){
       setValidPhone(isValidPhoneNumber(phone));
      }
@@ -75,7 +78,6 @@ const {query} = router;
       setBackdrop(true)
     }
     if(newStudentAdded === 'success'){
-      // toast.success('New course added successfully!');
       // setValues({
       //   name: '',
       //   email: '',
@@ -110,7 +112,7 @@ setValues({
   };
   const handleSubmit =(e)=>{
     e.preventDefault();
-    // console.log(validPhoneNumber)
+    console.log(values)
     validPhoneNumber &&  dispatch(addStudent(values))
   }
     return (

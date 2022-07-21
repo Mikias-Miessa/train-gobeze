@@ -52,7 +52,7 @@ let gfs;
 
     try {
    
-       let course = await Class.findOne({slug: query.slug}).populate('course');
+       let course = await Class.findOne({slug: query.slug}).populate('course students');
       if(!course){
         return res.status(400).json({
           errors: [{ msg: 'Course not found' }],

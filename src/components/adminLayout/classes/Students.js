@@ -1,10 +1,14 @@
-import * as React from 'react';
+import { useRouter } from 'next/router'
+import {useState, useEffect} from 'react';
 import Link from '@mui/material/Link';
-// import  from '@mui/material/Table';
-import {Grid, Container,Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography, Divider} from '@mui/material';
+import Moment from 'moment';
+import {useSelector,useDispatch} from 'react-redux'
+import {Grid, Container,Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography, Divider, CircularProgress} from '@mui/material';
+import { getClass } from '../../../../store/classSlice';
 
 import Title from '../../Title';
 import NewClass from './NewClass'
+
 // Generate Order Data
 function createData(id,name, phone, email, paidAmount, registeredBy) {
   return { id,name, phone, email, paidAmount, registeredBy };
@@ -71,8 +75,18 @@ function preventDefault(event) {
 }
 
 export default function Students() {
+  const dispatch = useDispatch();
+const router = useRouter();
+const {query} = router;
+  const {singleClass, loading} = useSelector((state)=> state.classroom)
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+console.log(singleClass)
+  useEffect(() => {
+    // console.log(query)
+        query &&  dispatch(getClass(query.id));
+      }, [query])
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -84,15 +98,14 @@ export default function Students() {
     <>
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
     <Grid container spacing={3}>
-     
-      {/* Recent Running */}
-      <Grid item xs={12}>
+    {loading ? <CircularProgress color='primary' sx={{m:'auto'}} />: singleClass && <>
+     <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: '2rem'}}>
                 <div>
-                <Title>Graphic Design</Title>
+                <Title>{singleClass.course?.courseName}</Title>
         <Typography variant='body1'>
-            GD101
+        {singleClass.course?.courseCode}
         </Typography>    
                 </div>
                
@@ -100,11 +113,13 @@ export default function Students() {
         <Divider orientation='vertical' flexItem/>
         <div>
 
-        <Typography variant='h2' sx={{fontSize: '1rem'}}>
-            July 2 ( Batch Name )
+        <Typography variant='h2' sx={{fontSize: '1rem',color: 'primary.main'}}>
+           Start Date :  {singleClass.start_date && Moment(singleClass.start_date).format(
+            'MMM DD YYYY '
+          )}
         </Typography>   
-        <Typography variant='h2' sx={{fontSize: '1rem', mt: '1rem', color: 'primary.main'}}>
-            5 Students
+        <Typography variant='h2' sx={{fontSize: '1rem', mt: '1rem', }}>
+            {singleClass.students.length} Students
         </Typography>  
         </div>
             </Box>
@@ -127,8 +142,8 @@ export default function Students() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
+          {singleClass.students.length > 0 ? singleClass.students.map((row,index) => row && (
+            <TableRow key={index}>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.phone}</TableCell>
               <TableCell>{row.email}</TableCell>
@@ -146,13 +161,22 @@ export default function Students() {
               {/* <TableCell>{row.price}</TableCell> */}
               {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
             </TableRow>
-          ))}
+          )): <></>}
         </TableBody>
       </Table>
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more 
       </Link>
-      <Modal
+     
+        </Paper>
+      </Grid>
+    </>}
+     
+     
+    </Grid>
+  
+  </Container>
+  <Modal
   open={open}
   onClose={handleClose}
   aria-labelledby="parent-modal-title"
@@ -166,13 +190,6 @@ export default function Students() {
     <NewClass setOpen={setOpen} />
   </Box>
 </Modal>
-        </Paper>
-      </Grid>
-     
-    </Grid>
-  
-  </Container>
-      
     </>
   );
 }
