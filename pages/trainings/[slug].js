@@ -7,7 +7,7 @@ const Training = ({training}) => {
   console.log(training)
   return (
    <>
-    <HeadLayout >
+    <HeadLayout title={training?.course?.courseName}  description={training?.description}  image={training?.thumbnail} >
       <TrainingPage training={training}/>
     </HeadLayout>
    </>

@@ -1,12 +1,26 @@
 import Head from 'next/head'
 
-const HeadLayout = ({title, keywords, description, children}) => {
+const HeadLayout = ({title, keywords, description, children,image}) => {
   return (
     <div>
         <Head>
             <title>{title}</title>
             <meta name='description' content={description} />
             <meta name='keywords' content={keywords} />
+            {/* for facebook */}
+            <meta property="og:url" content="https://gobeze.com" /> 
+    <meta property="og:type" content="website" /> 
+    <meta property="og:title" content={title} />
+   <meta property="og:description" content={description} />
+   <link rel="canonical" href="https://gobeze.com/" />
+ {image && <meta property="og:image" content={image} />}   
+   {/* for twitter */}
+   <meta name="twitter:card" content="summary_large_image" />
+   <meta property="twitter:domain" content="gobeze.com" />
+   <meta property="twitter:url" content="https://gobeze.com" />
+   <meta name="twitter:title" content={title} />
+  {image && <meta name="twitter:image" content={image} />} 
+   <meta name="twitter:description" content={description} />
         </Head>
         
         {children}</div>
