@@ -45,6 +45,11 @@ const {query} = router;
   });
   const [backdrop, setBackdrop] = useState(false);
   const [info, setInfo] = useState(false);
+  // const [infoData, setInfoData] = useState({
+  //   name: '',
+  //   email: '',
+  //   bank: 'cbe'
+  // });
   const [phone,setPhone] = useState('');
   const [validPhoneNumber,setValidPhone] = useState(false);
   
@@ -71,13 +76,13 @@ const {query} = router;
     }
     if(newStudentAdded === 'success'){
       // toast.success('New course added successfully!');
-      setValues({
-        name: '',
-        email: '',
-        phone: '',
-        course: '',
-        bank: 'cbe'
-      })
+      // setValues({
+      //   name: '',
+      //   email: '',
+      //   phone: '',
+      //   course: '',
+      //   bank: 'cbe'
+      // })
       setInfo(true);
       setBackdrop(false)
       dispatch(reset())

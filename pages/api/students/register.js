@@ -26,6 +26,8 @@ export default async function addStudent(req, res){
        name,email,phone,course
    })
    await newStudent.save();
+   classFound.students.push(newStudent._id);
+   await classFound.save();
    const newPayment =  new Payment({
    student: newStudent._id,bank
 })

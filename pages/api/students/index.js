@@ -27,6 +27,20 @@ import Course from '../../../models/Course'
          res.status(500).send('Server Error')
      }
   })
+  // .delete(async (req, res) => {
+
+  //   try {
+   
+  //     await Student.deleteMany({})
+     
+  //      res.json({
+  //        msg: 'all students deleted'
+  //      });
+  //    } catch (err) {
+  //        console.log(err);
+  //        res.status(500).send('Server Error')
+  //    }
+  // })
  
 
 // create a handler from router with custom
