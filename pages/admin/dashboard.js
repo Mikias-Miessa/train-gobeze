@@ -1,5 +1,6 @@
 import AdminLayout from "../../src/components/adminLayout"
 import Dashboard from "../../src/components/adminLayout/dashboard"
+import withAuth from "../../src/utils/withAuth"
 
 const dashboard = () => {
   return (
@@ -7,4 +8,4 @@ const dashboard = () => {
   )
 }
 
-export default dashboard
+export default withAuth(dashboard)

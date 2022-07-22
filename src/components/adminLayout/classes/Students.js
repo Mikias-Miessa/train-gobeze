@@ -7,7 +7,7 @@ import {Grid, Container,Table,TableBody,TableCell, TableHead,TableRow,Button, Pa
 import { getClass } from '../../../../store/classSlice';
 
 import Title from '../../Title';
-import NewClass from './NewClass'
+import NewStudent from './NewStudent'
 
 // Generate Order Data
 function createData(id,name, phone, email, paidAmount, registeredBy) {
@@ -122,12 +122,18 @@ console.log(singleClass)
             {singleClass.students.length} Students
         </Typography>  
         </div>
+        <Divider orientation='vertical' flexItem/>
+
+        <div>
+      <Button variant="contained" sx={{fontSize: '0.75rem',p: '4px 12px'}} onClick={handleOpen}>Enroll New Student</Button>
+
+        </div>
             </Box>
         
       <Paper elevation={0}  sx={{
-              p: '24px'
+              p: 2
             }} >
-      <Button variant="contained" onClick={handleOpen}>Enroll New Student</Button>
+              <Typography component='h4' sx={{fontSize: '1.125rem',fontWeight: '500'}}>List of Enrolled Students</Typography>
       </Paper>
       <Table size="small">
         <TableHead>
@@ -142,14 +148,14 @@ console.log(singleClass)
           </TableRow>
         </TableHead>
         <TableBody>
-          {singleClass.students.length > 0 ? singleClass.students.map((row,index) => row && (
+          {singleClass.students.filter(student=> student.status ==='enrolled').length > 0 ? singleClass.students.filter(student=> student.status ==='enrolled').map((row,index) => row && (
             <TableRow key={index}>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.phone}</TableCell>
               <TableCell>{row.email}</TableCell>
               
               <TableCell sx={{background: row.paidAmount >= 3800 ? '': 'red' }}>{row.paidAmount}</TableCell>
-              <TableCell >{row.registeredBy}</TableCell>
+              <TableCell >{row.registered_online ? 'Online' : row.registeredBy}</TableCell>
               <TableCell>
               {/* <Box  sx={{ display: 'flex', gap: '1rem' }}>
                 <Typography>{row.enrolledStudents}</Typography>
@@ -161,7 +167,7 @@ console.log(singleClass)
               {/* <TableCell>{row.price}</TableCell> */}
               {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
             </TableRow>
-          )): <></>}
+          )): <> <TableRow > <TableCell sx={{textAlign:'center',color:'gray'}} colSpan={5}> No Students enrolled in this course</TableCell></TableRow></>}
         </TableBody>
       </Table>
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
@@ -182,12 +188,12 @@ console.log(singleClass)
   aria-labelledby="parent-modal-title"
   aria-describedby="parent-modal-description"
 >
-  <Box sx={{ ...modalStyle, width: 400 }}>
-    <h2 id="parent-modal-title">Add new class</h2>
+  <Box sx={{ ...modalStyle, width: 500 }}>
+    <h2 id="parent-modal-title">Enroll new Student in <Box component='span' sx={{fontWeight: '300',color: 'primary.main'}} >{singleClass?.course?.courseName} </Box> </h2>
     <p id="parent-modal-description">
-      Add In-person classes which are held on Gobeze.
+      Add a student who has made payment.
     </p>
-    <NewClass setOpen={setOpen} />
+    <NewStudent setOpen={setOpen} course={singleClass?._id}  />
   </Box>
 </Modal>
     </>

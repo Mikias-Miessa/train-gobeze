@@ -45,11 +45,6 @@ const {query} = router;
   });
   const [backdrop, setBackdrop] = useState(false);
   const [info, setInfo] = useState(false);
-  // const [infoData, setInfoData] = useState({
-  //   name: '',
-  //   email: '',
-  //   bank: 'cbe'
-  // });
   const [phone,setPhone] = useState('');
   const [validPhoneNumber,setValidPhone] = useState(false);
   

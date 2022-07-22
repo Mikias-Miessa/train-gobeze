@@ -1,17 +1,10 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router'
 import {useSelector, useDispatch} from 'react-redux'
 import { toast} from 'react-toastify'
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from './Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import Link from '../components/Link'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import {Container,CircularProgress,Typography,Box,Grid,TextField,CssBaseline, Button,Avatar,Backdrop} from '@mui/material';
 import {login,reset} from '../../store/authSlice';
 
 function Copyright(props) {
@@ -28,28 +21,37 @@ function Copyright(props) {
 export default function Login() {
 const dispatch = useDispatch();
 const router = useRouter()
-const {user, isAuthenticated,isSuccess, loading, error} = useSelector((state)=> state.auth)
+const {user, isAuthenticated,isSuccess, loading, error,status} = useSelector((state)=> state.auth)
+const [backdrop, setBackdrop] = useState(false);
 
 useEffect(()=>{
-
-  
+  if(status==='pending'){
+    setBackdrop(true)
+  }
+  if(status===''){
+    setBackdrop(false)
+  }
   if(error){
+    setBackdrop(false)
+
   console.log(error.length)
   // console.log(error)
 error.forEach(err =>{
   toast.error(err.msg)
 })
 if( isAuthenticated){
+  setBackdrop(false)
   router.push('/admin/dashboard')
 }
 if(isSuccess || user ){
   toast.success('Login Success')
+  setBackdrop(false)
   router.push('/admin/dashboard')
 }
 dispatch(reset)
 }
 
-},[user, isAuthenticated, error,loading,router,dispatch])
+},[user, isAuthenticated, error,loading,router,status,dispatch])
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -63,7 +65,7 @@ dispatch(reset)
     }))
   };
 
-  return (
+  return (<>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -125,5 +127,13 @@ dispatch(reset)
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
+      <Backdrop
+        sx={{ color: 'primary.main', zIndex: (theme) => theme.zIndex.drawer + 10 }}
+        open={backdrop}
+      
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+              </>
   );
 }

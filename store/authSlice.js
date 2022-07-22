@@ -10,7 +10,8 @@ const initialState = {
     loading: true,
     user: null,
     dashboard: null,
-    error: null
+    error: null,
+    status: ''
   };
 
   //Load User
@@ -109,6 +110,7 @@ console.log(res.data)
           )
           .addCase(login.pending, (state, action) => {
             state.loading = true 
+            state.status='pending';
           })
           .addCase(login.fulfilled, (state, action) => {
             state.loading = false;
@@ -116,12 +118,16 @@ console.log(res.data)
             console.log(action.payload)
             state.user = action.payload.user
             state.isAuthenticated = true;
+            state.status='';
+
           })
           .addCase(
             login.rejected,
             (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            state.status='error';
+
             }
           )
       },

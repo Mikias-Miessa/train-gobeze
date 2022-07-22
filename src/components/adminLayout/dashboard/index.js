@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Statistics from '../dashboard/Statistics';
 import RunningClasses from './RunningClasses';
-import Orders from '../dashboard/Orders';
+import RecentRegistration from './RecentRegistration';
 
 export default function Dashboard() {
     return<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -47,10 +47,9 @@ export default function Dashboard() {
           <Statistics />
         </Paper>
       </Grid>
-      {/* Recent Orders */}
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-          <Orders />
+          <RecentRegistration />
         </Paper>
       </Grid>
     </Grid>

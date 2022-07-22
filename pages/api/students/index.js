@@ -3,7 +3,7 @@ import {createRouter} from 'next-connect'
 import connectMongo from '../../../utils/db'
 import userAuth from '../../../middleware/userAuth'
 import Student from '../../../models/Student'
-import Course from '../../../models/Course'
+import Class from '../../../models/Class'
 
 
   const router = createRouter();
@@ -19,7 +19,12 @@ import Course from '../../../models/Course'
 
     try {
    
-       let students = await Student.find().populate('course');
+       let students = await Student.find().populate({
+         path:'course',
+         populate:{
+           path:'course'
+         }
+       });
      
        res.json(students);
      } catch (err) {

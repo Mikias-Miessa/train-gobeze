@@ -30,6 +30,7 @@ const masterReducer = (state, action)=>{
       users:[...action.payload.user.users, ...state.user.users],
       courses:[...action.payload.course.courses, ...state.course.courses],
       classes:[...action.payload.classroom.classes, ...state.classroom.classes],
+      students:[...action.payload.student.students, ...state.student.students],
     }
     return nextState;
   }else {

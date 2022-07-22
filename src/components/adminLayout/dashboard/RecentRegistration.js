@@ -1,12 +1,11 @@
-import * as React from 'react';
-import Link from '@mui/material/Link';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Title from '../../Title';
+import {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import Link from '../../Link';
+import {Table,CircularProgress,TableBody,TableCell,TableHead,TableRow, Box } from '@mui/material';
 
+import Title from '../../Title';
+import {getStudents} from '../../../../store/studentSlice'
+import Moment from 'moment';
 // Generate Order Data
 function createData(id,name, phone, email, course,date) {
   return { id, name, phone, email, course,date };
@@ -56,9 +55,15 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Orders() {
+export default function RecentRegistration() {
+  const {students, loading} = useSelector((state)=> state.student)
+
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getStudents());
+  },[])
   return (
-    <React.Fragment>
+    <>
       <Title>Recent Registration </Title>
       <Table size="small">
         <TableHead>
@@ -67,26 +72,32 @@ export default function Orders() {
             <TableCell>Phone</TableCell>
             <TableCell>Email</TableCell>
             <TableCell>Course</TableCell>
-            <TableCell>Dte</TableCell>
+            <TableCell>Registered Date</TableCell>
             {/* <TableCell align="right">Sale Amount</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.phone}</TableCell>
-              <TableCell>{row.email}</TableCell>
-              <TableCell>{row.course}</TableCell>
-              <TableCell>{row.date}</TableCell>
+          {
+      loading ?<TableRow><TableCell colSpan={5}><CircularProgress color='primary' sx={{m:'auto'}} /> </TableCell></TableRow> : 
+          students.map((student,index) => student &&(
+            <TableRow key={index}>
+              <TableCell>{student.name}</TableCell>
+              <TableCell>{student.phone}</TableCell>
+              <TableCell>{student.email}</TableCell>
+              <TableCell>{student.course?.course?.courseName}</TableCell>
+              <TableCell>{student.createdAt && Moment(student.createdAt).format(
+            'MMM DD YYYY '
+          )}</TableCell>
               {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+      <Box sx={{mt: 3 ,'& a':{}}}>
+      <Link  href="/admin/students" >
         See more 
       </Link>
-    </React.Fragment>
+        </Box>
+    </>
   );
 }

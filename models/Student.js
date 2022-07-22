@@ -31,6 +31,10 @@ const StudentSchema = new Schema(
     registered_by:{
       type: Schema.Types.ObjectId,
       ref: 'user',
+    },
+    certificate:{
+      type: Schema.Types.ObjectId,
+      ref: 'certificate',
     }
   },
   {

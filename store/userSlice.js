@@ -8,23 +8,7 @@ const initialState = {
     error:null
   };
 
-  //Load User
-  export const loadUser = createAsyncThunk(
-    "user/loadUser",
-    async (dispatch, getState) =>{
-        setAuthToken(localStorage.token);
-        try {
-          
-        const res = await axios.get('/api/auth/user');
-        console.log(res.data)
-        return res.data
-        } catch (err) {
-            console.log(err.message)
-        }
-        
-    }
-
-)
+  
 // export const loadUser = () => async (dispatch) => {
    
 //     // if (localStorage.token) {
@@ -59,27 +43,27 @@ const initialState = {
             state.loading = false
           }
       },
-      extraReducers: (builder) => {
-        builder
-          .addCase(loadUser.pending, (state, action) => {
-            state.loading = true 
-          })
-          // You can chain calls, or have separate `builder.addCase()` lines each time
-          .addCase(loadUser.fulfilled, (state, action) => {
-            state.loading = false;
-            // console.log(action.payload)
-            state.user = action.payload
-          })
-          // You can match a range of action types
-          .addMatcher(
-            loadUser.rejected,
-            // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
-            (state, action) => {
-                state.loading = false;
-                // state.error= action.error.message
-            }
-          )
-      },
+      // extraReducers: (builder) => {
+      //   builder
+      //     .addCase(loadUser.pending, (state, action) => {
+      //       state.loading = true 
+      //     })
+      //     // You can chain calls, or have separate `builder.addCase()` lines each time
+      //     .addCase(loadUser.fulfilled, (state, action) => {
+      //       state.loading = false;
+      //       // console.log(action.payload)
+      //       state.user = action.payload
+      //     })
+      //     // You can match a range of action types
+      //     .addMatcher(
+      //       loadUser.rejected,
+      //       // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
+      //       (state, action) => {
+      //           state.loading = false;
+      //           // state.error= action.error.message
+      //       }
+      //     )
+      // },
     //   extraReducers: {
     //       [loadUser.pending]: (state, action)=>{
     //           state.loading = true 

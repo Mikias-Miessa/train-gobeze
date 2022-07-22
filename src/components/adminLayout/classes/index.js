@@ -14,11 +14,11 @@ export default function Classes() {
           <Running />
         </Paper>
       </Grid>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
           <Closed />
         </Paper>
-      </Grid>
+      </Grid> */}
     </Grid>
   
   </Container>;

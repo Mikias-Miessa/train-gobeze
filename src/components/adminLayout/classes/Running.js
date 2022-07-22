@@ -76,6 +76,7 @@ const dispatch = useDispatch();
             <TableCell>Start Date</TableCell>
             <TableCell>Instructor</TableCell>
             <TableCell>Enrolled Students</TableCell>
+            <TableCell></TableCell>
             {/* <TableCell>Price</TableCell> */}
             {/* <TableCell align="right">Sale Amount</TableCell> */}
           </TableRow>
@@ -92,7 +93,7 @@ const dispatch = useDispatch();
               <TableCell>{item.instructor && item.instructor}</TableCell>
               <TableCell>
               <Box  sx={{ display: 'flex', gap: '1rem' }}>
-                <Typography>{item.students ? item.students.length : 0}</Typography>
+                <Typography>{item.students ? item.students.filter(student=>student.status==='enrolled').length : 0}</Typography>
          <Link href={`/admin/classes/${item.slug && item.slug}`} >See Students</Link>
     </Box>
                 

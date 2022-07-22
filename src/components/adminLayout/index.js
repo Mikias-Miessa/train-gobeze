@@ -20,7 +20,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './dashboard/Chart';
 import RunningClasses from './dashboard/RunningClasses';
-import Orders from './dashboard/Orders';
+import RecentRegistration from './dashboard/RecentRegistration';
 import HeadLayout from '../HeadLayout';
 import Link from '../Link'
 import logo from '../../images/logo.png'
@@ -190,10 +190,10 @@ function Dashboard() {
         <RunningClasses />
       </Paper>
     </Grid>
-    {/* Recent Orders */}
+    {/* Recent RecentRegistration */}
     <Grid item xs={12}>
       <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-        <Orders />
+        <RecentRegistration />
       </Paper>
     </Grid>
   </Grid>

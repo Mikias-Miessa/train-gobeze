@@ -1,8 +1,9 @@
+import { useRouter } from 'next/router'
 import {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { wrapper, store } from "../store/store";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
@@ -12,7 +13,7 @@ import axios from 'axios'
 import theme from '../src/theme';
 import 'react-toastify/dist/ReactToastify.css'
 import '../src/style.css'
-import {loadUser} from '../store/userSlice'
+import {loadUser} from '../store/authSlice'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -20,16 +21,17 @@ const clientSideEmotionCache = createEmotionCache();
 // axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://api.gobeze.com' : 'http://localhost:8000/';
 
  const MyApp = (props)=> {
-
+  const router = useRouter()
   const dispatch = useDispatch();
 
-  dispatch(loadUser() )
+  console.log('got')
   useEffect(() => {
-    console.log('got in app.js')
- 
-  }, [])
-  
+    dispatch(loadUser() )
+      }, [])
+     
+      
 
+  
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   return (<>
