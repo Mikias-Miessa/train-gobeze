@@ -1,8 +1,9 @@
+import { useRouter } from 'next/router'
 import { useSelector } from "react-redux";
 import Login from '../components/Login';
-
 const withAuth = Component => {
     const Auth = (props) => {
+      const router = useRouter()
   const {isAuthenticated, loading} = useSelector((state)=> state.auth)
 
       // useEffect(() => {
@@ -19,6 +20,7 @@ const withAuth = Component => {
           <Login />
         );
       }
+
   
       // If user is logged in, return original component
       return (

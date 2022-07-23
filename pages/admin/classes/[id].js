@@ -1,5 +1,6 @@
 import AdminLayout from "../../../src/components/adminLayout"
 import Students from "../../../src/components/adminLayout/classes/Students"
+import withAuth from "../../../src/utils/withAuth"
 
 const students = () => {
   return (
@@ -7,4 +8,4 @@ const students = () => {
   )
 }
 
-export default students
+export default withAuth(students)

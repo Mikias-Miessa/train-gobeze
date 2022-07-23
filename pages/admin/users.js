@@ -8,5 +8,5 @@ const users = () => {
   )
 }
 
-export default users
-// export default withAuth(users)
+// export default users
+export default withAuth(users)

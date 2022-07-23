@@ -28,30 +28,35 @@ useEffect(()=>{
   if(status==='pending'){
     setBackdrop(true)
   }
-  if(status===''){
+  if(status==='success' || status==='error'){
     setBackdrop(false)
   }
   if(error){
-    setBackdrop(false)
 
   console.log(error.length)
   // console.log(error)
 error.forEach(err =>{
   toast.error(err.msg)
 })
-if( isAuthenticated){
-  setBackdrop(false)
-  router.push('/admin/dashboard')
 }
 if(isSuccess || user ){
-  toast.success('Login Success')
   setBackdrop(false)
+
+  toast.success('Login Success')
+ 
+  // router.push('/admin/dashboard')
+}
+if( !loading && isAuthenticated){
+
+  console.log('will redirect')
   router.push('/admin/dashboard')
 }
 dispatch(reset)
-}
+
 
 },[user, isAuthenticated, error,loading,router,status,dispatch])
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

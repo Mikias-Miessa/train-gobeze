@@ -16,6 +16,7 @@ const Enroll = ({ training }) => {
           alignItems: 'flex-start',
           justifyContent: 'center',
           gap: '2rem',
+         
         }}
       >
         <Box
@@ -26,8 +27,15 @@ const Enroll = ({ training }) => {
             p: '32px 16px ',
             borderRadius: '0.5rem',
             background: 'white',
+            '@media screen and (max-width: 612px)': {
+              p: '24px 12px',
+            maxWidth: '232px',
+
+            },
           }}
         >
+          <Box sx={{display: 'flex', alignItems: 'center',justifyContent: 'center',gap: '1rem'}}>
+
           <PeopleAltIcon color='secondary' fontSize='large' />
           <Typography
             component='h3'
@@ -36,20 +44,27 @@ const Enroll = ({ training }) => {
               fontWeight: '300',
               opacity: '0.8',
               color: 'secondary.main',
+              '@media screen and (max-width: 612px)': {
+                fontSize: '1.125rem',
+              },
             }}
-          >
+            >
             Inperson
           </Typography>
+            </Box>
           <Typography
             component='p'
             sx={{
-              width: '293px',
+              // width: '293px',
               fontSize: '1rem',
               fontWeight: '300',
               opacity: '0.8',
               my: 2,
               height: '80px',
               color: 'secondary.main',
+              '@media screen and (max-width: 612px)': {
+                fontSize: '0.875rem',
+              },
             }}
           >
             Do you want to have in person learning experience? You can register
@@ -65,6 +80,9 @@ const Enroll = ({ training }) => {
                 color: 'white',
                 borderRadius: '0.5rem',
                 fontWeight: '500',
+                '@media screen and (max-width: 612px)': {
+                  fontSize: '0.875rem',
+                },
               }}
               href={`/enroll/${training.slug && training.slug}`}
             >

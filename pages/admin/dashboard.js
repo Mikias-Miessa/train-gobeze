@@ -8,5 +8,5 @@ const dashboard = () => {
   )
 }
 
-export default dashboard
-// export default withAuth(dashboard)
+
+export default withAuth(dashboard)

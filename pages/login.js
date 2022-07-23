@@ -1,7 +1,7 @@
-import * as React from 'react';
 import HeadLayout from '../src/components/HeadLayout'
 import Login from '../src/components/Login'
-export default function Index() {
+// import withAuth from '../src/utils/withAuth'
+ const LoginPage = ()=> {
   return (
     <HeadLayout >
    
@@ -10,3 +10,6 @@ export default function Index() {
     </HeadLayout>
   );
 }
+
+export default LoginPage
+// export default withAuth(LoginPage)

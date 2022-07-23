@@ -174,12 +174,15 @@ const ClassDescription = ({training}) => {
                       lineHeight: '1.6',
                       fontSize: '1.125rem',
                       fontWeight: '300',
+                      '@media screen and (max-width: 876px)': {
+                        fontSize: '1rem',
+                      lineHeight: '1.5',
+                      },
                     }}
                   >
                     {training.description}
                   </Typography>
-
-                  <Box>
+                  {training.instructor &&<Box>
                     <Typography
                       component='span'
                       sx={{
@@ -191,6 +194,7 @@ const ClassDescription = ({training}) => {
                     >
                       Instructor -
                     </Typography>
+
                     <Typography
                       component='span'
                       variant='body2'
@@ -204,7 +208,8 @@ const ClassDescription = ({training}) => {
                     >
                      {training.instructor}
                     </Typography>
-                  </Box>
+                  </Box> }
+                  
                   <Box>
                     <Typography
                       component='span'
@@ -259,6 +264,10 @@ const ClassDescription = ({training}) => {
                       maxWidth: '400px',
                       '@media screen and (min-width: 0px)': {
                         mt: 6,
+                      },
+                      '@media screen and (max-width: 876px)': {
+                        fontSize: '1.325rem',
+                      lineHeight: '1.5',
                       },
                     }}
                   >

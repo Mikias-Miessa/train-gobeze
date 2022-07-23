@@ -84,7 +84,8 @@ console.log(res.data)
           reset: (state)=>{
             state.isSuccess= false,
             state.error= null,
-            state.loading = false
+            state.loading = true;
+            state.status=''
           }
       },
       extraReducers: (builder) => {
