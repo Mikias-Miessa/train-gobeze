@@ -8,6 +8,7 @@ import connectMongo from '../../../utils/db'
 import userAuth from '../../../middleware/userAuth'
 import Class from '../../../models/Class'
 import Course from '../../../models/Course'
+import Student from '../../../models/Student'
 
 
 export const config ={
@@ -52,7 +53,7 @@ let gfs;
 
     try {
    
-       let course = await Class.findOne({slug: query.slug}).populate('course');
+       let course = await Class.findOne({slug: query.slug}).populate('course students');
       if(!course){
         return res.status(400).json({
           errors: [{ msg: 'Course not found' }],
