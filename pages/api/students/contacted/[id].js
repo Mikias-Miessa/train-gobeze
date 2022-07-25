@@ -2,12 +2,12 @@
 import {createRouter} from 'next-connect'
 import slugify from'slugify'
 import Grid from 'gridfs-stream'
-import connectMongo from '../../../utils/db'
-import userAuth from '../../../middleware/userAuth'
-import Class from '../../../models/Class'
-import Course from '../../../models/Course'
-import Student from '../../../models/Student'
-import Payment from '../../../models/Payment'
+import connectMongo from '../../../../utils/db'
+import userAuth from '../../../../middleware/userAuth'
+import Class from '../../../../models/Class'
+import Course from '../../../../models/Course'
+import Student from '../../../../models/Student'
+import Payment from '../../../../models/Payment'
 
 
 export const config ={
