@@ -49,7 +49,7 @@ const footerSections = [
         lists: [
             {
                 name: 'Contact Us',
-                url: '/#!'
+                url: '/contact'
             },
             {
                 name: 'Knowledge Center',
