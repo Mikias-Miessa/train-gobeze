@@ -39,7 +39,7 @@ export const mainListItems = (
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Students" />
+      <ListItemText primary="Registrations" />
     </ListItemButton>
     </Link>
     {/* <Link href="/admin/users" color="primary">

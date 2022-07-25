@@ -1,55 +1,12 @@
 import {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import Link from '../../Link';
-import {Table,CircularProgress,TableBody,TableCell,TableHead,TableRow, Box } from '@mui/material';
+import {Table,CircularProgress,TableBody,TableCell,TableHead,TableRow, Box, Typography } from '@mui/material';
 
 import Title from '../../Title';
 import {getStudents} from '../../../../store/studentSlice'
 import Moment from 'moment';
-// Generate Order Data
-function createData(id,name, phone, email, course,date) {
-  return { id, name, phone, email, course,date };
-}
 
-const rows = [
-  createData(
-    0,
-    'Natnael Feleke',
-    '0929336352',
-    'nfeleke568@gmail.com',
-    'GD101',
-    'July 2 2021'
-  ),
-  createData(
-    1,
-    'Natnael Feleke',
-    '0929336352',
-    'nfeleke568@gmail.com',
-    'GD101',
-    'July 2 2021'
-  ),
-  createData(2,'Natnael Feleke',
-  '0929336352',
-  'nfeleke568@gmail.com',
-  'GD101',
-  'July 2 2021'),
-  createData(
-    3,
-    'Natnael Feleke',
-    '0929336352',
-    'nfeleke568@gmail.com',
-    'GD101',
-    'July 2 2021'
-  ),
-  createData(
-    4,
-    'Natnael Feleke',
-    '0929336352',
-    'nfeleke568@gmail.com',
-    'GD101',
-    'July 2 2021'
-  ),
-];
 
 function preventDefault(event) {
   event.preventDefault();
@@ -61,7 +18,26 @@ export default function RecentRegistration() {
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(getStudents());
-  },[])
+  },[]);
+
+  const getDuration = (date) => {
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const createdDate = new Date(date);
+    const today = new Date();
+    const utc1 = Date.UTC(
+      createdDate.getFullYear(),
+      createdDate.getMonth(),
+      createdDate.getDate()
+    );
+    const utc2 = Date.UTC(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+    const dayDifference = Math.floor((utc2 - utc1) / _MS_PER_DAY);
+    return dayDifference === 0 ? 'Today' : dayDifference + ' days ago';
+  };
+
   return (
     <>
       <Title>Recent Registration </Title>
@@ -85,9 +61,13 @@ export default function RecentRegistration() {
               <TableCell>{student.phone}</TableCell>
               <TableCell>{student.email}</TableCell>
               <TableCell>{student.course?.course?.courseName}</TableCell>
-              <TableCell>{student.createdAt && Moment(student.createdAt).format(
+              <TableCell >{student.createdAt && Moment(student.createdAt).format(
             'MMM DD YYYY '
-          )}</TableCell>
+          )}
+          <Typography sx={{color: 'primary.main',fontSize: '0.875rem',}}>
+            {getDuration(student.createdAt && student.createdAt)}
+          </Typography>
+          </TableCell>
               {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
             </TableRow>
           ))}
