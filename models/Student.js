@@ -28,6 +28,13 @@ const StudentSchema = new Schema(
       type: Boolean,
       default: true
     },
+    contacted:{
+      type: Boolean,
+      default: false
+    },
+    remark:{
+      type: String
+    },
     registered_by:{
       type: Schema.Types.ObjectId,
       ref: 'user',

@@ -9,7 +9,7 @@ import { addStudent,reset} from '../../../../store/studentSlice';
 
 
 const NewStudent = ({setOpen, course}) => {
-const {loading,newStudentAdded} = useSelector((state)=> state.student)
+const {loading,status} = useSelector((state)=> state.student)
 const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
   const [values, setValues] = useState({
@@ -44,16 +44,16 @@ const [backdrop, setBackdrop] = useState(false);
   }, [phone])
 
   useEffect(() => {
-    if(newStudentAdded==='pending'){
+    if(status==='pending'){
       setBackdrop(true)
     }
-    if(newStudentAdded === 'success'){
+    if(status === 'success'){
       toast.success('New Student added successfully!');
       setOpen(false);
       setBackdrop(false)
       dispatch(reset())
     }
-  }, [newStudentAdded])
+  }, [status])
   const handleSubmit =(e)=>{
     e.preventDefault();
     console.log(values)

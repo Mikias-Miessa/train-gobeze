@@ -41,7 +41,7 @@ const Enroll = ({ training }) => {
             component='h3'
             sx={{
               fontSize: '1.5rem',
-              fontWeight: '300',
+              fontWeight: '400',
               opacity: '0.8',
               color: 'secondary.main',
               '@media screen and (max-width: 612px)': {
@@ -102,28 +102,34 @@ const Enroll = ({ training }) => {
               background: 'white',
             }}
           >
+            <Box sx={{display: 'flex', alignItems: 'center',justifyContent: 'center',gap: '1rem'}}>
+
             <LaptopIcon color='secondary' fontSize='large' />
             <Typography
               component='h3'
               sx={{
                 fontSize: '1.5rem',
-                fontWeight: '300',
+                fontWeight: '400',
                 opacity: '0.8',
                 color: 'secondary.main',
               }}
             >
               Online
             </Typography>
+            </Box>
             <Typography
               component='p'
               sx={{
-                width: '293px',
+                // width: '293px',
                 fontSize: '1rem',
                 fontWeight: '300',
                 opacity: '0.8',
                 my: 2,
                 height: '80px',
                 color: 'secondary.main',
+                '@media screen and (max-width: 612px)': {
+                  fontSize: '0.875rem',
+                },
               }}
             >
               Register in our online course and get the course from the confort of
@@ -134,11 +140,14 @@ const Enroll = ({ training }) => {
               <Link
                 sx={{
                   textDecoration: 'none',
-                  p: '8px 64px',
-                  background: '#FF7E00',
-                  color: 'white',
-                  borderRadius: '0.5rem',
-                  fontWeight: '500',
+                p: '8px 64px',
+                background: '#FF7E00',
+                color: 'white',
+                borderRadius: '0.5rem',
+                fontWeight: '500',
+                '@media screen and (max-width: 612px)': {
+                  fontSize: '0.875rem',
+                },
                 }}
                 href={training?.course?.online_url}
                 target='_blank'

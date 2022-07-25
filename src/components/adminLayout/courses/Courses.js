@@ -24,9 +24,9 @@ import UpdateCourse from './UpdateCourse';
 import { getCourses } from '../../../../store/courseSlice';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 // import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
 // import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 const modalStyle = {
   position: 'absolute',
@@ -81,7 +81,7 @@ export default function Courses() {
   //   const updateCourse = (course)=>{
   // console.log(course)
   //   }
-  const handleUpdate = (id) => {
+  const handleUpdate = () => {
    
     setUpdate(true);
   };
@@ -157,10 +157,7 @@ console.log('rendered again')
                                   startIcon={
                                     <EditOutlinedIcon fontSize='small' />
                                   }
-                                  onClick={() => {
-                                    console.log(course)
-                                    handleUpdate(course._id && course._id);
-                                  }}
+                                  onClick={handleUpdate}
                                 >
                                   Edit Course
                                 </Button>
