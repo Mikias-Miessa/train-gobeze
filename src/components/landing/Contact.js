@@ -111,11 +111,11 @@ const Contact = () =>{
 <Typography component="h1" variant="h5">
 Or, Give us a call at these numbers
 </Typography>
-<Link href='tel:+25129336352'>
-+251929336352
+<Link href='tel:+251118633128'>
++251118633128
 </Link>
-<Link href='tel:+25129336352'>
-+251929336352
+<Link href='tel:+251920956048'>
++251920956048
 </Link>
 </Box>
           
