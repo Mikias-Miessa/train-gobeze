@@ -20,8 +20,7 @@ import Course from '../../../models/Course';
   }) .get(async (req, res) => {
 
     try {
-   
-       let students = await Student.find().sort('-createdAt').populate({
+       let students = await Student.find({status: 'registered'}).sort('-createdAt').populate({
          path:'course',
          populate:{
            path:'course'

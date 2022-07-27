@@ -10,11 +10,6 @@ import Student from '../../../../models/Student'
 import Payment from '../../../../models/Payment'
 
 
-export const config ={
-    api:{
-        bodyParser: false 
-    }
-}
   const router = createRouter();
 
   router
@@ -22,16 +17,17 @@ export const config ={
     console.log('connecting...')
     await connectMongo();
     console.log('connected!')
-  
     await next(); // call next in chain
    
   })
   .put(async (req, res) => {
-    const {query} = req;
+    // console.log(req)
+    const {query,body} = req;
  
     console.log(query)
+    console.log(body)
     try {
-        const { remark} = req.body;
+        const { remark} = body;
         let updatedStudent = await Student.findById(query.id);
         if(!updatedStudent){
           return res.status(400).json({

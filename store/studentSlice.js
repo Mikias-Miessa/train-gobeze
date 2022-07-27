@@ -29,6 +29,26 @@ const initialState = {
         }
     }
   )
+  export const getRegisteredStudents = createAsyncThunk(
+    "student/registered",
+    async (student,thunkAPI) =>{
+         
+        try {
+        const res = await axios.get('/api/students/registered');
+  
+        return res.data;
+        
+        
+        } catch (error) {
+          console.log(error)
+          const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
+          console.log(message)
+               
+             return thunkAPI.rejectWithValue(message)
+            
+        }
+    }
+  )
    //add student
  export const addStudent = createAsyncThunk(
     "student/add",
@@ -63,9 +83,9 @@ const initialState = {
   );
 
   
-    //mark student as contacted with/out remark 
+  //mark student as contacted with/out remark 
  export const markAsContacted = createAsyncThunk(
-  "student/add",
+  "student/contacted",
   async (student,thunkAPI) =>{
    console.log(student)
     const { id,remark } = student;
@@ -75,12 +95,38 @@ const initialState = {
       },
     };
     const body = JSON.stringify({remark});
+    console.log(body)
       try {
       const res = await axios.put(`/api/students/contacted/${id}`, body, config);
-console.log(res.data)
+      console.log(res.data)
       return res.data;
-      
-      
+      } catch (error) {
+        console.log(error)
+        const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
+        console.log(message)
+             
+           return thunkAPI.rejectWithValue(message)
+          
+      }
+  }
+);
+//enroll registered student
+export const enrollRegisteredStudent = createAsyncThunk(
+  "student/enroll",
+  async (student,thunkAPI) =>{
+   console.log(student)
+    const { id,remark,payment_with,reference,amount } = student;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({remark,payment_with,reference,amount});
+    console.log(body)
+      try {
+      const res = await axios.put(`/api/students/enroll/registered/${id}`, body, config);
+      console.log(res.data)
+      return res.data;
       } catch (error) {
         console.log(error)
         const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
@@ -149,19 +195,52 @@ console.log(res.data)
                 // state.error= action.error.message
             }
           )
+          .addCase(markAsContacted.pending, (state, action) => {
+            state.loading = true;
+            state.status = 'pending';
+
+          })
+          .addCase(markAsContacted.fulfilled, (state, action) => {
+            state.loading = false;
+            state.students =  state.students.filter(student=> student._id !== action.payload._id)
+            state.status = 'contacted';
+           
+          })
+          .addCase(
+            markAsContacted.rejected,
+            (state, action) => {
+                state.loading = false;
+            state.status = '';
+            }
+          )
+          .addCase(enrollRegisteredStudent.pending, (state, action) => {
+            state.loading = true;
+            state.status = 'pending';
+
+          })
+          .addCase(enrollRegisteredStudent.fulfilled, (state, action) => {
+            state.loading = false;
+            state.students = state.students.filter(student=> student._id !== action.payload._id)
+            state.status = 'enrolled';
+           
+          })
+          .addCase(
+            enrollRegisteredStudent.rejected,
+            (state, action) => {
+                state.loading = false;
+                state.status = '';
+            }
+          )
           .addCase(deleteStudent.pending, (state, action) => {
             state.loading = true;
             state.status = 'deleting';
 
           })
-          // You can chain calls, or have separate `builder.addCase()` lines each time
           .addCase(deleteStudent.fulfilled, (state, action) => {
             state.loading = false;
             state.students = state.students.filter(student => student._id !== action.payload.id)
             state.status = 'deleted';
-           
           })
-          // You can match a range of action types
           .addCase(
             deleteStudent.rejected,
             // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
@@ -179,15 +258,7 @@ console.log(res.data)
           .addCase(getStudents.fulfilled, (state, action) => {
             console.log(action.payload);
             state.loading = false;
-            state.students = action.payload;
-            
-  // const dispatch = useDispatch();
-
-  //           dispatch(setAlert({
-  //             msg: 'Student added'
-  //             , alertType: 'success'
-  //           }))
-           
+            state.students = action.payload;           
           })
           .addCase(
             getStudents.rejected,
@@ -195,6 +266,22 @@ console.log(res.data)
                 state.loading = false;
             }
           )
+          .addCase(getRegisteredStudents.pending, (state, action) => {
+            state.loading = true;
+
+          })
+          .addCase(getRegisteredStudents.fulfilled, (state, action) => {
+            console.log(action.payload);
+            state.loading = false;
+            state.students = action.payload;           
+          })
+          .addCase(
+            getRegisteredStudents.rejected,
+            (state, action) => {
+                state.loading = false;
+            }
+          )
+          
       },
   });
 

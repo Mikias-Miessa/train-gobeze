@@ -9,11 +9,6 @@ import Student from '../../../models/Student'
 import Payment from '../../../models/Payment'
 
 
-export const config ={
-    api:{
-        bodyParser: false 
-    }
-}
   const router = createRouter();
 
   router

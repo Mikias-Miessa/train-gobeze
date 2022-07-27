@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types'
 import {useSelector, useDispatch } from 'react-redux';
-import { Grid, TextField, Box, Button,Backdrop,CircularProgress } from "@mui/material"
+import { Grid, TextField, Box, Button,Backdrop,CircularProgress,FormControl,FormLabel,FormControlLabel,RadioGroup,Radio,InputLabel,Select,MenuItem,FormHelperText } from "@mui/material"
 import { toast} from 'react-toastify'
-import {markAsContacted,reset} from '../../../../store/studentSlice';
+import {enrollRegisteredStudent,reset} from '../../../../store/studentSlice';
 
 const Contacted = ({setOpen,student}) => {
   const dispatch = useDispatch();
+  // console.log(student)
   const [values, setValues] = useState({
     id: student?._id ? student?._id : '', 
-    remark:''
+    remark:'',
+    payment_with: 'bank',
+    reference:'',
+    bank: 'cbe',
+    amount: student?.course?.course?.price ? student?.course?.course?.price :0
   });
   const [backdrop, setBackdrop] = useState(false);
 
@@ -20,10 +25,10 @@ useEffect(() => {
   if(status==='pending' ){
     setBackdrop(true)
   }
-  if(status === 'contacted'){
-    toast.success('Marked as contacted!');
+  if(status === 'enrolled'){
+    toast.success('Student enrolled successfully!');
     setBackdrop(false);
-    setOpen()
+   setOpen()
     dispatch(reset())
   }
 }, [status])
@@ -37,14 +42,11 @@ useEffect(() => {
   }
   const handleSubmit =(e)=>{
     e.preventDefault();
-    // console.log(values)
-    dispatch(markAsContacted(values))
+    console.log(values)
+    dispatch(enrollRegisteredStudent(values))
   }
 
- 
-
   useEffect(() => {
-
     if(status==='pending'){
       setBackdrop(true)
     }
@@ -61,6 +63,64 @@ useEffect(() => {
       
       
     <Grid container spacing={3}>
+      <Grid item xs={12}>
+      <FormControl>
+      <FormLabel id="demo-row-radio-buttons-group-label">Payment with</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="payment_with"
+        value={values.payment_with}
+        onChange={handleInputChange}
+      >
+        <FormControlLabel value="bank" control={<Radio />} label="Bank" />
+        <FormControlLabel value="cash" control={<Radio />} label="Cash" />
+        
+      </RadioGroup>
+    </FormControl>
+    {values.payment_with === 'bank' && (<>
+      <Grid item xs={12} sm={6}>
+      <InputLabel id="schedule">Choose Bank</InputLabel>
+  <Select
+    labelId="bank"
+    value={values.bank}
+    label="Choose bank *"
+    name='bank'
+    onChange={handleInputChange}
+  >
+    <MenuItem value='cbe'>CBE</MenuItem>
+    <MenuItem value='dashen'>Dashen</MenuItem>
+  </Select>
+  <FormHelperText>Required</FormHelperText>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+      <TextField
+        required={values.payment_with === 'bank'}
+        id="reference"
+        name="reference"
+        label="Transaction Reference Id"
+        fullWidth
+        variant="standard"
+        value={values.reference}
+        onChange={handleInputChange}
+        />
+    </Grid>
+        </>
+    )}
+        </Grid>
+        <Grid item xs={12} >
+          <TextField
+            required
+            id="amount"
+            name="amount"
+            label="Amount"
+            fullWidth
+            type='number'
+            variant="standard"
+            value={values.amount}
+            onChange={handleInputChange}
+          />
+        </Grid>
     <Grid item xs={12} >
           <TextField
             // required
@@ -69,6 +129,7 @@ useEffect(() => {
             label="Remark"
             fullWidth
             variant="standard"
+
             onChange={handleInputChange}
           />
         </Grid>
@@ -89,7 +150,7 @@ useEffect(() => {
                     // onClick={handleSubmit}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    Mark as Contacted
+                  Enroll Student
                   </Button>
                 </Box>
                 </form>

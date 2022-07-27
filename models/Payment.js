@@ -6,6 +6,12 @@ const PaymentSchema = new Schema(
         type: Schema.Types.ObjectId,
       ref: 'student',
     },
+    payment_with:{
+      type: String
+    },
+    amount:{
+      type: String
+    },
     bank:{
         type: String
       },

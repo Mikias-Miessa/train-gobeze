@@ -17,7 +17,7 @@ import Course from '../../../models/Course'
  if(method === 'GET') {
     try {
        
-        let classes = await Class.find().populate('course')
+        let classes = await Class.find().populate('course students')
     //   console.log(classes)
         res.json(classes);
      } catch (err) {
