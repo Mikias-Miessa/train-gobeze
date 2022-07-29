@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+// import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from '../../Title';
 
 // Generate Sales Data
@@ -24,7 +24,7 @@ export default function Chart() {
   return (
     <React.Fragment>
       <Title>Today</Title>
-      <ResponsiveContainer>
+      {/* <ResponsiveContainer>
         <LineChart
           data={data}
           margin={{
@@ -63,7 +63,7 @@ export default function Chart() {
             dot={false}
           />
         </LineChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer> */}
     </React.Fragment>
   );
 }

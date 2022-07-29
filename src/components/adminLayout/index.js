@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './dashboard/Chart';
+// import Chart from './dashboard/Chart';
 import RunningClasses from './dashboard/RunningClasses';
 import RecentRegistration from './dashboard/RecentRegistration';
 import HeadLayout from '../HeadLayout';
@@ -174,7 +174,7 @@ function Dashboard() {
           height: 240,
         }}
       >
-        <Chart />
+        {/* <Chart /> */}
       </Paper>
     </Grid>
     {/* Recent RunningClasses */}
