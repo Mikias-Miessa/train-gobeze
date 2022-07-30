@@ -9,6 +9,7 @@ import userAuth from '../../../middleware/userAuth'
 import Class from '../../../models/Class'
 import Course from '../../../models/Course'
 import Student from '../../../models/Student'
+import Payment from '../../../models/Payment'
 
 
 export const config ={
@@ -53,7 +54,15 @@ let gfs;
 
     try {
    
-       let course = await Class.findOne({slug: query.slug}).populate('course students');
+       let course = await Class.findOne({slug: query.slug}).populate({
+         path:'course students',
+         populate: {
+           path: ' course payment',
+           populate:{
+             path: 'course'
+           }
+         }
+       });
       if(!course){
         return res.status(400).json({
           errors: [{ msg: 'Course not found' }],

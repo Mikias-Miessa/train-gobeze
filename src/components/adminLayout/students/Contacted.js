@@ -48,7 +48,7 @@ useEffect(() => {
     if(status==='pending'){
       setBackdrop(true)
     }
-    if(status === 'success'){
+    if(status === 'contacted'){
       toast.success('Marked as contacted!');
       setOpen(false);
       setBackdrop(false)

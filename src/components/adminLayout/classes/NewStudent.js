@@ -8,7 +8,8 @@ import 'react-phone-number-input/style.css'
 import { addStudent,reset} from '../../../../store/studentSlice';
 
 
-const NewStudent = ({setOpen, course}) => {
+const NewStudent = ({setOpen, course,price}) => {
+  console.log(course)
 const {loading,status} = useSelector((state)=> state.student)
 const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
@@ -18,11 +19,10 @@ const [backdrop, setBackdrop] = useState(false);
     phone: '',
     course: course? course: '',
     bank: 'cbe',
-    amount: 0
+    amount:price? price: 0
   });
   const [phone,setPhone] = useState('');
   const [validPhoneNumber,setValidPhone] = useState(false);
-
 
   const handleInputChange = (e)=>{
     const {name,value} = e.target;

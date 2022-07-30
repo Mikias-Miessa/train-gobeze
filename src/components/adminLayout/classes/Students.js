@@ -153,8 +153,8 @@ console.log(singleClass)
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.phone}</TableCell>
               <TableCell>{row.email}</TableCell>
-              
-              <TableCell sx={{background: row.paidAmount >= 3800 ? '': 'red' }}>{row.paidAmount}</TableCell>
+               
+              <TableCell sx={{background: row.payment?.amount < row.course?.course?.price ? 'red': '' }}>{row.payment?.amount}</TableCell>
               <TableCell >{row.registered_online ? 'Online' : row.registeredBy}</TableCell>
               <TableCell>
               {/* <Box  sx={{ display: 'flex', gap: '1rem' }}>
@@ -193,7 +193,7 @@ console.log(singleClass)
     <p id="parent-modal-description">
       Add a student who has made payment.
     </p>
-    <NewStudent setOpen={setOpen} course={singleClass?._id}  />
+    <NewStudent setOpen={setOpen} course={singleClass?._id} price={singleClass?.course?.price} />
   </Box>
 </Modal>
     </>
