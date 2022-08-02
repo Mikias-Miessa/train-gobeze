@@ -3,6 +3,7 @@ import Class from '../../../../models/Class'
 import Course from '../../../../models/Course' 
 import Student from '../../../../models/Student'
 import Payment from '../../../../models/Payment'
+import User from '../../../../models/User'
 
 import { sendEmail } from '../../../../utils/email';
 import userAuth from '../../../../middleware/userAuth'
