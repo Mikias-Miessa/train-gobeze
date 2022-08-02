@@ -14,11 +14,18 @@ import theme from '../src/theme';
 import 'react-toastify/dist/ReactToastify.css'
 import '../src/style.css'
 import {loadUser} from '../store/authSlice'
+import setAuthToken from '../src/utils/setAuthToken';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 
 // axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://api.gobeze.com' : 'http://localhost:8000/';
+
+if (typeof window !== 'undefined') {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+}
 
  const MyApp = (props)=> {
   const router = useRouter()

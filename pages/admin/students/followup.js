@@ -1,5 +1,5 @@
 import AdminLayout from "../../../src/components/adminLayout"
-import Students from "../../../src/components/adminLayout/students"
+import Students from "../../../src/components/adminLayout/students/Followup"
 import withAuth from "../../../src/utils/withAuth"
 
 const students = () => {

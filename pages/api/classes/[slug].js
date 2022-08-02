@@ -57,7 +57,7 @@ let gfs;
        let course = await Class.findOne({slug: query.slug}).populate({
          path:'course students',
          populate: {
-           path: ' course payment',
+           path: ' course payment registered_by',
            populate:{
              path: 'course'
            }

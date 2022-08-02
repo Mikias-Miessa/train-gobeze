@@ -83,7 +83,7 @@ const {query} = router;
   const [open, setOpen] = useState(false);
 console.log(singleClass)
   useEffect(() => {
-    // console.log(query)
+    console.log(query)
         query &&  dispatch(getClass(query.id));
       }, [query])
 
@@ -140,7 +140,7 @@ console.log(singleClass)
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Phone</TableCell>
-            <TableCell>Email</TableCell>
+            <TableCell>Payment</TableCell>
             <TableCell>Paid Amount</TableCell>
             <TableCell>Registered By</TableCell>
             {/* <TableCell>Price</TableCell> */}
@@ -152,10 +152,20 @@ console.log(singleClass)
             <TableRow key={index}>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.phone}</TableCell>
-              <TableCell>{row.email}</TableCell>
+              {row.payment?.payment_with ==='cash' ? <TableCell>Cash</TableCell> : 
+              <TableCell>
+                <Box>
+                {row.payment?.bank}
+                </Box>
+                <Box>
+                 {row.payment?.reference}
+                </Box>
+              </TableCell>
+              }
+              
                
               <TableCell sx={{background: row.payment?.amount < row.course?.course?.price ? 'red': '' }}>{row.payment?.amount}</TableCell>
-              <TableCell >{row.registered_online ? 'Online' : row.registeredBy}</TableCell>
+              <TableCell >{row.registered_online ? 'Online' : 'Staff'}</TableCell>
               <TableCell>
               {/* <Box  sx={{ display: 'flex', gap: '1rem' }}>
                 <Typography>{row.enrolledStudents}</Typography>

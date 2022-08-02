@@ -9,6 +9,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 export const mainListItems = (
   <>
     <Link href="/admin/dashboard" color="primary">
@@ -40,6 +41,14 @@ export const mainListItems = (
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Registrations" />
+    </ListItemButton>
+    </Link>
+    <Link href="/admin/students/followup" color="primary">
+    <ListItemButton >
+      <ListItemIcon>
+        <AddIcCallIcon />
+      </ListItemIcon>
+      <ListItemText primary="Followup" />
     </ListItemButton>
     </Link>
     {/* <Link href="/admin/users" color="primary">

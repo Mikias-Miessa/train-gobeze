@@ -5,7 +5,8 @@ const initialState = {
     classes: [],
     singleClass: null,
     loading: true,
-    newClassAdded: ''
+    newClassAdded: '',
+    status:''
   };
 
   export const getClasses = createAsyncThunk(
@@ -95,13 +96,45 @@ const initialState = {
         }
     }
   )
-  
+  //enroll student
+export const enrollStudent = createAsyncThunk(
+  "student/enroll",
+  async (student,thunkAPI) =>{
+   console.log(student)
+    const { course,name,
+    email,
+    phone,bank,payment_with,reference,amount } = student;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({ course,name,
+      email,
+      phone,bank,payment_with,reference,amount });
+      try {
+      const res = await axios.post('/api/students/enroll', body, config);
+console.log(res.data)
+      return res.data;
+      
+      
+      } catch (error) {
+        console.log(error)
+        const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
+        console.log(message)
+             
+           return thunkAPI.rejectWithValue(message)
+          
+      }
+  }
+);
   export const classSlice = createSlice({
       name: 'classroom',
       initialState,
       reducers: {
         reset: (state)=>{
-          state.newClassAdded = ''
+          state.newClassAdded = '',
+          state.status= ''
         }
       },
       extraReducers: (builder) => {
@@ -172,6 +205,23 @@ const initialState = {
             getClass.rejected,
             (state, action) => {
                 state.loading = false;
+            }
+          )
+          .addCase(enrollStudent.pending, (state, action) => {
+            state.loading = true;
+            state.status = 'enrolling';
+
+          })
+          .addCase(enrollStudent.fulfilled, (state, action) => {
+            state.loading = false;
+            state.singleClass = action.payload;
+            state.status = 'enrolled';
+          })
+          .addCase(
+            enrollStudent.rejected,
+            (state, action) => {
+                state.loading = false;
+                state.status = '';
             }
           )
       },

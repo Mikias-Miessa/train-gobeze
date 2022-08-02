@@ -1,16 +1,17 @@
 import {useState,useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-import { Grid, TextField, Box, Button,InputLabel, Select, MenuItem,FormHelperText,CircularProgress,Backdrop,Typography } from "@mui/material"
+import { Grid, TextField, Box, Button,InputLabel, Select, MenuItem,FormHelperText,CircularProgress,Backdrop,Typography, FormControlLabel, FormGroup, RadioGroup, Radio } from "@mui/material"
 import { toast } from 'react-toastify';
 import PhoneInput,{isValidPhoneNumber} from 'react-phone-number-input';
 import 'react-phone-number-input/style.css'
 
-import { addStudent,reset} from '../../../../store/studentSlice';
+// import { reset} from '../../../../store/studentSlice';
+import { enrollStudent,reset,status} from '../../../../store/classSlice';
 
 
 const NewStudent = ({setOpen, course,price}) => {
   console.log(course)
-const {loading,status} = useSelector((state)=> state.student)
+const {status} = useSelector((state)=> state.classroom)
 const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
   const [values, setValues] = useState({
@@ -19,7 +20,9 @@ const [backdrop, setBackdrop] = useState(false);
     phone: '',
     course: course? course: '',
     bank: 'cbe',
-    amount:price? price: 0
+    amount:price? price: 0,
+    payment_with: 'cash',
+    reference: ''
   });
   const [phone,setPhone] = useState('');
   const [validPhoneNumber,setValidPhone] = useState(false);
@@ -44,11 +47,11 @@ const [backdrop, setBackdrop] = useState(false);
   }, [phone])
 
   useEffect(() => {
-    if(status==='pending'){
+    if(status==='enrolling'){
       setBackdrop(true)
     }
-    if(status === 'success'){
-      toast.success('New Student added successfully!');
+    if(status === 'enrolled'){
+      toast.success('New Student enroled successfully!');
       setOpen(false);
       setBackdrop(false)
       dispatch(reset())
@@ -56,9 +59,9 @@ const [backdrop, setBackdrop] = useState(false);
   }, [status])
   const handleSubmit =(e)=>{
     e.preventDefault();
-    console.log(values)
+    validPhoneNumber && console.log(values)
     
-    // dispatch(addStudent(values))
+    validPhoneNumber && dispatch(enrollStudent(values))
   }
   
   return (
@@ -120,19 +123,51 @@ value={values.email}
         Not a valid phone number.
       </Typography>} 
               </Grid>
-      <InputLabel id="bank">Payment with</InputLabel>
-  <Select
-    labelId="bank"
-    value={values.bank}
-    label="Bank of Choice *"
-    fullWidth
-    name='bank'
-    onChange={handleInputChange}
-  >
-    <MenuItem value='cbe'>CBE</MenuItem>
-    <MenuItem value='dashen'>DASHEN BANK</MenuItem>
-  </Select>
-  <FormHelperText>Required</FormHelperText>
+              <Grid  item xs={12} sx={{my:1}} >
+
+              <RadioGroup
+        row
+        name="payment_with"
+        value={values.payment_with}
+        onChange={handleInputChange}
+      >
+        <FormControlLabel value="cash" control={<Radio />} label="Payed with cash" />
+        <FormControlLabel value="bank" control={<Radio />} label="Payed with bank" />
+        
+      </RadioGroup>
+      </Grid>
+{values.payment_with === 'bank' && (
+  <>
+  <FormGroup>
+  <InputLabel id="bank">Payment with</InputLabel>
+    <Select
+      labelId="bank"
+      value={values.bank}
+      label="Bank of Choice *"
+      fullWidth
+      name='bank'
+      onChange={handleInputChange}
+      >
+      <MenuItem value='cbe'>CBE</MenuItem>
+      <MenuItem value='dashen'>DASHEN BANK</MenuItem>
+    </Select>
+    <FormHelperText>Required</FormHelperText>
+
+  </FormGroup>
+   <Grid item xs={12} >
+          <TextField
+            required={values.payment_with==='bank'}
+            name="reference"
+            label="Reference Id"
+            fullWidth
+            variant="outlined"
+            value={values.reference}
+            onChange={handleInputChange}
+          />
+        </Grid>
+      </>
+)}
+  
       </Grid>
     
         </Grid>

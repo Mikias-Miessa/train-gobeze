@@ -112,7 +112,7 @@ const initialState = {
 );
 //enroll registered student
 export const enrollRegisteredStudent = createAsyncThunk(
-  "student/enroll",
+  "student/enrollregistered",
   async (student,thunkAPI) =>{
    console.log(student)
     const { id,remark,payment_with,reference,amount } = student;

@@ -21,10 +21,8 @@ import {Table,
   import Title from '../../Title';
   import Enrolled from './Enrolled';
 import {getStudents,deleteStudent,reset} from '../../../../store/studentSlice'
-import Contacted from './Contacted';
-
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import DomainVerificationIcon from '@mui/icons-material/DomainVerification';
 
@@ -50,7 +48,6 @@ export default function Followup() {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [backdrop, setBackdrop] = useState(false);
-  const [openContacted, setOpenContacted] = useState(false);
   const [openEnroll, setOpenEnroll] = useState(false);
 
   const dispatch = useDispatch();
@@ -84,7 +81,6 @@ export default function Followup() {
   };
 
   const handleClose = () => {
-    setOpenContacted(false);
     setOpenConfirm(false);
     setOpenPoper(false);
     setOpenEnroll(false)
@@ -110,14 +106,14 @@ export default function Followup() {
 
   return (
     <>
-      <Title>Recent Registration</Title>
+      <Title>Students for Followup</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Phone</TableCell>
-            <TableCell>Email</TableCell>
             <TableCell>Course</TableCell>
+            <TableCell>Remark</TableCell>
             <TableCell>Registered Date</TableCell>
             <TableCell></TableCell>
             {/* <TableCell align="right">Sale Amount</TableCell> */}
@@ -126,12 +122,12 @@ export default function Followup() {
         <TableBody>
           {
       loading ?<TableRow><TableCell colSpan={6}><CircularProgress color='primary' sx={{m:'auto'}} /> </TableCell></TableRow> : 
-          students.filter(student=> !student.contacted && student.status === 'registered' ).map((student,index) => student &&(
+          students.filter(student=> student.contacted && student.status !== 'enrolled' ).map((student,index) => student &&(
             <TableRow key={index}>
               <TableCell>{student.name}</TableCell>
               <TableCell>{student.phone}</TableCell>
-              <TableCell>{student.email}</TableCell>
               <TableCell>{student.course?.course?.courseName}</TableCell>
+              <TableCell>{student.remark}</TableCell>
               <TableCell >{student.createdAt && Moment(student.createdAt).format(
             'MMM DD YYYY '
           )}
@@ -156,23 +152,7 @@ export default function Followup() {
                                   alignItems: 'flex-start',
                                 }}
                               >
-                                 <Button
-                                  sx={{
-                                    border: 'none',
-                                    color: 'secondary.main',
-                                    fontWeight: '300',
-                                    textTransform: 'none',
-                                  }}
-                                  variant='outlined'
-                                  startIcon={
-                                    <EditOutlinedIcon fontSize='small' />
-                                  }
-                                  onClick={() => {
-                                    setOpenContacted(true);
-                                  }}
-                                >
-                                  Mark as contacted
-                                </Button>
+                                
                                 
                                 <Button
                                   sx={{
@@ -260,15 +240,6 @@ export default function Followup() {
                  Delete
                </Button>
              </Box>
-        </Box>
-      </Modal>
-      <Modal open={openContacted} onClose={handleClose}>
-        <Box sx={{ ...modalStyle, width: '80%' }}>
-          <h2 id='parent-modal-title'>Mark as contacted</h2>
-          <p id='parent-modal-description'>
-            You can put a remark about the student for a reminder.
-          </p>
-          <Contacted setOpen={handleClose} student={updatedStudent} />
         </Box>
       </Modal>
       <Backdrop
