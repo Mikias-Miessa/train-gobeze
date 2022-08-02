@@ -4,10 +4,13 @@ import Link from '@mui/material/Link';
 import Moment from 'moment';
 import {useSelector,useDispatch} from 'react-redux'
 import {Grid, Container,Table,TableBody,TableCell, TableHead,TableRow,Button, Paper, Box, Modal, Typography, Divider, CircularProgress} from '@mui/material';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { getClass } from '../../../../store/classSlice';
 
 import Title from '../../Title';
 import NewStudent from './NewStudent'
+import { TryOutlined } from '@mui/icons-material';
+import { toast } from 'react-toastify';
 
 // Generate Order Data
 function createData(id,name, phone, email, paidAmount, registeredBy) {
@@ -81,7 +84,16 @@ const {query} = router;
   const {singleClass, loading} = useSelector((state)=> state.classroom)
 
   const [open, setOpen] = useState(false);
-console.log(singleClass)
+  const [copied, setCopied] = useState(false);
+
+useEffect(() => {
+   
+    if(copied){
+      toast.success('Reference Id copied!');     
+    setCopied(false)
+    }
+    
+  }, [copied])
   useEffect(() => {
     console.log(query)
         query &&  dispatch(getClass(query.id));
@@ -158,7 +170,13 @@ console.log(singleClass)
                 {row.payment?.bank}
                 </Box>
                 <Box>
-                 {row.payment?.reference}
+                <CopyToClipboard text={row.payment?.reference}
+          onCopy={() => setCopied(TryOutlined)}>
+          <Box component='span' sx={{
+            cursor: 'pointer'
+          }}> {row.payment?.reference}</Box>
+        </CopyToClipboard>
+                
                 </Box>
               </TableCell>
               }
