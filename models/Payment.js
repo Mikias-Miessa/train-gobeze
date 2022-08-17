@@ -18,6 +18,7 @@ const PaymentSchema = new Schema(
     reference: {
       type: String,
     },
+    references: [String],
     deposited_by: {
       type: String,
     },
