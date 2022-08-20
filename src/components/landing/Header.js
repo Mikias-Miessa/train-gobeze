@@ -79,11 +79,10 @@ const Header = () => {
                   fontWeight: '300',
                   fontSize: '0.875rem',
                 },
-              
+
                 '@media screen and (max-width: 576px)': {
-                    display: 'none',
-                      },
-                      
+                  display: 'none',
+                },
               }}
             >
               <Box sx={{}}>
@@ -96,8 +95,13 @@ const Header = () => {
                 <Link href='/trainings'>Classroom Trainings</Link>
               </Box>
               <Box sx={{}}>
-                <Link href='https://siltena.com' target="_blank">Online Trainings</Link>
+                <Link href='https://siltena.com' target='_blank'>
+                  Online Trainings
+                </Link>
               </Box>
+              {/* <Box sx={{}}>
+                <Link href='/certificate'>Certificates</Link>
+              </Box> */}
             </Box>
             <Box
               sx={{
@@ -115,18 +119,22 @@ const Header = () => {
                     'rgb(254 126 1 / 15%) 0rem 0.1875rem 0.1875rem 0rem, rgb(254 126 1 / 20%) 0rem 0.1875rem 0.0625rem -0.125rem, rgb(254 126 1 / 15%) 0rem 0.0625rem 0.3125rem 0rem',
                 },
                 '@media screen and (max-width: 576px)': {
-                    ml: 'auto',
-                      },
+                  ml: 'auto',
+                },
               }}
             >
-              <Link sx={{textDecoration: 'none'}} href='/trainings'>Register Now</Link>
+              <Link sx={{ textDecoration: 'none' }} href='/trainings'>
+                Register Now
+              </Link>
             </Box>
-            <Box sx={{
+            <Box
+              sx={{
                 display: 'none',
-                  '@media screen and (max-width: 576px)': {
-                    display: 'block',
-                      },
-            }}>
+                '@media screen and (max-width: 576px)': {
+                  display: 'block',
+                },
+              }}
+            >
               {open ? (
                 <IconButton
                   onClick={handleClick}
@@ -173,13 +181,17 @@ const Header = () => {
                   {/* <Box sx={{}}>
                     <Link href='/'>Who we are</Link>
                   </Box> */}
-                 <Box sx={{}}>
-                <Link href='/trainings'>Classroom Trainings</Link>
-              </Box>
-              <Box sx={{}}>
-                <Link href='https://siltena.com' target="_blank">Online Trainings</Link>
-              </Box>
-
+                  <Box sx={{}}>
+                    <Link href='/trainings'>Classroom Trainings</Link>
+                  </Box>
+                  <Box sx={{}}>
+                    <Link href='https://siltena.com' target='_blank'>
+                      Online Trainings
+                    </Link>
+                  </Box>
+                  {/* <Box sx={{}}>
+                    <Link href='/certificate'>Certificates</Link>
+                  </Box> */}
                   <Box
                     sx={{
                       background: 'transparent',

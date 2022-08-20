@@ -253,16 +253,22 @@ export default function Students() {
                                       </TableCell>
                                     )}
 
-                                    <TableCell
-                                      sx={{
-                                        background:
-                                          row.payment?.amount <
-                                          row.course?.course?.price
-                                            ? 'red'
-                                            : '',
-                                      }}
-                                    >
-                                      {row.payment?.amount}
+                                    <TableCell sx={{ display: 'flex' }}>
+                                      <Typography
+                                        sx={{
+                                          background:
+                                            row.payment?.amount <
+                                            row.course?.course?.price
+                                              ? '#d73f3f'
+                                              : 'green',
+                                          borderRadius: 1,
+                                          padding: '4px 8px',
+                                          color: 'white',
+                                        }}
+                                      >
+                                        {row.payment?.amount}
+                                      </Typography>
+
                                       {row.payment?.amount <
                                         row.course?.course?.price && (
                                         <Tooltip

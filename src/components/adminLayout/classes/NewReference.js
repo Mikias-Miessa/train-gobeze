@@ -5,42 +5,25 @@ import {
   TextField,
   Box,
   Button,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormHelperText,
   CircularProgress,
   Backdrop,
-  Typography,
-  FormControlLabel,
-  FormGroup,
-  RadioGroup,
-  Radio,
 } from '@mui/material';
 import { toast } from 'react-toastify';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
-// import { reset} from '../../../../store/studentSlice';
-import { enrollStudent, reset, status } from '../../../../store/classSlice';
+import { addPaymentReference, reset } from '../../../../store/studentSlice';
+// import { enrollStudent, reset, status } from '../../../../store/classSlice';
 
 const NewReference = ({ setOpen, course, price }) => {
   console.log(course);
-  const { status } = useSelector((state) => state.classroom);
+  const { status } = useSelector((state) => state.student);
   const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
   const [values, setValues] = useState({
-    name: '',
-    email: '',
-    phone: '',
     course: course ? course : '',
-    bank: 'cbe',
     amount: price ? price : 0,
-    payment_with: 'cash',
     reference: '',
   });
-  const [phone, setPhone] = useState('');
-  const [validPhoneNumber, setValidPhone] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,21 +35,11 @@ const NewReference = ({ setOpen, course, price }) => {
   };
 
   useEffect(() => {
-    setValues({
-      ...values,
-      phone,
-    });
-    if (phone !== undefined) {
-      setValidPhone(isValidPhoneNumber(phone));
-    }
-  }, [phone]);
-
-  useEffect(() => {
     if (status === 'enrolling') {
       setBackdrop(true);
     }
-    if (status === 'enrolled') {
-      toast.success('New Student enroled successfully!');
+    if (status === 'added') {
+      toast.success('Added reference successfully!');
       setOpen(false);
       setBackdrop(false);
       dispatch(reset());
@@ -74,9 +47,8 @@ const NewReference = ({ setOpen, course, price }) => {
   }, [status]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    validPhoneNumber && console.log(values);
-
-    validPhoneNumber && dispatch(enrollStudent(values));
+    console.log(values);
+    // dispatch(addPaymentReference(values));
   };
 
   return (

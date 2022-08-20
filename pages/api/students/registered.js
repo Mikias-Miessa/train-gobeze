@@ -1,53 +1,48 @@
-
-import {createRouter} from 'next-connect'
-import connectMongo from '../../../utils/db'
-import userAuth from '../../../middleware/userAuth'
-import Student from '../../../models/Student'
+import { createRouter } from 'next-connect';
+import connectMongo from '../../../utils/db';
+import userAuth from '../../../middleware/userAuth';
+import Student from '../../../models/Student';
 import Class from '../../../models/Class';
 import Course from '../../../models/Course';
 
+const router = createRouter();
 
-
-  const router = createRouter();
-
-  router
+router
   .use(async (req, res, next) => {
-    console.log('connecting...')
+    console.log('connecting...');
     await connectMongo();
-    console.log('connected!')
+    console.log('connected!');
     await next(); // call next in chain
-   
-  }) .get(async (req, res) => {
-
-    try {
-       let students = await Student.find({status: 'registered'}).sort('-createdAt').populate({
-         path:'course',
-         populate:{
-           path:'course'
-         }
-       });
-     
-       res.json(students);
-     } catch (err) {
-         console.log(err);
-         res.status(500).send('Server Error')
-     }
   })
+  .get(async (req, res) => {
+    try {
+      let students = await Student.find({ status: 'registered' })
+        .sort('-createdAt')
+        .populate({
+          path: 'course',
+          populate: {
+            path: 'course',
+          },
+        });
+
+      res.json(students);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Server Error');
+    }
+  });
 
 // create a handler from router with custom
 // onError and onNoMatch
 export default router.handler({
   onError: (err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).end("Server Error!");
+    res.status(500).end('Server Error!');
   },
   onNoMatch: (req, res) => {
-    res.status(404).end("Page is not found");
+    res.status(404).end('Page is not found');
   },
 });
-
- 
-
 
 // export default handler;
 // export default userAuth(handler)
