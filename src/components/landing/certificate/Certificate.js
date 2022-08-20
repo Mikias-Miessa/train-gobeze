@@ -25,10 +25,13 @@ const Certificate = ({ certificate }) => {
     process.env.NODE_ENV === 'production'
       ? `https://gobeze.com/certificates/${certificate.certificateImage}`
       : `http://localhost:3000/certificates/${certificate.certificateImage}`;
-  let shareUrl = '';
+  let shareUrl;
   if (typeof window !== 'undefined') {
     shareUrl = window.location.href;
   }
+  //   useEffect(function onFirstMount() {
+  //     shareUrl = window.location.href;
+  //   }, []);
   const [open, setOpen] = useState(false);
   const [certificateId, setCertificateId] = useState('');
   const handleClick = () => {
@@ -86,7 +89,7 @@ const Certificate = ({ certificate }) => {
               <FacebookShareButton
                 url={shareUrl}
                 quote={'View my certificate from Gobeze.'}
-                hashtag={'#gobeze'}
+                hashtag={'#gobeze #helpinggoodpeoplewin #knownow'}
               >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
