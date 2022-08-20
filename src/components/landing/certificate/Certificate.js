@@ -25,6 +25,7 @@ const Certificate = ({ certificate }) => {
     process.env.NODE_ENV === 'production'
       ? `https://gobeze.com/certificates/${certificate.certificateImage}`
       : `http://localhost:3000/certificates/${certificate.certificateImage}`;
+  const shareUrl = window.location.href;
   const [open, setOpen] = useState(false);
   const [certificateId, setCertificateId] = useState('');
   const handleClick = () => {
@@ -80,15 +81,13 @@ const Certificate = ({ certificate }) => {
                 Share on Socials
               </Typography>
               <FacebookShareButton
-                url={`https://gobeze.com/certificate/${certificate._id}`}
+                url={shareUrl}
                 quote={'View my certificate from Gobeze.'}
                 hashtag={'#gobeze'}
               >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
-              <LinkedinShareButton
-                url={`https://gobeze.com/certificate/${certificate._id}`}
-              >
+              <LinkedinShareButton url={shareUrl}>
                 <LinkedinIcon size={32} round />
               </LinkedinShareButton>
             </Box>
