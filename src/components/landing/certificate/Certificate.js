@@ -25,7 +25,10 @@ const Certificate = ({ certificate }) => {
     process.env.NODE_ENV === 'production'
       ? `https://gobeze.com/certificates/${certificate.certificateImage}`
       : `http://localhost:3000/certificates/${certificate.certificateImage}`;
-  const shareUrl = window.location.href;
+  let shareUrl = '';
+  if (typeof window !== 'undefined') {
+    shareUrl = window.location.href;
+  }
   const [open, setOpen] = useState(false);
   const [certificateId, setCertificateId] = useState('');
   const handleClick = () => {
