@@ -14,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import CertificateHero from './CertificateHero';
 
-const Certificate = ({ student }) => {
+const Certificate = () => {
   const [open, setOpen] = useState(false);
   const [certificateId, setCertificateId] = useState('');
   const handleClick = () => {
@@ -65,7 +65,16 @@ const Certificate = ({ student }) => {
                 <Image src={logo} alt='gobeze logo' height={40} width={40} />
               </Link>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                '@media screen and (max-width: 420px)': {
+                  display: 'none',
+                },
+              }}
+            >
               <TextField
                 sx={{
                   m: 0,
@@ -108,74 +117,13 @@ const Certificate = ({ student }) => {
                   },
                 }}
               >
-                <Link sx={{ textDecoration: 'none' }} href='/trainings'>
+                <Link
+                  sx={{ textDecoration: 'none' }}
+                  href={`/certificate/${certificateId}`}
+                >
                   Verify
                 </Link>
               </Box>
-            </Box>
-
-            <Box
-              sx={{
-                display: 'none',
-                '@media screen and (max-width: 576px)': {
-                  display: 'block',
-                },
-              }}
-            >
-              {open ? (
-                <IconButton
-                  onClick={handleClick}
-                  color='primary'
-                  component='span'
-                >
-                  <CloseIcon />
-                </IconButton>
-              ) : (
-                <IconButton
-                  onClick={handleClick}
-                  color='primary'
-                  component='span'
-                >
-                  <MenuIcon />
-                </IconButton>
-              )}
-            </Box>
-          </Box>
-          <Box>
-            <Box>
-              <Collapse in={open} timeout='auto' unmountOnExit>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    pb: '1rem',
-                    pt: '1rem',
-                    flexDirection: 'column',
-                    background: 'transparent',
-                    ml: 'auto',
-                    mr: 0,
-                    gap: '1rem',
-                    '&.MuiBox-root a': {
-                      textDecoration: 'none',
-                      color: 'secondary.main',
-                      fontWeight: '300',
-                      fontSize: '0.875rem',
-                    },
-                  }}
-                >
-                  <Box>
-                    <TextField
-                      margin='normal'
-                      required
-                      fullWidth
-                      id='certificateId'
-                      label='Certificate Id'
-                      name='certificateId'
-                      autoFocus
-                      onChange={(e) => setCertificateId(e.target.value)}
-                    />
-                  </Box>
-                </Box>
-              </Collapse>
             </Box>
           </Box>
         </Box>
@@ -210,6 +158,8 @@ const Certificate = ({ student }) => {
             pb: 3,
             background: 'transparent',
             color: 'secondary.main',
+            m: 'auto',
+            width: '100%',
           }}
         >
           <Container sx={{}}>
@@ -272,7 +222,7 @@ const Certificate = ({ student }) => {
                     display: 'block',
                     width: '100%',
                   }}
-                  href='#'
+                  href={`/certificate/${certificateId}`}
                 >
                   Verify
                 </Link>

@@ -11,8 +11,7 @@ import {
 } from '@mui/material';
 import logo from '../../../images/logo.png';
 import Link from '../../Link';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+import NotFoundImg from '../../../images/404.png';
 import CertificateHero from './CertificateHero2';
 import {
   FacebookShareButton,
@@ -21,10 +20,13 @@ import {
   LinkedinIcon,
 } from 'next-share';
 const Certificate = ({ certificate }) => {
-  const imageSrc =
-    process.env.NODE_ENV === 'production'
-      ? `https://gobeze.com/certificates/${certificate.certificateImage}`
-      : `http://localhost:3000/certificates/${certificate.certificateImage}`;
+  console.log(certificate);
+  const imageSrc = certificate
+    ? process.env.NODE_ENV === 'production'
+      ? `https://gobeze.com/certificates/${certificate?.certificateImage}`
+      : `http://localhost:3000/certificates/${certificate?.certificateImage}`
+    : null;
+
   let shareUrl;
   if (typeof window !== 'undefined') {
     shareUrl = window.location.href;
@@ -34,9 +36,7 @@ const Certificate = ({ certificate }) => {
   //   }, []);
   const [open, setOpen] = useState(false);
   const [certificateId, setCertificateId] = useState('');
-  const handleClick = () => {
-    setOpen(!open);
-  };
+
   return (
     <>
       <Container
@@ -82,21 +82,23 @@ const Certificate = ({ certificate }) => {
                 <Image src={logo} alt='gobeze logo' height={40} width={40} />
               </Link>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <Typography sx={{ fontWeight: '300' }}>
-                Share on Socials
-              </Typography>
-              <FacebookShareButton
-                url={shareUrl}
-                quote={'View my certificate from Gobeze.'}
-                hashtag={'#gobeze #helpinggoodpeoplewin #knownow'}
-              >
-                <FacebookIcon size={32} round />
-              </FacebookShareButton>
-              <LinkedinShareButton url={shareUrl}>
-                <LinkedinIcon size={32} round />
-              </LinkedinShareButton>
-            </Box>
+            {certificate && (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <Typography sx={{ fontWeight: '300' }}>
+                  Share on Socials
+                </Typography>
+                <FacebookShareButton
+                  url={shareUrl}
+                  quote={'View my certificate from Gobeze.'}
+                  hashtag={'#gobeze #helpinggoodpeoplewin #knownow'}
+                >
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
+                <LinkedinShareButton url={shareUrl}>
+                  <LinkedinIcon size={32} round />
+                </LinkedinShareButton>
+              </Box>
+            )}
           </Box>
           <Box></Box>
         </Box>
@@ -154,7 +156,20 @@ const Certificate = ({ certificate }) => {
                 },
               }}
             >
-              <img src={imageSrc} alt='nat' />
+              {imageSrc ? (
+                <img src={imageSrc} alt='nat' />
+              ) : (
+                <>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Image src={NotFoundImg} />
+                    <Typography
+                      sx={{ fontWeight: '200', fontSize: '1.5rem', my: 1 }}
+                    >
+                      Certificate Not Found !
+                    </Typography>
+                  </Box>
+                </>
+              )}
             </Box>
             {/* <Box
               sx={{

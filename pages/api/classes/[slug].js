@@ -11,6 +11,7 @@ import Course from '../../../models/Course';
 import Student from '../../../models/Student';
 import Payment from '../../../models/Payment';
 import User from '../../../models/User';
+import Certificate from '../../../models/Certificate';
 
 export const config = {
   api: {
@@ -56,7 +57,7 @@ router
       let course = await Class.findOne({ slug: query.slug }).populate({
         path: 'course students',
         populate: {
-          path: ' course payment registered_by',
+          path: ' course payment registered_by certificate',
           populate: {
             path: 'course',
           },
@@ -95,12 +96,12 @@ router
 
       res.json(
         course.students
-          .filter((student) => student.status == 'certified')
+          .filter((student) => student.status == 'enrolled')
           .map((student) => {
             return {
               id: student._id,
               name: student.name,
-              certificate: student.certificate.certificateId,
+              // certificate: student.certificate.certificateId,
             };
           })
       );

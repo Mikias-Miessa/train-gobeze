@@ -154,7 +154,8 @@ export const addPaymentReference = createAsyncThunk(
         'Content-Type': 'application/json',
       },
     };
-    const body = JSON.stringify({ remark, payment_with, reference, amount });
+    const body = JSON.stringify({ reference, amount });
+    console.log('body');
     console.log(body);
     try {
       const res = await axios.put(

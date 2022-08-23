@@ -18,9 +18,9 @@ router
     await next(); // call next in chain
   })
   .put(async (req, res) => {
-    // console.log(req)
+    //add payment to an enrolled student who didn't finish his payment.
     const { query, body } = req;
-
+    console.log('goth');
     try {
       const { reference, amount } = body;
       let updatedStudent = await Student.findById(query.id).populate({
@@ -38,9 +38,9 @@ router
 
       let coursePrice = updatedStudent?.course?.course.price;
 
-      studentPayment.amount = amount + studentPayment.amount;
+      studentPayment.amount = Number(amount) + Number(studentPayment.amount);
       studentPayment.status = 'complete';
-      studentPayment.reference.push(reference);
+      studentPayment.references.push(reference);
 
       if (amount <= coursePrice) {
         studentPayment.status = 'not_complete';

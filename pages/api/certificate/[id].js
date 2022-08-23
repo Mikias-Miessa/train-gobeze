@@ -26,11 +26,12 @@ router
       let certificate = await Certificate.findOne({
         certificateId: query.id,
       }).populate('student');
-      if (!certificate) {
-        return res.status(400).json({
-          errors: [{ msg: 'Certificate not found' }],
-        });
-      }
+      console.log(certificate);
+      // if (!certificate) {
+      //   return res.status(400).json({
+      //     errors: [{ msg: 'Certificate not found' }],
+      //   });
+      // }
 
       res.json(certificate);
     } catch (err) {

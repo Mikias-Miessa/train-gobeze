@@ -104,7 +104,7 @@ export default function Students() {
   const [open, setOpen] = useState(false);
   const [addReferenceModal, setAddReferenceModal] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [selectedStudent, setSelectedStudent] = useState('');
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   useEffect(() => {
     if (copied) {
@@ -117,6 +117,10 @@ export default function Students() {
     query && dispatch(getClass(query.id));
   }, [query]);
 
+  const getClassStudents = () => {
+    dispatch(getClass(query.id));
+  };
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -125,6 +129,9 @@ export default function Students() {
     setOpen(false);
     setAddReferenceModal(false);
   };
+  const enrolledStudents = singleClass?.students.filter(
+    (student) => student.status === 'enrolled' || student.status === 'certified'
+  );
 
   return (
     <>
@@ -206,54 +213,59 @@ export default function Students() {
                           <TableCell>Phone</TableCell>
                           <TableCell>Payment</TableCell>
                           <TableCell>Paid Amount</TableCell>
-                          <TableCell>Registered By</TableCell>
+                          <TableCell>Certificate</TableCell>
                           {/* <TableCell>Price</TableCell> */}
                           {/* <TableCell align="right">Sale Amount</TableCell> */}
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {singleClass.students.filter(
-                          (student) => student.status === 'enrolled'
-                        ).length > 0 ? (
-                          singleClass.students
-                            .filter((student) => student.status === 'enrolled')
-                            .map(
-                              (row, index) =>
-                                row && (
-                                  <TableRow key={index}>
-                                    <TableCell>{row.name}</TableCell>
-                                    <TableCell>{row.phone}</TableCell>
-                                    {row.payment?.payment_with === 'cash' ? (
-                                      <TableCell>Cash</TableCell>
-                                    ) : (
-                                      <TableCell>
-                                        <Box>{row.payment?.bank}</Box>
-                                        <Box>
-                                          {row.payment?.references.map(
-                                            (reference) => (
-                                              <CopyToClipboard
-                                                text={reference}
-                                                onCopy={() =>
-                                                  setCopied(TryOutlined)
-                                                }
+                        {enrolledStudents.length > 0 ? (
+                          enrolledStudents.map(
+                            (row, index) =>
+                              row && (
+                                <TableRow key={index}>
+                                  <TableCell
+                                    onClick={() => {
+                                      console.log(row._id);
+                                    }}
+                                  >
+                                    {row.name}
+                                  </TableCell>
+                                  <TableCell>{row.phone}</TableCell>
+                                  {row.payment?.payment_with === 'cash' ? (
+                                    <TableCell>Cash</TableCell>
+                                  ) : (
+                                    <TableCell>
+                                      <Box>{row.payment?.bank}</Box>
+                                      <Box>
+                                        {row.payment?.references.map(
+                                          (reference, index) => (
+                                            <CopyToClipboard
+                                              key={index}
+                                              text={reference}
+                                              onCopy={() =>
+                                                setCopied(TryOutlined)
+                                              }
+                                            >
+                                              <Box
+                                                component='span'
+                                                sx={{
+                                                  cursor: 'pointer',
+                                                  display: 'block',
+                                                }}
                                               >
-                                                <Box
-                                                  component='span'
-                                                  sx={{
-                                                    cursor: 'pointer',
-                                                  }}
-                                                >
-                                                  {' '}
-                                                  {reference}
-                                                </Box>
-                                              </CopyToClipboard>
-                                            )
-                                          )}
-                                        </Box>
-                                      </TableCell>
-                                    )}
+                                                {' '}
+                                                {reference}
+                                              </Box>
+                                            </CopyToClipboard>
+                                          )
+                                        )}
+                                      </Box>
+                                    </TableCell>
+                                  )}
 
-                                    <TableCell sx={{ display: 'flex' }}>
+                                  <TableCell>
+                                    <Box sx={{ display: 'flex' }}>
                                       <Typography
                                         sx={{
                                           background:
@@ -285,30 +297,39 @@ export default function Students() {
                                             }}
                                             onClick={() => {
                                               setAddReferenceModal(true);
-                                              setSelectedStudent(row.name);
+                                              setSelectedStudent(row);
                                             }}
                                           >
                                             <AddIcon />
                                           </Button>
                                         </Tooltip>
                                       )}
-                                    </TableCell>
-                                    <TableCell>
-                                      {row.registered_online
-                                        ? 'Online'
-                                        : 'Staff'}
-                                    </TableCell>
-                                    <TableCell>
-                                      {/* <Box  sx={{ display: 'flex', gap: '1rem' }}>
+                                    </Box>
+                                  </TableCell>
+                                  <TableCell>
+                                    {row.status === 'certified' && (
+                                      <Link
+                                        href={`https://gobeze.com/certificate/${row.certificate?.certificateId}`}
+                                        target='_blank'
+                                      >
+                                        {' '}
+                                        Certificate{' '}
+                                      </Link>
+                                    )}
+                                    {row.status === 'enrolled' &&
+                                      'Not Certified'}
+                                  </TableCell>
+                                  <TableCell>
+                                    {/* <Box  sx={{ display: 'flex', gap: '1rem' }}>
                 <Typography>{row.enrolledStudents}</Typography>
          <Link href={`/admin/classes/students`}>See Students</Link>
     </Box> */}
-                                    </TableCell>
-                                    {/* <TableCell>{row.price}</TableCell> */}
-                                    {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
-                                  </TableRow>
-                                )
-                            )
+                                  </TableCell>
+                                  {/* <TableCell>{row.price}</TableCell> */}
+                                  {/* <TableCell align="right">{`$${row.amount}`}</TableCell> */}
+                                </TableRow>
+                              )
+                          )
                         ) : (
                           <>
                             {' '}
@@ -384,14 +405,16 @@ export default function Students() {
                 color: 'primary.main',
               }}
             >
-              {selectedStudent}{' '}
+              {selectedStudent?.name}{' '}
             </Box>{' '}
           </h2>
           <p id='parent-modal-description'>Add a reference Id of payment.</p>
           <NewReference
             setOpen={setAddReferenceModal}
+            id={selectedStudent?._id}
             course={singleClass?._id}
             price={singleClass?.course?.price}
+            getClassStudents={getClassStudents}
           />
         </Box>
       </Modal>

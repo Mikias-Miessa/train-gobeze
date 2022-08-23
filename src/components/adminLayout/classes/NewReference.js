@@ -12,14 +12,15 @@ import { toast } from 'react-toastify';
 import 'react-phone-number-input/style.css';
 
 import { addPaymentReference, reset } from '../../../../store/studentSlice';
-// import { enrollStudent, reset, status } from '../../../../store/classSlice';
+// import { getClass } from '../../../../store/classSlice';
 
-const NewReference = ({ setOpen, course, price }) => {
+const NewReference = ({ setOpen, course, price, id, getClassStudents }) => {
   console.log(course);
   const { status } = useSelector((state) => state.student);
   const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
   const [values, setValues] = useState({
+    id: id ? id : '',
     course: course ? course : '',
     amount: price ? price : 0,
     reference: '',
@@ -35,10 +36,11 @@ const NewReference = ({ setOpen, course, price }) => {
   };
 
   useEffect(() => {
-    if (status === 'enrolling') {
+    if (status === 'pending') {
       setBackdrop(true);
     }
     if (status === 'added') {
+      getClassStudents();
       toast.success('Added reference successfully!');
       setOpen(false);
       setBackdrop(false);
@@ -48,7 +50,7 @@ const NewReference = ({ setOpen, course, price }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
-    // dispatch(addPaymentReference(values));
+    dispatch(addPaymentReference(values));
   };
 
   return (
@@ -112,7 +114,7 @@ const NewReference = ({ setOpen, course, price }) => {
               },
             }}
           >
-            Enroll
+            Add Payment
           </Button>
         </Box>
       </Box>
