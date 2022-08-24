@@ -99,9 +99,9 @@ const Header = () => {
                   Online Trainings
                 </Link>
               </Box>
-              {/* <Box sx={{}}>
+              <Box sx={{}}>
                 <Link href='/certificate'>Certificates</Link>
-              </Box> */}
+              </Box>
             </Box>
             <Box
               sx={{
@@ -189,9 +189,9 @@ const Header = () => {
                       Online Trainings
                     </Link>
                   </Box>
-                  {/* <Box sx={{}}>
+                  <Box sx={{}}>
                     <Link href='/certificate'>Certificates</Link>
-                  </Box> */}
+                  </Box>
                   <Box
                     sx={{
                       background: 'transparent',
