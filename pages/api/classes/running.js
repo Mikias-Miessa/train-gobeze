@@ -12,8 +12,7 @@ const handler = async (req, res) => {
 
   if (method === 'GET') {
     try {
-      // let classes = await Class.find({}).populate('course')
-      let classes = await Class.updateMany({}, { $set: { status: 'running' } });
+      let classes = await Class.find({ status: 'running' }).populate('course');
       //   console.log(classes)
       res.json(classes);
     } catch (err) {
