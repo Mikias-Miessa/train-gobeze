@@ -34,6 +34,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import DomainVerificationIcon from '@mui/icons-material/DomainVerification';
+import NewStudent from '../students/NewStudent';
 
 const modalStyle = {
   position: 'absolute',
@@ -57,7 +58,8 @@ export default function RecentRegistration() {
   const [backdrop, setBackdrop] = useState(false);
   const [openContacted, setOpenContacted] = useState(false);
   const [openEnroll, setOpenEnroll] = useState(false);
-   
+  const [open, setOpen] = useState(false);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRegisteredStudents());
@@ -88,7 +90,7 @@ export default function RecentRegistration() {
   const handleClose = () => {
     setOpenContacted(false);
     setOpenPoper(false);
-    setOpenEnroll(false)
+    setOpenEnroll(false);
   };
   const getDuration = (date) => {
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -107,10 +109,25 @@ export default function RecentRegistration() {
     const dayDifference = Math.floor((utc2 - utc1) / _MS_PER_DAY);
     return dayDifference === 0 ? 'Today' : dayDifference + ' days ago';
   };
-
+  const handleOpen = () => {
+    setOpen(true);
+  };
   return (
     <>
-      <Title>Recent Registration </Title>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          py: 1,
+          my: 1,
+        }}
+      >
+        <Title>Recent Registration </Title>
+        <Button variant='contained' onClick={handleOpen}>
+          Register New Student
+        </Button>
+      </Box>
       <Table size='small'>
         <TableHead>
           <TableRow>
@@ -254,12 +271,23 @@ export default function RecentRegistration() {
         <Box sx={{ ...modalStyle, width: '80%' }}>
           <h2 id='parent-modal-title'>Enroll Student</h2>
           <p id='parent-modal-description'>
-          Enter payment details of the student.
+            Enter payment details of the student.
           </p>
           <Enrolled setOpen={handleClose} student={updatedStudent} />
         </Box>
       </Modal>
-
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='parent-modal-title'
+        aria-describedby='parent-modal-description'
+      >
+        <Box sx={{ ...modalStyle, width: '80%' }}>
+          <h2 id='parent-modal-title'>Register new Student.</h2>
+          <p id='parent-modal-description'>Add Student details.</p>
+          <NewStudent setOpen={setOpen} />
+        </Box>
+      </Modal>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={backdrop}

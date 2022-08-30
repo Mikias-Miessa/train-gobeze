@@ -52,7 +52,7 @@ router
   })
   .get(async (req, res) => {
     const { query } = req;
-
+    console.log(query.slug);
     try {
       let course = await Class.findOne({ slug: query.slug }).populate({
         path: 'course students',
@@ -124,23 +124,24 @@ router
           errors: [{ msg: 'Class not found' }],
         });
       }
-      gfs.remove(
-        {
-          filename: updatedClass.thumbnail.replace('/api/files/images/', ''),
-          root: 'files',
-        },
-        async (err, gridStore) => {
-          if (err) {
-            return res.status(404).json({
-              err: err,
-            });
-          } else {
-            //image is removed from db
-            console.log('image is deleted from mongodb');
-          }
-        }
-      );
-      const thumbnailImage = '/api/files/images/' + req.file.filename;
+      console.log(req.file);
+      // gfs.remove(
+      //   {
+      //     filename: updatedClass.thumbnail.replace('/api/files/images/', ''),
+      //     root: 'files',
+      //   },
+      //   async (err, gridStore) => {
+      //     if (err) {
+      //       return res.status(404).json({
+      //         err: err,
+      //       });
+      //     } else {
+      //       //image is removed from db
+      //       console.log('image is deleted from mongodb');
+      //     }
+      //   }
+      // );
+      // const thumbnailImage = '/api/files/images/' + req.file.filename;
 
       let selectedCourse = await Course.findById(course);
       if (!selectedCourse) {
@@ -155,7 +156,7 @@ router
       updatedClass.description = description;
       updatedClass.schedule = schedule;
       updatedClass.start_date = start_date;
-      updatedClass.thumbnail = thumbnailImage;
+      // updatedClass.thumbnail = thumbnailImage;
       updatedClass.instructor = instructor;
       updatedClass.remark = remark;
 

@@ -26,28 +26,6 @@ import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { getClasses } from '../../../../store/classSlice';
-// Generate Order Data
-function createData(
-  id,
-  name,
-  courseCode,
-  courseSchedule,
-  startDate,
-  batchName,
-  instructor,
-  enrolledStudents
-) {
-  return {
-    id,
-    name,
-    courseCode,
-    courseSchedule,
-    startDate,
-    batchName,
-    instructor,
-    enrolledStudents,
-  };
-}
 
 const modalStyle = {
   position: 'absolute',
