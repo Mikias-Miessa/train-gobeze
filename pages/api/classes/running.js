@@ -3,6 +3,7 @@ import userAuth from '../../../middleware/userAuth';
 import connectMongo from '../../../utils/db';
 import Class from '../../../models/Class';
 import Course from '../../../models/Course';
+import Student from '../../../models/Student';
 
 const handler = async (req, res) => {
   const { method } = req;
