@@ -5,22 +5,21 @@ import Running from './Running';
 import Closed from './Closed';
 
 export default function Classes() {
-    return<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-    <Grid container spacing={3}>
-     
-      {/* Recent Running */}
-      <Grid item xs={12}>
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-          <Running />
-        </Paper>
+  return (
+    <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+      <Grid container spacing={3}>
+        {/* Recent Running */}
+        <Grid item xs={12}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Running />
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Closed />
+          </Paper>
+        </Grid>
       </Grid>
-      {/* <Grid item xs={12}>
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-          <Closed />
-        </Paper>
-      </Grid> */}
-    </Grid>
-  
-  </Container>;
-  }
-  
+    </Container>
+  );
+}

@@ -149,7 +149,7 @@ export default function RecentRegistration() {
             </TableRow>
           ) : (
             students
-              // .filter((student) => !student.contacted)
+              .filter((student) => !student.contacted)
               .slice(0, 8)
               .map(
                 (student, index) =>

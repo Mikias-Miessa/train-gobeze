@@ -25,7 +25,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { getClasses } from '../../../../store/classSlice';
+import { getRunningClasses } from '../../../../store/classSlice';
 
 const modalStyle = {
   position: 'absolute',
@@ -46,7 +46,7 @@ function preventDefault(event) {
 }
 
 export default function Classes() {
-  const { classes, loading } = useSelector((state) => state.classroom);
+  const { runningClasses, loading } = useSelector((state) => state.classroom);
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -54,7 +54,7 @@ export default function Classes() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
-    dispatch(getClasses());
+    dispatch(getRunningClasses());
   }, []);
   const handlePopperClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,7 +69,7 @@ export default function Classes() {
 
   return (
     <>
-      <Title>{`Running Classes (${classes.length})`}</Title>
+      <Title>{`Running Classes (${runningClasses.length})`}</Title>
       <Paper
         elevation={0}
         sx={{
@@ -98,8 +98,8 @@ export default function Classes() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {classes.length > 0 ? (
-                classes.map(
+              {runningClasses.length > 0 ? (
+                runningClasses.map(
                   (item, index) =>
                     item && (
                       <TableRow key={index}>

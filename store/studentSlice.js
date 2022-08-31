@@ -51,17 +51,24 @@ export const getRegisteredStudents = createAsyncThunk(
 export const addStudent = createAsyncThunk(
   'student/add',
   async (student, thunkAPI) => {
-    console.log(student);
-    const { course, name, email, phone, bank } = student;
+    const { course, name, email, phone, bank, remark, contacted } = student;
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    const body = JSON.stringify({ course, name, email, phone, bank });
+    const body = JSON.stringify({
+      course,
+      name,
+      email,
+      phone,
+      bank,
+      remark,
+      contacted,
+    });
     try {
       const res = await axios.post('/api/students/register', body, config);
-      console.log(res.data);
+
       return res.data;
     } catch (error) {
       console.log(error);
@@ -80,7 +87,6 @@ export const addStudent = createAsyncThunk(
 export const markAsContacted = createAsyncThunk(
   'student/contacted',
   async (student, thunkAPI) => {
-    console.log(student);
     const { id, remark } = student;
     const config = {
       headers: {
@@ -88,14 +94,14 @@ export const markAsContacted = createAsyncThunk(
       },
     };
     const body = JSON.stringify({ remark });
-    console.log(body);
+
     try {
       const res = await axios.put(
         `/api/students/contacted/${id}`,
         body,
         config
       );
-      console.log(res.data);
+
       return res.data;
     } catch (error) {
       console.log(error);
@@ -113,7 +119,6 @@ export const markAsContacted = createAsyncThunk(
 export const enrollRegisteredStudent = createAsyncThunk(
   'student/enrollregistered',
   async (student, thunkAPI) => {
-    console.log(student);
     const { id, remark, payment_with, reference, amount } = student;
     const config = {
       headers: {
@@ -121,14 +126,14 @@ export const enrollRegisteredStudent = createAsyncThunk(
       },
     };
     const body = JSON.stringify({ remark, payment_with, reference, amount });
-    console.log(body);
+
     try {
       const res = await axios.put(
         `/api/students/enroll/registered/${id}`,
         body,
         config
       );
-      console.log(res.data);
+
       return res.data;
     } catch (error) {
       console.log(error);
@@ -147,7 +152,6 @@ export const enrollRegisteredStudent = createAsyncThunk(
 export const addPaymentReference = createAsyncThunk(
   'student/addreference',
   async (student, thunkAPI) => {
-    console.log(student);
     const { id, reference, amount } = student;
     const config = {
       headers: {
@@ -155,15 +159,14 @@ export const addPaymentReference = createAsyncThunk(
       },
     };
     const body = JSON.stringify({ reference, amount });
-    console.log('body');
-    console.log(body);
+
     try {
       const res = await axios.put(
         `/api/students/enroll/payments/${id}`,
         body,
         config
       );
-      console.log(res.data);
+
       return res.data;
     } catch (error) {
       console.log(error);
@@ -182,11 +185,9 @@ export const addPaymentReference = createAsyncThunk(
 export const deleteStudent = createAsyncThunk(
   'student/delete',
   async (id, thunkAPI) => {
-    console.log(id);
-
     try {
       const res = await axios.delete(`/api/students/${id}`);
-      console.log(res.data);
+
       return res.data;
     } catch (error) {
       console.log(error);
@@ -302,7 +303,6 @@ export const studentSlice = createSlice({
         state.loading = true;
       })
       .addCase(getStudents.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
         state.students = action.payload;
       })
@@ -313,7 +313,6 @@ export const studentSlice = createSlice({
         state.loading = true;
       })
       .addCase(getRegisteredStudents.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
         state.students = action.payload;
       })

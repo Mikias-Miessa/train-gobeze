@@ -16,12 +16,12 @@ import {
 import { toast } from 'react-toastify';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { addStudent } from '../../../../store/studentSlice';
+import { addStudent, reset } from '../../../../store/studentSlice';
 import { getRunningClasses } from '../../../../store/classSlice';
 
 const NewStudent = ({ setOpen }) => {
   const { status } = useSelector((state) => state.student);
-  const { classes } = useSelector((state) => state.classroom);
+  const { runningClasses } = useSelector((state) => state.classroom);
   const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
   const [values, setValues] = useState({
@@ -29,6 +29,7 @@ const NewStudent = ({ setOpen }) => {
     name: '',
     email: '',
     remark: '',
+    contacted: true,
   });
   const [phone, setPhone] = useState('');
   const [validPhoneNumber, setValidPhone] = useState(false);
@@ -39,19 +40,19 @@ const NewStudent = ({ setOpen }) => {
     </MenuItem>,
   ];
   // let courseOptions =  <MenuItem value=''>Choose Courses</MenuItem>;
-  if (classes.length > 0) {
-    courseOptions = classes.map(
+  if (runningClasses.length > 0) {
+    courseOptions = runningClasses.map(
       (course, index) =>
         course && (
           <MenuItem key={index + 1} value={course._id && course._id}>
-            {course.courseName && course.courseName}
+            {course.course?.courseName && course.course?.courseName}
           </MenuItem>
         )
     );
   }
 
   useEffect(() => {
-    dispatch(getCourses());
+    dispatch(getRunningClasses());
   }, []);
 
   useEffect(() => {
@@ -85,16 +86,8 @@ const NewStudent = ({ setOpen }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
-    const formData = new FormData();
 
-    formData.append('course', values.course);
-    formData.append('description', values.description);
-    formData.append('schedule', values.schedule);
-    formData.append('start_date', values.start_date);
-    formData.append('instructor', values.instructor);
-    formData.append('remark', values.remark);
-    formData.append('thumbnail', values.thumbnail);
-    dispatch(addClass(formData));
+    dispatch(addStudent(values));
   };
 
   return (
