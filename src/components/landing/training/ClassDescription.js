@@ -9,8 +9,8 @@ const textStyle = {
   verticalAlign: 'unset',
 };
 
-const ClassDescription = ({training}) => {
-
+const ClassDescription = ({ training }) => {
+  console.log(training.schedules);
   return (
     <>
       <Box
@@ -47,7 +47,7 @@ const ClassDescription = ({training}) => {
               maxWidth: '1140px',
             },
             '@media screen and (max-width: 486px)': {
-              px:0
+              px: 0,
             },
           }}
         >
@@ -112,27 +112,32 @@ const ClassDescription = ({training}) => {
                       flexBasis: '50%',
                       maxWidth: '50%',
                     },
-                   
                   }}
                 >
-                  <Box sx={{ position: 'relative',width: 'auto',height: '200px',
-                '& span':{
-                  '& img':{
-                      // width: '100%',
-                      objectFit: 'cover',
-                      maxWidth: '300px',
-                      // mt: -12,
-                      // background: 'transparent',
-                      borderRadius: '0.375rem',
-                      boxShadow: 'none',
-                      // height: 'auto',
-                  }
-                }
-                }}>
-
-                  <Image src={training.thumbnail} alt='graphic Design' 
-                  layout='fill'
-                  />
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      width: 'auto',
+                      height: '200px',
+                      '& span': {
+                        '& img': {
+                          // width: '100%',
+                          objectFit: 'cover',
+                          maxWidth: '300px',
+                          // mt: -12,
+                          // background: 'transparent',
+                          borderRadius: '0.375rem',
+                          boxShadow: 'none',
+                          // height: 'auto',
+                        },
+                      },
+                    }}
+                  >
+                    <Image
+                      src={training.thumbnail}
+                      alt='graphic Design'
+                      layout='fill'
+                    />
                   </Box>
                 </Grid>
                 <Grid
@@ -176,40 +181,98 @@ const ClassDescription = ({training}) => {
                       fontWeight: '300',
                       '@media screen and (max-width: 876px)': {
                         fontSize: '1rem',
-                      lineHeight: '1.5',
+                        lineHeight: '1.5',
                       },
                     }}
                   >
                     {training.description}
                   </Typography>
-                  {training.instructor &&<Box>
-                    <Typography
-                      component='span'
-                      sx={{
-                        lineHeight: '1.5',
-                        fontSize: '0.875rem',
-                        fontWeight: '700',
-                        m: 0,
-                      }}
-                    >
-                      Instructor -
-                    </Typography>
+                  {training.instructor && (
+                    <Box>
+                      <Typography
+                        component='span'
+                        sx={{
+                          lineHeight: '1.5',
+                          fontSize: '0.875rem',
+                          fontWeight: '700',
+                          m: 0,
+                        }}
+                      >
+                        Instructor -
+                      </Typography>
 
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      sx={{
-                        ...textStyle,
-                        ml: 1,
-                        lineHeight: '1.6',
-                        fontSize: '0.875rem',
-                        fontWeight: '300',
-                      }}
-                    >
-                     {training.instructor}
-                    </Typography>
-                  </Box> }
-                  
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        sx={{
+                          ...textStyle,
+                          ml: 1,
+                          lineHeight: '1.6',
+                          fontSize: '0.875rem',
+                          fontWeight: '300',
+                        }}
+                      >
+                        {training.instructor}
+                      </Typography>
+                    </Box>
+                  )}
+                  {training.schedules === undefined ? (
+                    <Box>
+                      <Typography
+                        component='span'
+                        sx={{
+                          lineHeight: '1.5',
+                          fontSize: '0.875rem',
+                          fontWeight: '700',
+                          m: 0,
+                        }}
+                      >
+                        Schedule -
+                      </Typography>
+
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        sx={{
+                          ...textStyle,
+                          ml: 1,
+                          lineHeight: '1.6',
+                          fontSize: '0.875rem',
+                          fontWeight: '300',
+                        }}
+                      >
+                        {training.schedule}
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <Box>
+                      <Typography
+                        component='span'
+                        sx={{
+                          lineHeight: '1.5',
+                          fontSize: '0.875rem',
+                          fontWeight: '700',
+                          m: 0,
+                        }}
+                      >
+                        Schedules -
+                      </Typography>
+
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        sx={{
+                          ...textStyle,
+                          ml: 1,
+                          lineHeight: '1.6',
+                          fontSize: '0.875rem',
+                          fontWeight: '300',
+                        }}
+                      >
+                        Choose Schedule
+                      </Typography>
+                    </Box>
+                  )}
                   <Box>
                     <Typography
                       component='span'
@@ -220,7 +283,7 @@ const ClassDescription = ({training}) => {
                         m: 0,
                       }}
                     >
-                        Duration -
+                      Duration -
                     </Typography>
                     <Typography
                       component='span'
@@ -267,11 +330,11 @@ const ClassDescription = ({training}) => {
                       },
                       '@media screen and (max-width: 876px)': {
                         fontSize: '1.325rem',
-                      lineHeight: '1.5',
+                        lineHeight: '1.5',
                       },
                     }}
                   >
-                   {training.course?.courseName}
+                    {training.course?.courseName}
                   </Typography>
                   <Typography
                     variant='body2'
@@ -285,9 +348,8 @@ const ClassDescription = ({training}) => {
                       color: 'white',
                     }}
                   >
-                    Starts on{' '}{Moment(training.start_date).format(
-            'MMM DD YYYY '
-          )}
+                    Starts on{' '}
+                    {Moment(training.start_date).format('MMM DD YYYY ')}
                   </Typography>
                 </Grid>
               </Grid>

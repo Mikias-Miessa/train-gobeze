@@ -119,13 +119,19 @@ export const markAsContacted = createAsyncThunk(
 export const enrollRegisteredStudent = createAsyncThunk(
   'student/enrollregistered',
   async (student, thunkAPI) => {
-    const { id, remark, payment_with, reference, amount } = student;
+    const { id, remark, payment_with, reference, amount, course } = student;
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    const body = JSON.stringify({ remark, payment_with, reference, amount });
+    const body = JSON.stringify({
+      remark,
+      payment_with,
+      reference,
+      amount,
+      course,
+    });
 
     try {
       const res = await axios.put(

@@ -54,7 +54,8 @@ router
       await Student.findOneAndRemove({
         _id: query.id,
       });
-      // await Payment.deleteMany({ student: query.id });
+      await Payment.deleteMany({ student: query.id });
+      await Class.updateMany({}, { $pullAll: { students: [query.id] } });
       res.json({ id: query.id, msg: 'Student deleted' });
     } catch (err) {
       console.log(err);

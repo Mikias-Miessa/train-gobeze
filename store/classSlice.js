@@ -30,6 +30,25 @@ export const getClasses = createAsyncThunk(
     }
   }
 );
+export const getRunningClassesAd = createAsyncThunk(
+  'classroom/getRunningAd',
+  async (classValues, thunkAPI) => {
+    try {
+      const res = await axios.get('/api/classes/running-ad');
+
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      const message =
+        (error.response && error.response.data && error.response.data.errors) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 export const getRunningClasses = createAsyncThunk(
   'classroom/getRunning',
   async (classValues, thunkAPI) => {
@@ -200,6 +219,17 @@ export const classSlice = createSlice({
         state.classes = action.payload;
       })
       .addCase(getClasses.rejected, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(getRunningClassesAd.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getRunningClassesAd.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.loading = false;
+        state.runningClasses = action.payload;
+      })
+      .addCase(getRunningClassesAd.rejected, (state, action) => {
         state.loading = false;
       })
       .addCase(getRunningClasses.pending, (state, action) => {

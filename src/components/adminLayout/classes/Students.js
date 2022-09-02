@@ -155,7 +155,13 @@ export default function Students() {
                       }}
                     >
                       <div>
-                        <Title>{singleClass.course?.courseName}</Title>
+                        <Title>
+                          {singleClass.course?.courseName}
+                          <Box component='span' sx={{ fontWeight: '300' }}>
+                            {' '}
+                            {singleClass.schedule}{' '}
+                          </Box>
+                        </Title>
                         <Typography variant='body1'>
                           {singleClass.course?.courseCode}
                         </Typography>
@@ -177,7 +183,7 @@ export default function Students() {
                           variant='h2'
                           sx={{ fontSize: '1rem', mt: '1rem' }}
                         >
-                          {singleClass.students.length} Students
+                          {enrolledStudents.length} Students
                         </Typography>
                       </div>
                       <Divider orientation='vertical' flexItem />

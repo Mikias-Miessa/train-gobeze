@@ -123,7 +123,13 @@ export default function RecentRegistration() {
           my: 1,
         }}
       >
-        <Title>Recent Registration </Title>
+        <Title>
+          Recent Registration{' '}
+          <Box component='span' sx={{ fontWeight: '300' }}>
+            {' '}
+            ( {students.length} )
+          </Box>{' '}
+        </Title>
         <Button variant='contained' onClick={handleOpen}>
           Register New Student
         </Button>
@@ -159,7 +165,15 @@ export default function RecentRegistration() {
                       <TableCell>{student.phone}</TableCell>
                       <TableCell>{student.email}</TableCell>
                       <TableCell>
-                        {student.course?.course?.courseName}
+                        <Typography sx={{ fontWeight: '300' }}>
+                          {student.course?.course?.courseName}
+                        </Typography>
+
+                        <Typography
+                          sx={{ fontWeight: '400', color: 'primary.main' }}
+                        >
+                          {student.course?.schedule}
+                        </Typography>
                       </TableCell>
                       <TableCell>
                         {student.createdAt &&

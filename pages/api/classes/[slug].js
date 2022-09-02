@@ -52,64 +52,77 @@ router
   })
   .get(async (req, res) => {
     const { query } = req;
-    console.log(query.slug);
+    // console.log(query.slug);
     try {
-      let course = await Class.findOne({ slug: query.slug }).populate({
-        path: 'course students',
-        populate: {
-          path: ' course payment registered_by certificate',
+      let course = await Class.findOne({ slug: query.slug })
+        .populate({
+          path: 'course students',
           populate: {
-            path: 'course',
+            path: ' course payment registered_by certificate',
+            populate: {
+              path: 'course',
+            },
           },
-        },
-      });
+        })
+        .lean();
       if (!course) {
         return res.status(400).json({
           errors: [{ msg: 'Course not found' }],
         });
       }
-
+      let classes = await Class.find({ course: course?.course?._id });
+      console.log('classes.length');
+      console.log(classes.length);
+      if (classes.length > 1) {
+        course.schedules = [];
+        classes.forEach((training) => {
+          course.schedules.push({
+            name: training.schedule,
+            value: training._id,
+          });
+        });
+      }
       res.json(course);
     } catch (err) {
       console.log(err);
       res.status(500).send('Server Error');
     }
   })
-  .post(async (req, res) => {
-    const { query } = req;
+  // .post(async (req, res) => {
+  //   const { query } = req;
 
-    try {
-      let course = await Class.findOne({ slug: query.slug }).populate({
-        path: 'course students',
-        populate: {
-          path: ' course payment registered_by certificate',
-          populate: {
-            path: 'course',
-          },
-        },
-      });
-      if (!course) {
-        return res.status(400).json({
-          errors: [{ msg: 'Course not found' }],
-        });
-      }
+  //   try {
+  //     let course = await Class.findOne({ slug: query.slug }).populate({
+  //       path: 'course students',
+  //       populate: {
+  //         path: ' course payment registered_by certificate',
+  //         populate: {
+  //           path: 'course',
+  //         },
+  //       },
+  //     });
+  //     if (!course) {
+  //       return res.status(400).json({
+  //         errors: [{ msg: 'Course not found' }],
+  //       });
+  //     }
 
-      res.json(
-        course.students
-          .filter((student) => student.status == 'enrolled')
-          .map((student) => {
-            return {
-              id: student._id,
-              name: student.name,
-              // certificate: student.certificate.certificateId,
-            };
-          })
-      );
-    } catch (err) {
-      console.log(err);
-      res.status(500).send('Server Error');
-    }
-  })
+  //     res.json(
+  //       course.students
+  //         .filter((student) => student.status == 'enrolled')
+  //         .map((student) => {
+  //           return {
+  //             id: student._id,
+  //             name: student.name,
+  //             // certificate: student.certificate.certificateId,
+  //           };
+  //         })
+  //     );
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(500).send('Server Error');
+  //   }
+  // })
   .use(upload.single('thumbnail'))
   .put(async (req, res) => {
     const { query } = req;

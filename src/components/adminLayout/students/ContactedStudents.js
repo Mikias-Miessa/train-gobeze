@@ -1,7 +1,8 @@
-import {useEffect,useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Moment from 'moment';
-import {Table,
+import {
+  Table,
   CircularProgress,
   TableBody,
   TableCell,
@@ -15,12 +16,17 @@ import {Table,
   Button,
   IconButton,
   Backdrop,
-  Modal, } from '@mui/material';
-  import { toast} from 'react-toastify'
-  import Link from '../../Link';
-  import Title from '../../Title';
-  import Enrolled from './Enrolled';
-import {getStudents,deleteStudent,reset} from '../../../../store/studentSlice'
+  Modal,
+} from '@mui/material';
+import { toast } from 'react-toastify';
+import Link from '../../Link';
+import Title from '../../Title';
+import Enrolled from './Enrolled';
+import {
+  getStudents,
+  deleteStudent,
+  reset,
+} from '../../../../store/studentSlice';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -41,7 +47,7 @@ const modalStyle = {
 };
 
 export default function Followup() {
-  const {students, loading,status} = useSelector((state)=> state.student);
+  const { students, loading, status } = useSelector((state) => state.student);
   const [updatedStudent, setUpdatedStudent] = useState(null);
 
   const [openPoper, setOpenPoper] = useState(false);
@@ -51,9 +57,9 @@ export default function Followup() {
   const [openEnroll, setOpenEnroll] = useState(false);
 
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getStudents());
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (status === 'deleting') {
@@ -83,7 +89,7 @@ export default function Followup() {
   const handleClose = () => {
     setOpenConfirm(false);
     setOpenPoper(false);
-    setOpenEnroll(false)
+    setOpenEnroll(false);
   };
 
   const getDuration = (date) => {
@@ -103,11 +109,19 @@ export default function Followup() {
     const dayDifference = Math.floor((utc2 - utc1) / _MS_PER_DAY);
     return dayDifference === 0 ? 'Today' : dayDifference + ' days ago';
   };
-
+  const contactedStudents = students.filter(
+    (student) => student.contacted && student.status !== 'enrolled'
+  );
   return (
     <>
-      <Title>Students for Followup</Title>
-      <Table size="small">
+      <Title>
+        Students for Followup{' '}
+        <Box component='span' sx={{ fontWeight: '300' }}>
+          {' '}
+          ( {contactedStudents.length} )
+        </Box>{' '}
+      </Title>
+      <Table size='small'>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -120,100 +134,116 @@ export default function Followup() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {
-      loading ?<TableRow><TableCell colSpan={6}><CircularProgress color='primary' sx={{m:'auto'}} /> </TableCell></TableRow> : 
-          students.filter(student=> student.contacted && student.status !== 'enrolled' ).map((student,index) => student &&(
-            <TableRow key={index}>
-              <TableCell>{student.name}</TableCell>
-              <TableCell>{student.phone}</TableCell>
-              <TableCell>{student.course?.course?.courseName}</TableCell>
-              <TableCell>{student.remark}</TableCell>
-              <TableCell >{student.createdAt && Moment(student.createdAt).format(
-            'MMM DD YYYY '
-          )}
-          <Typography sx={{color: 'primary.main',fontSize: '0.875rem',}}>
-            {getDuration(student.createdAt && student.createdAt)}
-          </Typography>
-          </TableCell>
-          <TableCell>
-                        <Popper
-                          open={openPoper}
-                          anchorEl={anchorEl}
-                          placement='bottom-end'
-                          transition
-                        >
-                          {({ TransitionProps }) => (
-                            <Fade {...TransitionProps} timeout={350}>
-                              <Paper
+          {loading ? (
+            <TableRow>
+              <TableCell colSpan={6}>
+                <CircularProgress color='primary' sx={{ m: 'auto' }} />{' '}
+              </TableCell>
+            </TableRow>
+          ) : (
+            contactedStudents.map(
+              (student, index) =>
+                student && (
+                  <TableRow key={index}>
+                    <TableCell>{student.name}</TableCell>
+                    <TableCell>{student.phone}</TableCell>
+                    <TableCell>
+                      <Typography sx={{ fontWeight: '300' }}>
+                        {student.course?.course?.courseName}
+                      </Typography>
+                      <Typography
+                        sx={{ fontWeight: '400', color: 'primary.main' }}
+                      >
+                        {student.course?.schedule}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>{student.remark}</TableCell>
+                    <TableCell>
+                      {student.createdAt &&
+                        Moment(student.createdAt).format('MMM DD YYYY ')}
+                      <Typography
+                        sx={{ color: 'primary.main', fontSize: '0.875rem' }}
+                      >
+                        {getDuration(student.createdAt && student.createdAt)}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Popper
+                        open={openPoper}
+                        anchorEl={anchorEl}
+                        placement='bottom-end'
+                        transition
+                      >
+                        {({ TransitionProps }) => (
+                          <Fade {...TransitionProps} timeout={350}>
+                            <Paper
+                              sx={{
+                                p: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start',
+                              }}
+                            >
+                              <Button
                                 sx={{
-                                  p: 1,
-                                  display: 'flex',
-                                  flexDirection: 'column',
-                                  alignItems: 'flex-start',
+                                  border: 'none',
+                                  color: 'secondary.main',
+                                  fontWeight: '300',
+                                  textTransform: 'none',
+                                }}
+                                variant='outlined'
+                                startIcon={
+                                  <DomainVerificationIcon fontSize='small' />
+                                }
+                                onClick={() => {
+                                  setOpenEnroll(true);
                                 }}
                               >
-                                
-                                
-                                <Button
-                                  sx={{
-                                    border: 'none',
-                                    color: 'secondary.main',
-                                    fontWeight: '300',
-                                    textTransform: 'none',
-                                  }}
-                                  variant='outlined'
-                                  startIcon={
-                                    <DomainVerificationIcon fontSize='small' />
-                                  }
-                                  onClick={() => {
-                                    setOpenEnroll(true);
-                                  }}
-                                >
-                                  Enroll Strudent
-                                </Button>
-                                <Button
-                                  sx={{
-                                    border: 'none',
-                                    color: 'secondary.main',
-                                    fontWeight: '300',
-                                    textTransform: 'none',
-                                  }}
-                                  variant='outlined'
-                                  startIcon={
-                                    <DeleteOutlineOutlinedIcon fontSize='small' />
-                                  }
-                                  onClick={()=>{
-                                    setOpenConfirm(true)
-                                  }}
-                                >
+                                Enroll Strudent
+                              </Button>
+                              <Button
+                                sx={{
+                                  border: 'none',
+                                  color: 'secondary.main',
+                                  fontWeight: '300',
+                                  textTransform: 'none',
+                                }}
+                                variant='outlined'
+                                startIcon={
+                                  <DeleteOutlineOutlinedIcon fontSize='small' />
+                                }
+                                onClick={() => {
+                                  setOpenConfirm(true);
+                                }}
+                              >
                                 Delete Student
-                                </Button>
-                              </Paper>
-                            </Fade>
-                          )}
-                        </Popper>
-                        <IconButton
-                          onClick={(e) => {
-                            handlePopperClick(e, student._id && student._id);
-                          }}
-                        >
-                          <MoreVertIcon />
-                        </IconButton>
-                      </TableCell>
-            </TableRow>
-          ))}
+                              </Button>
+                            </Paper>
+                          </Fade>
+                        )}
+                      </Popper>
+                      <IconButton
+                        onClick={(e) => {
+                          handlePopperClick(e, student._id && student._id);
+                        }}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                )
+            )
+          )}
         </TableBody>
       </Table>
-      <Box sx={{mt: 3 ,'& a':{}}}>
-      <Link  href="/admin/students" >
-        See more 
-      </Link>
-        </Box>
-        <Modal open={openEnroll} onClose={handleClose}>
+      <Box sx={{ mt: 3, '& a': {} }}>
+        <Link href='/admin/students'>See more</Link>
+      </Box>
+      <Modal open={openEnroll} onClose={handleClose}>
         <Box sx={{ ...modalStyle, width: '80%' }}>
           <h2 id='parent-modal-title'>Enroll Student</h2>
           <p id='parent-modal-description'>
-          Enter payment details of the student.
+            Enter payment details of the student.
           </p>
           <Enrolled setOpen={handleClose} student={updatedStudent} />
         </Box>
@@ -222,24 +252,21 @@ export default function Followup() {
         <Box sx={{ ...modalStyle, width: '60%' }}>
           <h2 id='parent-modal-title'>Delete Student</h2>
           <p id='parent-modal-description'>
-         Are you sure to delete the student?
+            Are you sure to delete the student?
           </p>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                 
-                 <Button onClick={handleClose} sx={{ mt: 3, ml: 1 }}>
-                   Cancel
-                 </Button>
-              
+            <Button onClick={handleClose} sx={{ mt: 3, ml: 1 }}>
+              Cancel
+            </Button>
 
-               <Button
-                 variant="contained"
-                
-                 onClick={handleDelete}
-                 sx={{ mt: 3, ml: 1 }}
-               >
-                 Delete
-               </Button>
-             </Box>
+            <Button
+              variant='contained'
+              onClick={handleDelete}
+              sx={{ mt: 3, ml: 1 }}
+            >
+              Delete
+            </Button>
+          </Box>
         </Box>
       </Modal>
       <Backdrop

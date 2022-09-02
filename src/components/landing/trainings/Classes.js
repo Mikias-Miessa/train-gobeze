@@ -14,7 +14,7 @@ import Moment from 'moment';
 
 import graphics from '../../../images/graphics.avif';
 import Link from '../../Link';
-import { getRunningClasses } from '../../../../store/classSlice';
+import { getRunningClassesAd } from '../../../../store/classSlice';
 const textStyle = {
   m: 0,
   letterSpacing: '-0.125px',
@@ -26,7 +26,7 @@ const Courses = () => {
   const { runningClasses, loading } = useSelector((state) => state.classroom);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getRunningClasses());
+    dispatch(getRunningClassesAd());
   }, []);
   return (
     <>

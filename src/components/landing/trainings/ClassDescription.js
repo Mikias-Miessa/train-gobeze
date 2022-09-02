@@ -7,13 +7,6 @@ const textStyle = {
   textDecoration: 'none',
   verticalAlign: 'unset',
 };
-const training = {
-  title: 'Graphic Design',
-  description:
-    'Website visitors today demand a frictionless user expericence — especially when using search.',
-  url: '/register',
-  image: graphics,
-};
 
 const ClassDescription = () => {
   return (
@@ -125,9 +118,11 @@ const ClassDescription = () => {
                     },
                   }}
                 >
-                  <Image src={graphics} alt='graphic Design' 
-                  // layout='raw'
-                   />
+                  <Image
+                    src={graphics}
+                    alt='graphic Design'
+                    // layout='raw'
+                  />
                 </Grid>
                 <Grid
                   item
