@@ -57,10 +57,12 @@ router
       await studentPayment.save();
 
       updatedStudent.status = 'enrolled';
-      if (updatedStudent.course != course) {
+      console.log(updatedStudent.course._id);
+      console.log(course);
+      if (updatedStudent.course._id != course) {
         const [updatedClass, prevClass] = await Promise.all([
           Class.findById(course),
-          Class.findById(updatedStudent.course),
+          Class.findById(updatedStudent.course._id),
         ]);
         // let updatedClass = await Class.findById(course);
         // let prevClass = await Class.findById(updatedStudent.course);
