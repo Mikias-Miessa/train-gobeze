@@ -338,14 +338,11 @@ export default function Students() {
                           )
                         ) : (
                           <>
-                            {' '}
                             <TableRow>
-                              {' '}
                               <TableCell
                                 sx={{ textAlign: 'center', color: 'gray' }}
                                 colSpan={5}
                               >
-                                {' '}
                                 No Students enrolled in this course
                               </TableCell>
                             </TableRow>

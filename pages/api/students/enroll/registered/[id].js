@@ -49,7 +49,7 @@ router
 
       if (payment_with === 'bank') {
         studentPayment.bank = bank;
-        studentPayment.reference = reference;
+        studentPayment.references.push(reference);
       }
       if (amount <= coursePrice) {
         studentPayment.status = 'not_complete';

@@ -44,8 +44,22 @@ const NewStudent = ({ setOpen }) => {
     courseOptions = runningClasses.map(
       (course, index) =>
         course && (
-          <MenuItem key={index + 1} value={course._id && course._id}>
-            {course.course?.courseName && course.course?.courseName}
+          <MenuItem
+            key={index + 1}
+            value={course._id && course._id}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Typography sx={{ fontWeight: '300' }}>
+              {course.course?.courseName && course.course?.courseName}
+            </Typography>
+
+            <Typography sx={{ fontWeight: '400', color: 'primary.main' }}>
+              {course?.schedule}
+            </Typography>
           </MenuItem>
         )
     );
