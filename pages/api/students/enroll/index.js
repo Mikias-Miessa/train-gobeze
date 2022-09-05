@@ -41,7 +41,7 @@ const enrollStudent = async (req, res) => {
         student: newStudent._id,
         bank,
         payment_with,
-        reference,
+        references: [reference],
         status: 'confirmed',
         amount,
       });
