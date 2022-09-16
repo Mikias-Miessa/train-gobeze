@@ -140,6 +140,7 @@ const Header = () => {
                   onClick={handleClick}
                   color='primary'
                   component='span'
+                  style={{ display: 'flex', margin: 'auto' }}
                 >
                   <CloseIcon />
                 </IconButton>
@@ -148,6 +149,7 @@ const Header = () => {
                   onClick={handleClick}
                   color='primary'
                   component='span'
+                  style={{ display: 'flex', margin: 'auto' }}
                 >
                   <MenuIcon />
                 </IconButton>
