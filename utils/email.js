@@ -51,7 +51,7 @@ export const sendEmail = async (obj) => {
   <p>After you finish depositing  <a href="https://gobeze.com/confirmation/${
     _id && _id
   }" className="">Click here to confirm your payment</a></p>
-  <p>If you need assistance please call 0929336352</p>
+  <p>If you need assistance please call 0118633128</p>
  
   </div>
   <p> Best Regards,</p>
