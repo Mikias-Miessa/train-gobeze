@@ -16,7 +16,7 @@ const Information = ({bank,email,name}) => {
     </Typography>
    <Typography sx={{mt:2, fontWeight: '300'}} variant='body1'>
    You will be able to make the payment using Mobile/Internet banking or Bank account Transfer.
-Our {bank ==='cbe' ? 'CBE' : 'Dashen Bank'} account is <Box component='span'> {bank ==='cbe' ? '1000228828843' : '0146776045011'}</Box> Please deposit and you can confirm by sending your screenshot or photo of bill to <a href="https://t.me/LuwamAddis" style={{
+Our {bank ==='cbe' ? 'CBE' : 'Dashen Bank'} account is <Box component='span'> {bank ==='cbe' ? '1000228828843' : '0146776045011'}</Box> Please deposit and you can confirm by sending your screenshot or photo of bill to <a href="https://t.me/gobezebilling" style={{
   color: '#FF7E00'
 }}>Gobeze Staff</a>.  
     
@@ -32,7 +32,7 @@ Our {bank ==='cbe' ? 'CBE' : 'Dashen Bank'} account is <Box component='span'> {b
     </Typography>
    <Typography sx={{mt:2, fontWeight: '300'}} variant='body1'>
    You will be able to make the payment using Mobile/Internet banking or Bank account Transfer.
-Our {bank ==='cbe' ? 'CBE' : 'Dashen Bank'} account is <Box component='span'> {bank ==='cbe' ? '1000228828843' : '0146776045011'}</Box> Please deposit and you can confirm by sending your screenshot or photo of bill to <a href="https://t.me/LuwamAddis" style={{
+Our {bank ==='cbe' ? 'CBE' : 'Dashen Bank'} account is <Box component='span'> {bank ==='cbe' ? '1000228828843' : '0146776045011'}</Box> Please deposit and you can confirm by sending your screenshot or photo of bill to <a href="https://t.me/gobezebilling" style={{
   color: '#FF7E00'
 }}>Gobeze Staff</a>.  
     
