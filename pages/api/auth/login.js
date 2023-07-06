@@ -13,7 +13,8 @@ export default async function loginUser(req, res){
     console.log('connecting...')
     await connectMongo();
     console.log('connected!')
-    console.log('loging in user...')
+    console.log('loging env varaibles')
+    console.log(process.env)
     let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
