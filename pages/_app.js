@@ -30,7 +30,8 @@ if (typeof window !== 'undefined') {
  const MyApp = (props)=> {
   const router = useRouter()
   const dispatch = useDispatch();
-
+console.log('logging env variables')
+console.log(process.env)
   console.log('got')
   useEffect(() => {
     dispatch(loadUser() )
