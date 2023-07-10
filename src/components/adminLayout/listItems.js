@@ -10,46 +10,55 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
+import EventIcon from '@mui/icons-material/Event';
+
 export const mainListItems = (
   <>
     <Link href="/admin/dashboard" color="primary">
-    <ListItemButton>
-    <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-     
-    </ListItemButton>
-        </Link>
-        <Link href="/admin/classes" color="primary">
-    <ListItemButton>
-      <ListItemIcon>
-        <BatchPredictionIcon />
-      </ListItemIcon>
-      <ListItemText primary="Classes" />
-    </ListItemButton></Link>
-        <Link href="/admin/courses" color="primary">
-    <ListItemButton>
-      <ListItemIcon>
-        <LibraryBooksIcon />
-      </ListItemIcon>
-      <ListItemText primary="Courses" />
-    </ListItemButton></Link>
+      <ListItemButton>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+
+      </ListItemButton>
+    </Link>
+    <Link href="/admin/classes" color="primary">
+      <ListItemButton>
+        <ListItemIcon>
+          <BatchPredictionIcon />
+        </ListItemIcon>
+        <ListItemText primary="Classes" />
+      </ListItemButton></Link>
+    <Link href="/admin/courses" color="primary">
+      <ListItemButton>
+        <ListItemIcon>
+          <LibraryBooksIcon />
+        </ListItemIcon>
+        <ListItemText primary="Courses" />
+      </ListItemButton></Link>
+    <Link href="/admin/schedules" color="primary">
+      <ListItemButton>
+        <ListItemIcon>
+          <EventIcon />
+        </ListItemIcon>
+        <ListItemText primary="Schedules" />
+      </ListItemButton></Link>
     <Link href="/admin/students" color="primary">
-    <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Registrations" />
-    </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Registrations" />
+      </ListItemButton>
     </Link>
     <Link href="/admin/students/followup" color="primary">
-    <ListItemButton >
-      <ListItemIcon>
-        <AddIcCallIcon />
-      </ListItemIcon>
-      <ListItemText primary="Followup" />
-    </ListItemButton>
+      <ListItemButton >
+        <ListItemIcon>
+          <AddIcCallIcon />
+        </ListItemIcon>
+        <ListItemText primary="Followup" />
+      </ListItemButton>
     </Link>
     {/* <Link href="/admin/users" color="primary">
     <ListItemButton>

@@ -42,6 +42,10 @@ const StudentSchema = new Schema(
     certificate:{
       type: Schema.Types.ObjectId,
       ref: 'certificate',
+    },
+    schedule: {
+      type: Schema.Types.ObjectId,
+      ref: 'schedule',
     }
   },
   {

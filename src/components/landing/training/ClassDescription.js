@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography } from '@mui/material';
 import Moment from 'moment';
 import Image from 'next/image';
 import graphics from '../../../images/graphics.avif';
@@ -22,12 +22,12 @@ const ClassDescription = ({ training }) => {
           color: 'secondary.main',
         }}
       >
-        <Container
+        <Paper
           sx={{
+            padding: '0px !important',
             display: 'block',
             width: '100%',
             mx: 'auto',
-            px: 2,
             maxWidth: '100%',
             '@media screen and (min-width: 576px)': {
               px: '1.5rem',
@@ -44,7 +44,7 @@ const ClassDescription = ({ training }) => {
               maxWidth: '992px ',
             },
             '@media screen and (min-width: 1200px)': {
-              maxWidth: '1140px',
+              maxWidth: '1300px',
             },
             '@media screen and (max-width: 486px)': {
               px: 0,
@@ -55,7 +55,7 @@ const ClassDescription = ({ training }) => {
             container
             item
             spacing={3}
-            xs={10}
+            xs={12}
             sx={{
               display: 'flex',
               flexFlow: 'row wrap',
@@ -118,7 +118,7 @@ const ClassDescription = ({ training }) => {
                     sx={{
                       position: 'relative',
                       width: 'auto',
-                      height: '200px',
+                      height: '260px',
                       '& span': {
                         '& img': {
                           // width: '100%',
@@ -241,7 +241,12 @@ const ClassDescription = ({ training }) => {
                           fontWeight: '300',
                         }}
                       >
-                        {training.schedule}
+                        {training.schedule && training.schedule.map((scheduleItem, scheduleIndex) => (
+                            <div key={scheduleIndex} style={{display: 'flex', gap: '10px'}}>
+                              <div>{[...scheduleItem.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(0, 1) + ' - ' + [...scheduleItem.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(-1)}</div>
+                              <div>{Moment(scheduleItem.startHour).format("h:mm A")} - {Moment(scheduleItem.endHour).format("h:mm A")}</div>
+                            </div>
+                          ))}
                       </Typography>
                     </Box>
                   ) : (
@@ -304,7 +309,7 @@ const ClassDescription = ({ training }) => {
                 <Grid
                   item
                   xs={12}
-                  xl={2}
+                  xl={4}
                   sx={{
                     m: 0,
                     flexDirection: 'row',
@@ -355,7 +360,7 @@ const ClassDescription = ({ training }) => {
               </Grid>
             </Box>
           </Grid>
-        </Container>
+        </Paper>
       </Box>
     </>
   );

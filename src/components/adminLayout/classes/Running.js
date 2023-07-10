@@ -67,6 +67,10 @@ export default function Classes() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    console.log(runningClasses)
+  }, [])
+
   return (
     <>
       <Title>{`Running Classes (${runningClasses.length})`}</Title>
@@ -104,8 +108,14 @@ export default function Classes() {
                     item && (
                       <TableRow key={index}>
                         <TableCell>{item.course?.courseName}</TableCell>
-                        <TableCell>{item.schedule && item.schedule}</TableCell>
-
+                        <TableCell>
+                          {item.schedule && item.schedule.map((scheduleItem, scheduleIndex) => (
+                            <div key={scheduleIndex}>
+                              <div>{[...scheduleItem.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(0, 1) + ' - ' + [...scheduleItem.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(-1)}</div>
+                              <div>{Moment(scheduleItem.startHour).format("h:mm A")} - {Moment(scheduleItem.endHour).format("h:mm A")}</div>
+                            </div>
+                          ))}
+                        </TableCell>
                         <TableCell>
                           {item.start_date &&
                             Moment(item.start_date).format('MMM DD YYYY ')}
@@ -118,10 +128,10 @@ export default function Classes() {
                             <Typography>
                               {item.students
                                 ? item.students.filter(
-                                    (student) =>
-                                      student.status === 'enrolled' ||
-                                      student.status === 'certified'
-                                  ).length
+                                  (student) =>
+                                    student.status === 'enrolled' ||
+                                    student.status === 'certified'
+                                ).length
                                 : 0}
                             </Typography>
                             <Link

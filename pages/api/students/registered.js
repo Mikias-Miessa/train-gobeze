@@ -4,6 +4,7 @@ import userAuth from '../../../middleware/userAuth';
 import Student from '../../../models/Student';
 import Class from '../../../models/Class';
 import Course from '../../../models/Course';
+import Schedule from '../../../models/Schedule';
 
 const router = createRouter();
 
@@ -16,12 +17,13 @@ router
   })
   .get(async (req, res) => {
     try {
+      await Schedule.find({})
       let students = await Student.find({ status: 'registered' })
         .sort('-createdAt')
         .populate({
-          path: 'course',
+          path: 'course schedule',
           populate: {
-            path: 'course',
+            path: 'course schedule',
           },
         });
 

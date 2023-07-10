@@ -51,7 +51,7 @@ export const getRegisteredStudents = createAsyncThunk(
 export const addStudent = createAsyncThunk(
   'student/add',
   async (student, thunkAPI) => {
-    const { course, name, email, phone, bank, remark, contacted } = student;
+    const { course, name, email, phone, bank, remark, contacted, schedule } = student;
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -64,6 +64,7 @@ export const addStudent = createAsyncThunk(
       phone,
       bank,
       remark,
+      schedule,
       contacted,
     });
     try {

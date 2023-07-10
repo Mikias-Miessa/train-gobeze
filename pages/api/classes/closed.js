@@ -14,7 +14,7 @@ const handler = async (req, res) => {
   if (method === 'GET') {
     try {
       let classes = await Class.find({ status: 'closed' }).populate(
-        'course students'
+        'course students schedule'
       );
       console.log('to send closed');
       console.log(classes.length);

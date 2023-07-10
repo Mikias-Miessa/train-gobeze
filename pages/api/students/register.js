@@ -9,7 +9,7 @@ import { sendEmail } from '../../../utils/email';
 export default async function addStudent(req, res) {
   const { method, body } = req;
 
-  const { name, email, phone, bank, course, remark, contacted } = body;
+  const { name, email, phone, bank, course, remark, contacted, schedule } = body;
   try {
     console.log('connecting...');
     await connectMongo();
@@ -26,6 +26,7 @@ export default async function addStudent(req, res) {
         email,
         phone,
         course,
+        schedule
       });
       await newStudent.save();
       classFound.students.push(newStudent._id);

@@ -13,10 +13,6 @@ const LandingPage = () =>{
           <Hero />
           <Paper
             sx={{
-              ml: 3,
-              mr: 3,
-              mt: '-64px',
-              mb: '32px',
               p: 2,
               transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
               display: 'flex',

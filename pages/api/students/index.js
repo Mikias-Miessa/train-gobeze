@@ -22,9 +22,9 @@ import Course from '../../../models/Course';
     try {
    
        let students = await Student.find().sort('-createdAt').populate({
-         path:'course',
+         path:'course schedule',
          populate:{
-           path:'course'
+           path:'course schedule'
          }
        });
      

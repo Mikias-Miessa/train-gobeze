@@ -154,7 +154,10 @@ export default function Followup() {
                       <Typography
                         sx={{ fontWeight: '400', color: 'primary.main' }}
                       >
-                        {student.course?.schedule}
+                        {student?.schedule?.days && <div>
+                          <div>{[...student?.schedule?.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(0, 1) + ' - ' + [...student?.schedule?.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(-1)}</div>
+                          <div>{Moment(student?.schedule?.startHour).format("h:mm A")} - {Moment(student?.schedule?.endHour).format("h:mm A")}</div>
+                        </div>}
                       </Typography>
                     </TableCell>
                     <TableCell>{student.remark}</TableCell>

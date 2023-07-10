@@ -25,8 +25,21 @@ import ArrowForwardSharpIcon from '@mui/icons-material/ArrowForwardSharp';
 import { getClass } from '../../../../store/classSlice';
 import { addStudent, reset } from '../../../../store/studentSlice';
 import Information from './Information';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { withGoogleMap, GoogleMap } from 'react-google-maps';
+
+const MyMap = withGoogleMap(() => {
+  if (typeof window !== 'undefined' && typeof window.google !== 'undefined') {
+    return (
+      <GoogleMap
+        defaultZoom={18}
+        defaultCenter={{ lat: 9.017626, lng: 38.8012533 }}
+      />
+    );
+  }
+  return null;
+});
 
 const modalStyle = {
   position: 'absolute',
@@ -56,11 +69,12 @@ const TrainingsPage = () => {
     phone: '',
     course: '',
     bank: 'cbe',
+    schedule: ''
   });
   const [backdrop, setBackdrop] = useState(false);
   const [info, setInfo] = useState(false);
   const [phone, setPhone] = useState('');
-  const [validPhoneNumber, setValidPhone] = useState(false);
+  const [validPhoneNumber, setValidPhone] = useState(null);
 
   useEffect(() => {
     if (singleClass) {
@@ -122,6 +136,31 @@ const TrainingsPage = () => {
     console.log(values);
     validPhoneNumber && dispatch(addStudent(values));
   };
+
+  function summarizeSchedule(schedule) {
+    const startTime = formatTime(schedule.startHour);
+    const endTime = formatTime(schedule.endHour);
+    const timeRange = `${startTime} to ${endTime}`;
+    return `${[...schedule.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(0, 1) + ' - ' + [...schedule.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(-1)} (${timeRange})`;
+  }
+
+  function formatTime(time) {
+    const [hour, minute] = time.split(':');
+    const isPM = hour >= 12;
+    const formattedHour = (hour % 12) || 12;
+    const formattedMinute = String(minute).padStart(2, '0');
+    const period = isPM ? 'pm' : 'am';
+    return `${formattedHour}:${formattedMinute}${period}`;
+  }
+
+  function isValidPhoneNumber(phone) {
+    if (phone.length == 13) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   return (
     <>
       <Header />
@@ -193,15 +232,6 @@ const TrainingsPage = () => {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      {/* <TextField
-            required
-            name="phone"
-            label="Phone number"
-            fullWidth
-            value={values.phone}
-            // variant="standard"
-            onChange={handleInputChange}
-          /> */}
                       <Grid item xs={12}>
                         <Grid
                           item
@@ -222,7 +252,7 @@ const TrainingsPage = () => {
                             onChange={setPhone}
                             required
                           />
-                          {!validPhoneNumber && (
+                          {validPhoneNumber == false && (
                             <Typography sx={{ color: 'red', p: '8px 16px' }}>
                               Not a valid phone number.
                             </Typography>
@@ -239,6 +269,24 @@ const TrainingsPage = () => {
                         >
                           <MenuItem value='cbe'>CBE</MenuItem>
                           <MenuItem value='dashen'>DASHEN BANK</MenuItem>
+                        </Select>
+                        <FormHelperText>Required</FormHelperText>
+                        <InputLabel id="schedule" sx={{mt: '20px'}}>Choose Schedule</InputLabel>
+                        <Select
+                          required
+                          labelId="schedule"
+                          id="schedule"
+                          label="Schedule *"
+                          name="schedule"
+                          value={values.schedule}
+                          onChange={handleInputChange}
+                          fullWidth
+                        >
+                          {singleClass?.schedule && singleClass?.schedule.map((schedule) => (
+                            <MenuItem key={schedule._id} value={schedule._id}>
+                              {summarizeSchedule(schedule)}
+                            </MenuItem>
+                          ))}
                         </Select>
                         <FormHelperText>Required</FormHelperText>
                       </Grid>
@@ -284,6 +332,12 @@ const TrainingsPage = () => {
                     </Button>
                   </Box>
                 </form>
+                <Paper sx={{ pt: '20px', height: '500px' }}>
+                  <MyMap
+                    containerElement={<div style={{ height: '100%' }} />}
+                    mapElement={<div style={{ height: '100%' }} />}
+                  />
+                </Paper>
               </Box>
               <Box
                 sx={{

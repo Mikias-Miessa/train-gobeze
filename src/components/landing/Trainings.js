@@ -53,6 +53,7 @@ const Trainings = () => {
               margin: '0px auto',
               alignItems: 'center',
               textAlign: 'center',
+              fontFamily: 'Montserrat !important',
               '@media screen and (min-width: 576px)': {
                 flexBasis: '100%',
                 maxWidth: '100%',
@@ -72,8 +73,7 @@ const Trainings = () => {
                 fontSize: '1rem',
                 textTransform: 'uppercase',
                 '& span.BaseBadge-badge': {
-                  height: '24px',
-                  p: '0px 12px',
+                  p: '12px',
                   color: 'primary.main',
                   backgroundColor: '#ff7e0033',
                 },

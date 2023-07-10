@@ -12,9 +12,12 @@ const ClassSchema = new Schema(
     description: {
       type: String,
     },
-    schedule: {
-      type: String,
-    },
+    schedule: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'schedule'
+      }
+    ],
     instructor: {
       type: String,
     },

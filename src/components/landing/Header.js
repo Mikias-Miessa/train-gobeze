@@ -14,41 +14,19 @@ const Header = () => {
 
   return (
     <>
-      <Container
-        component='header'
-        sx={{
-          position: 'sticky',
-          top: '0px',
-          zIndex: '10',
-          pr: '1.5rem',
-          pl: '1.5rem',
-          ml: 'auto',
-          mr: 'auto',
 
-          //   '@media screen and (min-width: 576px)': {
-          //       pr: '24px',pl: '24px',
-          //     maxWidth: '540px ',
-          // },'@media screen and (min-width: 992px)': {
-          //     maxWidth: '992px ',
-          //   },'@media screen and (min-width: 1200px)': {
-          //     maxWidth: '1140px ',
-          //   },
-        }}
-      >
         <Box
           sx={{
             pt: 1,
             pb: 1,
-            pl: 2,
-            pr: 2,
-            m: '16px 24px',
+            pl: 12,
+            pr: 12,
             boxShadow:
               'rgb(0 0 0 / 10%) 0rem 0.25rem 0.375rem -0.0625rem, rgb(0 0 0 / 6%) 0rem 0.125rem 0.25rem -0.0625rem',
-            borderRadius: '0.75rem',
-            position: 'absolute',
+            position: 'fixed',
             left: 0,
-            zIndex: '3',
-            width: 'calc(100% - 48px)',
+            zIndex: '100',
+            width: '100%',
             background: 'rgba(255, 255, 255, 0.8)',
             backdropFilter: 'saturate(200%) blur(30px)',
           }}
@@ -76,8 +54,9 @@ const Header = () => {
                 '&.MuiBox-root a': {
                   textDecoration: 'none',
                   color: 'secondary.main',
-                  fontWeight: '300',
-                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  fontSize: '0.85rem',
+                  fontFamily: 'Montserrat',
                 },
 
                 '@media screen and (max-width: 576px)': {
@@ -106,15 +85,16 @@ const Header = () => {
             <Box
               sx={{
                 background: 'transparent',
-                ml: '1rem',
+                ml: '1.4rem',
                 '& a': {
+                  textDecoration: 'none',
                   background:
                     'linear-gradient(90deg, rgba(254,126,1,1) 17%, rgba(254,126,1,0.9248074229691877) 63%, rgba(254,126,1,0.8211659663865546) 100%)',
                   color: 'white !important',
                   fontWeight: '700 !important',
+                  fontFamily: 'Montserrat',
                   fontSize: '.75rem',
-                  p: '0.375rem 1rem',
-                  borderRadius: '0.5rem',
+                  p: '0.7rem 1rem',
                   boxShadow:
                     'rgb(254 126 1 / 15%) 0rem 0.1875rem 0.1875rem 0rem, rgb(254 126 1 / 20%) 0rem 0.1875rem 0.0625rem -0.125rem, rgb(254 126 1 / 15%) 0rem 0.0625rem 0.3125rem 0rem',
                 },
@@ -123,7 +103,7 @@ const Header = () => {
                 },
               }}
             >
-              <Link sx={{ textDecoration: 'none' }} href='/trainings'>
+              <Link href='/trainings'>
                 Register Now
               </Link>
             </Box>
@@ -172,8 +152,9 @@ const Header = () => {
                     '&.MuiBox-root a': {
                       textDecoration: 'none',
                       color: 'secondary.main',
-                      fontWeight: '300',
-                      fontSize: '0.875rem',
+                      fontWeight: '600 !important',
+                      fontFamily: 'Montserrat',
+                      fontSize: '.875rem',
                     },
                   }}
                 >
@@ -194,30 +175,11 @@ const Header = () => {
                   <Box sx={{}}>
                     <Link href='/certificate'>Certificates</Link>
                   </Box>
-                  <Box
-                    sx={{
-                      background: 'transparent',
-                      '& a': {
-                        background:
-                          'linear-gradient(90deg, rgba(254,126,1,1) 17%, rgba(254,126,1,0.9248074229691877) 63%, rgba(254,126,1,0.8211659663865546) 100%)',
-                        color: 'white !important',
-                        fontWeight: '700 !important',
-                        fontSize: '.75rem',
-                        p: '0.375rem 1rem',
-                        borderRadius: '0.5rem',
-                        boxShadow:
-                          'rgb(254 126 1 / 15%) 0rem 0.1875rem 0.1875rem 0rem, rgb(254 126 1 / 20%) 0rem 0.1875rem 0.0625rem -0.125rem, rgb(254 126 1 / 15%) 0rem 0.0625rem 0.3125rem 0rem',
-                      },
-                    }}
-                  >
-                    <Link href='/trainings'>Register Now</Link>
-                  </Box>
                 </Box>
               </Collapse>
             </Box>
           </Box>
         </Box>
-      </Container>
     </>
   );
 };

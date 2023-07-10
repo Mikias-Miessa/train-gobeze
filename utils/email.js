@@ -48,9 +48,7 @@ export const sendEmail = async (obj) => {
   <p> <span style="font-weight: bold">Account No: </span> ${bankAccount}</p>
   <p> <span style="font-weight: bold">Name: </span> ${accountName}</p>      
   <p> <span style="font-weight: bold">Amount: </span> ${price && price}</p>
-  <p>After you finish depositing  <a href="https://gobeze.com/confirmation/${
-    _id && _id
-  }" className="">Click here to confirm your payment</a></p>
+  <p>After you finish depositing please call us for confirmation</p>
   <p>If you need assistance please call 0118633128</p>
  
   </div>

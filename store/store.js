@@ -8,19 +8,13 @@ import course from './courseSlice';
 import auth from './authSlice';
 import classroom from './classSlice';
 import student from './studentSlice';
+import schedule from "./scheduleSlice"
+
 // initial states here
 const initalState = {};
 
-
-// creating store with redux
-// export const store = createStore(
-//   rootReducer,
-//   initalState,
-//   composeWithDevTools(applyMiddleware(...middleware))
-// );
-
 const combinedReducer = combineReducers({
-  auth,user,course,classroom,student
+  auth,user,course,classroom,student,schedule
 })
 
 const masterReducer = (state, action)=>{
@@ -31,6 +25,7 @@ const masterReducer = (state, action)=>{
       courses:[...action.payload.course.courses, ...state.course.courses],
       classes:[...action.payload.classroom.classes, ...state.classroom.classes],
       students:[...action.payload.student.students, ...state.student.students],
+      schedules: [...action.payload.schedule.schedules, ...state.schedule.schedules]
     }
     return nextState;
   }else {

@@ -12,6 +12,7 @@ import Student from '../../../models/Student';
 import Payment from '../../../models/Payment';
 import User from '../../../models/User';
 import Certificate from '../../../models/Certificate';
+import Schedule from '../../../models/Schedule';
 
 export const config = {
   api: {
@@ -54,17 +55,18 @@ router
     const { query } = req;
     // console.log(query.slug);
     try {
+      await Schedule.find({})
       let course = await Class.findOne({ slug: query.slug })
-        .populate({
-          path: 'course students',
+      .populate({
+        path: 'course students schedule',
+        populate: {
+          path: ' course payment registered_by certificate',
           populate: {
-            path: ' course payment registered_by certificate',
-            populate: {
-              path: 'course',
-            },
+            path: 'course',
           },
-        })
-        .lean();
+        },
+      })
+      .lean();
       if (!course) {
         return res.status(400).json({
           errors: [{ msg: 'Course not found' }],
